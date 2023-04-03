@@ -460,24 +460,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\valmi\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Shefk_ugzgsqs\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\valmi\\source\\repos\\RecipeSharing\\RecipeSharingApi\\RecipeSharingApi\\RecipeSharingApi.csproj",
+      "projectUniqueName": "C:\\Users\\Shefk_ugzgsqs\\source\\repos\\RecipeSharing\\RecipeSharingApi\\RecipeSharingApi\\RecipeSharingApi.csproj",
       "projectName": "RecipeSharingApi",
-      "projectPath": "C:\\Users\\valmi\\source\\repos\\RecipeSharing\\RecipeSharingApi\\RecipeSharingApi\\RecipeSharingApi.csproj",
-      "packagesPath": "C:\\Users\\valmi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\valmi\\source\\repos\\RecipeSharing\\RecipeSharingApi\\RecipeSharingApi\\obj\\",
+      "projectPath": "C:\\Users\\Shefk_ugzgsqs\\source\\repos\\RecipeSharing\\RecipeSharingApi\\RecipeSharingApi\\RecipeSharingApi.csproj",
+      "packagesPath": "C:\\Users\\Shefk_ugzgsqs\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Shefk_ugzgsqs\\source\\repos\\RecipeSharing\\RecipeSharingApi\\RecipeSharingApi\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\valmi\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Shefk_ugzgsqs\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
