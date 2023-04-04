@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RecipeSharingApi.BusinessLogic.Services.IServices;
 using RecipeSharingApi.DataLayer.Models.DTOs.Recipe;
+using RecipeSharingApi.DataLayer.Models.Entities;
 
 namespace RecipeSharingApi.Controllers;
 
@@ -28,8 +29,11 @@ public class RecipeController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Error at Class: {nameof(RecipeController)}, Method: {nameof(Create)}, Exception: {ex}");
             return BadRequest(ex.Message);
+        }
+        finally
+        {
+            Console.WriteLine("nuk e di qka u bo");
         }
     }
 }

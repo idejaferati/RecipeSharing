@@ -37,8 +37,15 @@ public class RecipeService : IRecipeService
         _unitOfWork.Complete();
 
         if (recipe is null) throw new Exception("Recipe could not be created!");
+        // remove self referencing loops that cause big json values
+        recipe.Cuisine.Recipes = null!;
+        recipe.Ingredients.ForEach(x => x.Recipe = null!);
+        recipe.Tags.ForEach(x => x.Recipes = null!);
+        recipe.Instructions.ForEach(x => x.Recipe = null!);
+        //  recipe.User.Recipes = null!;
 
         var recipeDTO = _mapper.Map<RecipeDTO>(recipe);
+
 
         return recipeDTO;
     }
