@@ -1,5 +1,4 @@
-﻿using RecipeSharingApi.DataLayer.Models.Entities;
-
+﻿
 namespace RecipeSharingApi.DataLayer.Models.DTOs.Recipe;
 
 public class RecipeCreateDTO
@@ -7,7 +6,7 @@ public class RecipeCreateDTO
     public string Name { get; set; }
     public string Description { get; set; }
     public Guid CuisineId { get; set; }
-    public List<Tag> Tags { get; set; }
+    public List<Models.Entities.Tag> Tags { get; set; }
     public int PrepTime { get; set; }
     public int CookTime { get; set; }
     public List<string> Ingredients { get; set; }

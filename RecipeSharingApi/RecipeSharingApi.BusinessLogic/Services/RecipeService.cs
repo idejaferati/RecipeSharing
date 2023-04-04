@@ -7,7 +7,7 @@ using RecipeSharingApi.DataLayer.Models.DTOs.Recipe;
 using RecipeSharingApi.DataLayer.Models.Entities;
 
 namespace RecipeSharingApi.BusinessLogic.Services;
-public class RecipeService:IRecipeService
+public class RecipeService : IRecipeService
 {
     public readonly IUnitOfWork _unitOfWork;
     public readonly IMapper _mapper;
@@ -18,9 +18,29 @@ public class RecipeService:IRecipeService
         _mapper = mapper;
     }
 
-    public Task<RecipeDTO> Create(Guid userId, RecipeCreateDTO recipeToCreate)
+    public async Task<RecipeDTO> Create(Guid userId, RecipeCreateDTO recipeToCreate)
     {
-        throw new NotImplementedException();
+        var recipe = _mapper.Map<Recipe>(recipeToCreate);
+        recipe.UserId = userId;
+
+        var tagsToCheck = new List<Tag>();
+        recipeToCreate.Tags.ForEach(t => tagsToCheck.Add(new Tag { Name = t.Name }));
+
+        recipe.Ingredients.ForEach(x => x.RecipeId = recipe.Id);
+        recipe.Instructions.ForEach(x => x.RecipeId = recipe.Id);
+        recipe.Tags = await AddTagsToRecipe(recipe, tagsToCheck);
+
+        recipe.Cuisine = await _unitOfWork.Repository<Cuisine>().GetById(x => x.Id == recipe.CuisineId).FirstOrDefaultAsync();
+        if (recipe.Cuisine is null) throw new Exception("Cuisine not found!");
+
+        recipe = await _unitOfWork.Repository<Recipe>().Create(recipe);
+        _unitOfWork.Complete();
+
+        if (recipe is null) throw new Exception("Recipe could not be created!");
+
+        var recipeDTO = _mapper.Map<RecipeDTO>(recipe);
+
+        return recipeDTO;
     }
 
     public Task<RecipeDTO> Delete(Guid recipeId)

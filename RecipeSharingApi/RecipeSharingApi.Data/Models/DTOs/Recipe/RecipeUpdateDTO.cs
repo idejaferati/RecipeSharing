@@ -9,7 +9,7 @@ public class RecipeUpdateDTO
     public string Description { get; set; }
     public List<string> Ingredients { get; set; }
     public List<string> Instructions { get; set; }
-    public List<Tag> Tags { get; set; }
+    public List<Entities.Tag> Tags { get; set; }
     public Guid CuisineId { get; set; }
     public int PrepTime { get; set; }
     public int CookTime { get; set; }

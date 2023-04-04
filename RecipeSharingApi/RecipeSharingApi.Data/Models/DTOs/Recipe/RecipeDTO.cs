@@ -7,8 +7,8 @@ public class RecipeDTO
     public User User { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
-    public Cuisine Cuisine { get; set; }
-    public List<Tag> Tags { get; set; }
+    public Entities.Cuisine Cuisine { get; set; }
+    public List<Entities.Tag> Tags { get; set; }
     public int PrepTime { get; set; }
     public int CookTime { get; set; }
     public int TotalTime { get; set; }
