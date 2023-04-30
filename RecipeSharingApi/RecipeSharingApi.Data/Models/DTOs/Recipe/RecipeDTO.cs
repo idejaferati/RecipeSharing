@@ -8,7 +8,7 @@ namespace RecipeSharingApi.DataLayer.Models.DTOs.Recipe;
 public class RecipeDTO
 {
     public Guid Id { get; set; }
-    public User User { get; set; }
+    public UserCreateDTO User { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
     public CuisineDTO Cuisine { get; set; }

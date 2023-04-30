@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RecipeSharingApi.DataLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Auth : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,7 +36,7 @@ namespace RecipeSharingApi.DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "User",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -47,6 +47,27 @@ namespace RecipeSharingApi.DataLayer.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Roles = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SaltedHashPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Salt = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,9 +88,9 @@ namespace RecipeSharingApi.DataLayer.Migrations
                 {
                     table.PrimaryKey("PK_Collections", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Collections_Users_UserId",
+                        name: "FK_Collections_User_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
+                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -87,9 +108,9 @@ namespace RecipeSharingApi.DataLayer.Migrations
                 {
                     table.PrimaryKey("PK_CookBook", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CookBook_Users_UserId",
+                        name: "FK_CookBook_User_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
+                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -128,9 +149,9 @@ namespace RecipeSharingApi.DataLayer.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Recipes_Users_UserId",
+                        name: "FK_Recipes_User_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
+                        principalTable: "User",
                         principalColumn: "Id");
                 });
 
@@ -291,6 +312,9 @@ namespace RecipeSharingApi.DataLayer.Migrations
                 name: "RecipeTag");
 
             migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
                 name: "Collections");
 
             migrationBuilder.DropTable(
@@ -306,7 +330,7 @@ namespace RecipeSharingApi.DataLayer.Migrations
                 name: "Cuisines");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "User");
         }
     }
 }
