@@ -2,13 +2,14 @@
 using RecipeSharingApi.DataLayer.Models.DTOs.Ingredient;
 using RecipeSharingApi.DataLayer.Models.DTOs.Instruction;
 using RecipeSharingApi.DataLayer.Models.DTOs.Tag;
+using RecipeSharingApi.DataLayer.Models.DTOs.User;
 using RecipeSharingApi.DataLayer.Models.Entities;
 
 namespace RecipeSharingApi.DataLayer.Models.DTOs.Recipe;
 public class RecipeDTO
 {
     public Guid Id { get; set; }
-    public UserCreateDTO User { get; set; }
+    public UserDto User { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
     public CuisineDTO Cuisine { get; set; }

@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RecipeSharingApi.DataLayer.Models.DTOs;
-
-public class UserDTO
+namespace RecipeSharingApi.DataLayer.Models.DTOs.User
 {
-    public string Name { get; set; }
-    public string LastName { get; set; }
-    public string Email { get; set; }
-
-
+    public class UserDto
+    {
+        public string Name { get; set;}
+    }
 }

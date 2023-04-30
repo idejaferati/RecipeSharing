@@ -59,6 +59,35 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
     };
 });
 
+builder.Services.AddAuthorization(options =>
+{
+    using (var scope = builder.Services.BuildServiceProvider().CreateScope())
+    {
+
+        List<string> GetRoles(string nameOfPolicy)
+        {
+            var context = scope.ServiceProvider.GetService<RecipeSharingDbContext>();
+            var roleIds = context.PolicyRoles
+                                             .Where(rp => context.Policies
+                                                                    .Where(p => p.Name == nameOfPolicy)
+                                                                    .Select(p => p.Id)
+                                                                    .Contains(rp.PolicyId))
+                                             .Select(rp => rp.RoleId)
+                                             .ToList();
+
+            List<string> roleStrings = roleIds.ConvertAll(roleId => roleId.ToString());
+            return roleStrings;
+        }
+
+
+        options.AddPolicy("onlyadmin", policy =>
+                policy.RequireRole(GetRoles("onlyadmin")));
+        options.AddPolicy("onlyuser", policy =>
+                policy.RequireRole(GetRoles("onlyuser")));
+
+    }
+});
+
 var mapperConfiguration = new MapperConfiguration(
     mc => mc.AddProfile(new AutoMapperConfigurations()));
 IMapper mapper = mapperConfiguration.CreateMapper();

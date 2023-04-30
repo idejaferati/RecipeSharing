@@ -13,13 +13,15 @@ namespace RecipeSharingApi.DataLayer.Data
 
 
 
-        public DbSet<UserCreateDTO> Users { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Cuisine> Cuisines { get; set; }
         public DbSet<CookBook> CookBook { get; set; }
         public DbSet<Collection> Collections { get; set; }
-
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Policy> Policies { get; set; }
+        public DbSet<PolicyRole> PolicyRoles { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -44,6 +46,18 @@ namespace RecipeSharingApi.DataLayer.Data
             // TODO: What to do with the recipes when the user is deleted?
             modelBuilder.Entity<User>().HasMany(r => r.Recipes).WithOne(u => u.User)
                         .HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<User>().HasOne(u => u.Role).WithMany().HasForeignKey(u => u.RoleId);
+
+            modelBuilder.Entity<PolicyRole>()
+            .HasOne(u => u.Roles)
+            .WithMany()
+            .HasForeignKey(u => u.RoleId);
+
+            modelBuilder.Entity<PolicyRole>()
+           .HasOne(u => u.Policies)
+           .WithMany()
+           .HasForeignKey(u => u.PolicyId);
         }
     }
 }

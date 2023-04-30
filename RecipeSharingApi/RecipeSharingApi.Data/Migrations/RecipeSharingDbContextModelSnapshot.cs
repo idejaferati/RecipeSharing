@@ -37,52 +37,19 @@ namespace RecipeSharingApi.DataLayer.Migrations
                     b.ToTable("CollectionRecipe");
                 });
 
-            modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.DTOs.UserCreateDTO", b =>
+            modelBuilder.Entity("PolicyRole", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<Guid>("PoliciesId")
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<Guid>("RolesId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
+                    b.HasKey("PoliciesId", "RolesId");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasIndex("RolesId");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Roles")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Salt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SaltedHashPassword")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
+                    b.ToTable("PolicyRole");
                 });
 
             modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.Collection", b =>
@@ -151,6 +118,27 @@ namespace RecipeSharingApi.DataLayer.Migrations
                     b.ToTable("Cuisines");
                 });
 
+            modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.Mappings.PolicyRole", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PolicyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PolicyId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("PolicyRoles");
+                });
+
             modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.Mappings.RecipeIngredient", b =>
                 {
                     b.Property<Guid>("Id")
@@ -198,6 +186,21 @@ namespace RecipeSharingApi.DataLayer.Migrations
                     b.HasIndex("RecipeId");
 
                     b.ToTable("RecipeInstruction");
+                });
+
+            modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.Policy", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Policies");
                 });
 
             modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.Recipe", b =>
@@ -257,6 +260,21 @@ namespace RecipeSharingApi.DataLayer.Migrations
                     b.ToTable("Recipes");
                 });
 
+            modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.Role", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.Tag", b =>
                 {
                     b.Property<Guid>("Id")
@@ -300,17 +318,26 @@ namespace RecipeSharingApi.DataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Salt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SaltedHashPassword")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("RecipeTag", b =>
@@ -343,6 +370,21 @@ namespace RecipeSharingApi.DataLayer.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PolicyRole", b =>
+                {
+                    b.HasOne("RecipeSharingApi.DataLayer.Models.Entities.Policy", null)
+                        .WithMany()
+                        .HasForeignKey("PoliciesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecipeSharingApi.DataLayer.Models.Entities.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.Collection", b =>
                 {
                     b.HasOne("RecipeSharingApi.DataLayer.Models.Entities.User", "User")
@@ -363,6 +405,25 @@ namespace RecipeSharingApi.DataLayer.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.Mappings.PolicyRole", b =>
+                {
+                    b.HasOne("RecipeSharingApi.DataLayer.Models.Entities.Policy", "Policies")
+                        .WithMany()
+                        .HasForeignKey("PolicyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecipeSharingApi.DataLayer.Models.Entities.Role", "Roles")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Policies");
+
+                    b.Navigation("Roles");
                 });
 
             modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.Mappings.RecipeIngredient", b =>
@@ -411,6 +472,17 @@ namespace RecipeSharingApi.DataLayer.Migrations
                     b.Navigation("Cuisine");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.User", b =>
+                {
+                    b.HasOne("RecipeSharingApi.DataLayer.Models.Entities.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("RecipeTag", b =>

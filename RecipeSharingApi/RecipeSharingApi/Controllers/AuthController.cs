@@ -12,6 +12,7 @@ using System.Security.Claims;
 using System.Text;
 using RecipeSharingApi.DataLayer.Models.DTOs.User;
 using Microsoft.EntityFrameworkCore;
+using RecipeSharingApi.DataLayer.Models.Entities.Mappings;
 
 namespace RecipeSharingApi.Controllers
 {
@@ -20,7 +21,7 @@ namespace RecipeSharingApi.Controllers
     public class AuthController : Controller
     {
 
-        public static UserCreateDTO user = new UserCreateDTO();
+        //public static User user = new User();
         private readonly IConfiguration _configuration;
         private readonly IUserService _userService;
         private readonly RecipeSharingDbContext _context;
@@ -32,24 +33,16 @@ namespace RecipeSharingApi.Controllers
             _context = context;
         }
 
-        [HttpGet, Authorize(Roles = "admin")]
+        [HttpGet, Authorize(Policy="onlyadmin")]
         public ActionResult<string> GetMyName()
         {
             return Ok(_userService.GetMyName());
 
-            //var userName = User?.Identity?.Name;
-            //var roleClaims = User?.FindAll(ClaimTypes.Role);
-            //var roles = roleClaims?.Select(c => c.Value).ToList();
-            //var roles2 = User?.Claims
-            //    .Where(c => c.Type == ClaimTypes.Role)
-            //    .Select(c => c.Value)
-            //    .ToList();
-            //return Ok(new { userName, roles, roles2 });
         }
 
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(UserLoginDto dto)
+        public async Task<IActionResult> Register(UserRegisterDto dto)
         {
             if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
             {
@@ -60,14 +53,14 @@ namespace RecipeSharingApi.Controllers
             var passwordHash = BCrypt.Net.BCrypt.HashPassword(dto.password, salt);
 
 
-            var user = new UserCreateDTO
+            var user = new User
             {
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 Gender = dto.Gender,
                 DateOfBirth = dto.DateOfBirth,
                 Email = dto.Email,
-                Roles = dto.Roles,
+                RoleId = dto.RoleId,
                 PhoneNumber = dto.PhoneNumber,
                 SaltedHashPassword =passwordHash,
                 Salt =salt
@@ -90,10 +83,6 @@ namespace RecipeSharingApi.Controllers
             {
                 return BadRequest("Invalid username.");
             }
-            if (roles != user.Roles)
-            {
-                return BadRequest("Invalid role.");
-            }
 
             var saltedPasswordHash = BCrypt.Net.BCrypt.HashPassword(password, user.Salt);
             if (saltedPasswordHash != user.SaltedHashPassword)
@@ -106,14 +95,64 @@ namespace RecipeSharingApi.Controllers
             return Ok(token);
         }
 
+        [HttpPost("addrole")]
+        [Authorize(Policy ="onlyadmin")]
+        public async Task<ActionResult<Role>> CreateRole(string name)
+        {
 
-        
+            var role1 = new Role
+            {
+                Name = name
+            };
+            _context.Roles.Add(role1);
+            await _context.SaveChangesAsync();
 
-        private string CreateToken(UserCreateDTO user)
+
+
+            return Ok("U regjsitrua me sukses");
+        }
+
+        [HttpPost("addPolicy")]
+        public async Task<ActionResult<Policy>> CreatePolicy(string name)
+        {
+
+            var policy1 = new Policy
+            {
+                Name = name
+            };
+
+            _context.Policies.Add(policy1);
+            await _context.SaveChangesAsync();
+
+
+
+            return Ok("U regjsitrua me sukses");
+        }
+
+        [HttpPost("addRolePolicy")]
+        public async Task<ActionResult<PolicyRole>> CreatePolicyRole(Guid policyId ,Guid roleId)
+        {
+
+            var policyRole1 = new PolicyRole
+            {
+                PolicyId = policyId,
+                RoleId = roleId
+            };
+
+            _context.PolicyRoles.Add(policyRole1);
+            await _context.SaveChangesAsync();
+
+
+
+            return Ok("U regjsitrdua me sukses");
+        }
+
+
+        private string CreateToken(User user)
         {
             List<Claim> claims = new List<Claim> {
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Roles)
+                new Claim(ClaimTypes.Role, user.RoleId.ToString())
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
