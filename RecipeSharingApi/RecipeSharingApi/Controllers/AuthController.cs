@@ -47,6 +47,7 @@ namespace RecipeSharingApi.Controllers
             //return Ok(new { userName, roles, roles2 });
         }
 
+<<<<<<< Updated upstream
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserLoginDto dto)
@@ -82,6 +83,8 @@ namespace RecipeSharingApi.Controllers
 
         
 
+=======
+>>>>>>> Stashed changes
         [HttpPost("login")]
         public async Task<IActionResult> Login(string email, string roles, string password)
         {
@@ -109,7 +112,50 @@ namespace RecipeSharingApi.Controllers
 
         
 
+<<<<<<< Updated upstream
         private string CreateToken(UserCreateDTO user)
+=======
+
+
+            return Ok("U regjsitrua me sukses");
+        }
+
+        [HttpPost("addPolicy")]
+        public async Task<ActionResult<Policy>> CreatePolicy(string name)
+        {
+
+            var policy1 = new Policy
+            {
+                Name = name
+            };
+
+            _context.Policies.Add(policy1);
+            await _context.SaveChangesAsync();
+
+
+
+            return Ok("U regjsitrua me sukses");
+        }
+
+        [HttpPost("addRolePolicy")]
+        public async Task<ActionResult<PolicyRole>> CreatePolicyRole(Guid policyId ,Guid roleId)
+        {
+
+            var policyRole1 = new PolicyRole
+            {
+                PolicyId = policyId,
+                RoleId = roleId
+            };
+
+            _context.PolicyRoles.Add(policyRole1);
+            await _context.SaveChangesAsync();
+
+
+
+            return Ok("U regjsitrdua me sukses");
+        }
+        private string CreateToken(User user)
+>>>>>>> Stashed changes
         {
             List<Claim> claims = new List<Claim> {
                 new Claim(ClaimTypes.Email, user.Email),
@@ -131,5 +177,7 @@ namespace RecipeSharingApi.Controllers
 
             return jwt;
         }
+
+
     }
 }

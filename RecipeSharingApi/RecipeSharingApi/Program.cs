@@ -11,7 +11,6 @@ using AutoMapper;
 using RecipeSharingApi.BusinessLogic.Helpers;
 using Microsoft.OpenApi.Models;
 
-
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -66,8 +65,9 @@ builder.Services.AddSingleton(mapper);
 
 builder.Services.AddServices();
 
-
 var app = builder.Build();
+
+
 
 
 // Configure the HTTP request pipeline.
