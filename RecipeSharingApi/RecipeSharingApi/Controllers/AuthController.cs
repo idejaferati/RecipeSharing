@@ -41,40 +41,6 @@ namespace RecipeSharingApi.Controllers
         }
 
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register(UserRegisterDto dto)
-        {
-            if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
-            {
-                return BadRequest("Username is already taken.");
-            }
-
-            var salt = BCrypt.Net.BCrypt.GenerateSalt();
-            var passwordHash = BCrypt.Net.BCrypt.HashPassword(dto.password, salt);
-
-
-            var user = new User
-            {
-                FirstName = dto.FirstName,
-                LastName = dto.LastName,
-                Gender = dto.Gender,
-                DateOfBirth = dto.DateOfBirth,
-                Email = dto.Email,
-                RoleId = dto.RoleId,
-                PhoneNumber = dto.PhoneNumber,
-                SaltedHashPassword =passwordHash,
-                Salt =salt
-
-            };
-
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return Ok("User created successfully.");
-        }
-
-        
-
         [HttpPost("login")]
         public async Task<IActionResult> Login(string email, string roles, string password)
         {
