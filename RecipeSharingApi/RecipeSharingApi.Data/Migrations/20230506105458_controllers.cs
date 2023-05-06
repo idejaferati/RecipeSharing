@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RecipeSharingApi.DataLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class controllers : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

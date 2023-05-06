@@ -8,6 +8,7 @@ namespace RecipeSharingApi.BusinessLogic.Services
 {
     public interface IUserService
     {
-        string GetMyName();
+        //string GetMyId();
+        Guid GetMyId();
     }
 }

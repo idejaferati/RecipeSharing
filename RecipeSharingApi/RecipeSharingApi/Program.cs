@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using RecipeSharingApi.BusinessLogic.Services.IServices;
 using RecipeSharingApi.BusinessLogic.Services;
 using RecipeSharingApi.DataLayer.Data;
 using RecipeSharingApi.DataLayer.Data.UnitOfWork;
@@ -82,8 +81,8 @@ builder.Services.AddAuthorization(options =>
 
         options.AddPolicy("onlyadmin", policy =>
                 policy.RequireRole(GetRoles("onlyadmin")));
-        options.AddPolicy("onlyuser", policy =>
-                policy.RequireRole(GetRoles("onlyuser")));
+        //options.AddPolicy("onlyuser", policy =>
+        //        policy.RequireRole(GetRoles("onlyuser")));
 
     }
 });

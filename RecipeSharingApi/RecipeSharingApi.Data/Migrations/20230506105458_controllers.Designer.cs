@@ -12,8 +12,8 @@ using RecipeSharingApi.DataLayer.Data;
 namespace RecipeSharingApi.DataLayer.Migrations
 {
     [DbContext(typeof(RecipeSharingDbContext))]
-    [Migration("20230506050720_init")]
-    partial class init
+    [Migration("20230506105458_controllers")]
+    partial class controllers
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
