@@ -22,7 +22,12 @@ namespace RecipeSharingApi.DataLayer.Data
         public DbSet<Role> Roles { get; set; }
         public DbSet<Policy> Policies { get; set; }
         public DbSet<PolicyRole> PolicyRoles { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<RecommendationScore> RecommendationScore { get; set; }
+        public DbSet<ShoppingListItem> ShoppingListItem { get; set; }
 
+        public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
+        public DbSet<RecipeInstruction> InstructionSteps { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,6 +46,9 @@ namespace RecipeSharingApi.DataLayer.Data
             modelBuilder.Entity<Tag>().Property(t => t.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Tag>().HasIndex(t => t.Name).IsUnique();
 
+            modelBuilder.Entity<RecommendationScore>().Property(r => r.Id).ValueGeneratedOnAdd();
+
+
             modelBuilder.Entity<CookBook>().Property(c => c.Id).ValueGeneratedOnAdd();
 
             // TODO: What to do with the recipes when the user is deleted?
@@ -58,6 +66,14 @@ namespace RecipeSharingApi.DataLayer.Data
            .HasOne(u => u.Policies)
            .WithMany()
            .HasForeignKey(u => u.PolicyId);
+
+            modelBuilder.Entity<Review>().Property(i => i.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Review>().HasKey(k => k.Id);
+            modelBuilder.Entity<Review>().HasOne(u => u.User).WithMany(r => r.Reviews)
+                .HasForeignKey(u => u.UserId).OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<ShoppingListItem>().HasKey(e => new { e.Id, e.UserId, e.Name });
+            modelBuilder.Entity<ShoppingListItem>().Property(r => r.Id).ValueGeneratedOnAdd();
+
         }
     }
 }

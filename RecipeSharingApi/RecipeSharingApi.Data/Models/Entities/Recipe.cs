@@ -20,6 +20,7 @@ public class Recipe : BaseEntity
     public double Calories { get; set; }
     public string AudioInstructions { get; set; } // Audio Url
     public string VideoInstructions { get; set; } // Video Url
+    public List<Review>? Reviews { get; set; }
     public CookBook? CookBook { get; set; } // The CookBook that this recipe is in or not
     public  List<Collection> Collections { get; set; }
 

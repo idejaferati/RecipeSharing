@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RecipeSharingApi.DataLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class auth09 : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,6 +33,20 @@ namespace RecipeSharingApi.DataLayer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Policies", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RecommendationScore",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TagId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Score = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RecommendationScore", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -176,6 +190,26 @@ namespace RecipeSharingApi.DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ShoppingListItem",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShoppingListItem", x => new { x.Id, x.UserId, x.Name });
+                    table.ForeignKey(
+                        name: "FK_ShoppingListItem_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Recipes",
                 columns: table => new
                 {
@@ -240,7 +274,27 @@ namespace RecipeSharingApi.DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RecipeIngredient",
+                name: "InstructionSteps",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RecipeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StepNumber = table.Column<int>(type: "int", nullable: false),
+                    StepDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InstructionSteps", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InstructionSteps_Recipes_RecipeId",
+                        column: x => x.RecipeId,
+                        principalTable: "Recipes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RecipeIngredients",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -251,29 +305,9 @@ namespace RecipeSharingApi.DataLayer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RecipeIngredient", x => x.Id);
+                    table.PrimaryKey("PK_RecipeIngredients", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RecipeIngredient_Recipes_RecipeId",
-                        column: x => x.RecipeId,
-                        principalTable: "Recipes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RecipeInstruction",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RecipeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StepNumber = table.Column<int>(type: "int", nullable: false),
-                    StepDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RecipeInstruction", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RecipeInstruction_Recipes_RecipeId",
+                        name: "FK_RecipeIngredients_Recipes_RecipeId",
                         column: x => x.RecipeId,
                         principalTable: "Recipes",
                         principalColumn: "Id",
@@ -304,6 +338,32 @@ namespace RecipeSharingApi.DataLayer.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Reviews",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RecipeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Rating = table.Column<double>(type: "float", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Recipes_RecipeId",
+                        column: x => x.RecipeId,
+                        principalTable: "Recipes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CollectionRecipe_RecipesId",
                 table: "CollectionRecipe",
@@ -318,6 +378,11 @@ namespace RecipeSharingApi.DataLayer.Migrations
                 name: "IX_CookBook_UserId",
                 table: "CookBook",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InstructionSteps_RecipeId",
+                table: "InstructionSteps",
+                column: "RecipeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PolicyRole_RolesId",
@@ -335,13 +400,8 @@ namespace RecipeSharingApi.DataLayer.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RecipeIngredient_RecipeId",
-                table: "RecipeIngredient",
-                column: "RecipeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RecipeInstruction_RecipeId",
-                table: "RecipeInstruction",
+                name: "IX_RecipeIngredients_RecipeId",
+                table: "RecipeIngredients",
                 column: "RecipeId");
 
             migrationBuilder.CreateIndex(
@@ -365,6 +425,21 @@ namespace RecipeSharingApi.DataLayer.Migrations
                 column: "TagsId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Reviews_RecipeId",
+                table: "Reviews",
+                column: "RecipeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reviews_UserId",
+                table: "Reviews",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoppingListItem_UserId",
+                table: "ShoppingListItem",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tags_Name",
                 table: "Tags",
                 column: "Name",
@@ -383,19 +458,28 @@ namespace RecipeSharingApi.DataLayer.Migrations
                 name: "CollectionRecipe");
 
             migrationBuilder.DropTable(
+                name: "InstructionSteps");
+
+            migrationBuilder.DropTable(
                 name: "PolicyRole");
 
             migrationBuilder.DropTable(
                 name: "PolicyRoles");
 
             migrationBuilder.DropTable(
-                name: "RecipeIngredient");
-
-            migrationBuilder.DropTable(
-                name: "RecipeInstruction");
+                name: "RecipeIngredients");
 
             migrationBuilder.DropTable(
                 name: "RecipeTag");
+
+            migrationBuilder.DropTable(
+                name: "RecommendationScore");
+
+            migrationBuilder.DropTable(
+                name: "Reviews");
+
+            migrationBuilder.DropTable(
+                name: "ShoppingListItem");
 
             migrationBuilder.DropTable(
                 name: "Collections");
@@ -404,10 +488,10 @@ namespace RecipeSharingApi.DataLayer.Migrations
                 name: "Policies");
 
             migrationBuilder.DropTable(
-                name: "Recipes");
+                name: "Tags");
 
             migrationBuilder.DropTable(
-                name: "Tags");
+                name: "Recipes");
 
             migrationBuilder.DropTable(
                 name: "CookBook");

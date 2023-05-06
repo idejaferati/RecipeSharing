@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RecipeSharingApi.BusinessLogic.Services.IServices;
 using RecipeSharingApi.DataLayer.Models.DTOs.Recipe;
 using RecipeSharingApi.DataLayer.Models.Entities;
+using System.Data;
+using System.Security.Claims;
 
 namespace RecipeSharingApi.Controllers;
 
@@ -17,12 +20,14 @@ public class RecipeController : ControllerBase
         _logger = logger;
     }
 
+    //TODO: Add authorization for needed endpoints
+
     [HttpPost]
     public async Task<ActionResult<RecipeDTO>> Create(RecipeCreateDTO recipeToCreate)
     {
         try
         {
-            var userId = new Guid("6B29FC40-CA47-1067-B31D-00DD010662DA");
+            var userId = new Guid(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             var recipe = await _recipeService.Create(userId, recipeToCreate);
 
             return Ok(recipe);
@@ -31,9 +36,95 @@ public class RecipeController : ControllerBase
         {
             return BadRequest(ex.Message);
         }
-        finally
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<List<RecipeDTO>>> GetPaginated(int page, int pageSize)
+    {
+        List<RecipeDTO> recipes = await _recipeService.GetPaginated(page, pageSize);
+        return recipes;
+    }
+
+    [HttpGet]
+    [Route("getAll")]
+    public async Task<ActionResult<List<RecipeDTO>>> GetAll()
+    {
+        try
         {
-            Console.WriteLine("nuk e di qka u bo");
+            var recipes = await _recipeService.GetAll();
+
+            return Ok(recipes);
+        }
+        catch (Exception ex)
+        {
+            return NotFound(ex.Message);
         }
     }
+
+    [HttpGet("{id}")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
+    [AllowAnonymous]
+    public async Task<ActionResult<RecipeDTO>> Get(Guid id)
+    {
+        try
+        {
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var guidId = userId is null ? Guid.Empty : new Guid(userId);
+
+            var recipe = await _recipeService.Get(id, guidId);
+
+            return Ok(recipe);
+        }
+        catch (Exception ex) 
+        {
+            return NotFound(ex.Message); 
+        }
+    }
+
+    [HttpGet("{id}/nutrients")]
+    public async Task<IActionResult> GetRecipeNutrients(Guid id)
+    {
+        try
+        {
+            var result = await _recipeService.GetRecipeNutrients(id);
+
+            return Ok(result);
+        }
+        catch (Exception ex) { 
+            return NotFound(ex.Message); 
+        }
+    }
+
+    [HttpPut]
+    public async Task<ActionResult<RecipeDTO>> Update(RecipeUpdateDTO recipeToUpdate)
+    {
+        try
+        {
+            var userId = new Guid(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var recipe = await _recipeService.Update(recipeToUpdate, userId);
+
+            return Ok(recipe);
+        }
+        catch (Exception ex) 
+        {
+            return NotFound(ex.Message); 
+        }
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<RecipeDTO>> Delete(Guid id)
+    {
+        try
+        {
+            var userId = new Guid(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var recipe = await _recipeService.Delete(id, userId);
+
+            return Ok(recipe);
+        }
+        catch (Exception ex) 
+        { 
+            return NotFound(ex.Message); 
+        }
+    }
+
 }
