@@ -13,6 +13,8 @@ namespace RecipeSharingApi.BusinessLogic.Helpers {
         public static void AddServices(this IServiceCollection services)
         {
             services.AddTransient<IRecipeService, RecipeService>();
+            services.AddTransient<IRecipeNutrientsService, RecipeNutrientsService>();
+            services.AddTransient<IRecommendationService,RecommendationsService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();    
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
     

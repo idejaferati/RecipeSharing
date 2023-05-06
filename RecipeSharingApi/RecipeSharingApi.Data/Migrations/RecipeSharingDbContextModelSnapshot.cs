@@ -162,7 +162,7 @@ namespace RecipeSharingApi.DataLayer.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("RecipeIngredient");
+                    b.ToTable("RecipeIngredients");
                 });
 
             modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.Mappings.RecipeInstruction", b =>
@@ -185,7 +185,7 @@ namespace RecipeSharingApi.DataLayer.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("RecipeInstruction");
+                    b.ToTable("InstructionSteps");
                 });
 
             modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.Policy", b =>
@@ -260,6 +260,53 @@ namespace RecipeSharingApi.DataLayer.Migrations
                     b.ToTable("Recipes");
                 });
 
+            modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.RecommendationScore", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("TagId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RecommendationScore");
+                });
+
+            modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.Review", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
+
+                    b.Property<Guid>("RecipeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reviews");
+                });
+
             modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.Role", b =>
                 {
                     b.Property<Guid>("Id")
@@ -273,6 +320,28 @@ namespace RecipeSharingApi.DataLayer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.ShoppingListItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id", "UserId", "Name");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ShoppingListItem");
                 });
 
             modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.Tag", b =>
@@ -474,6 +543,36 @@ namespace RecipeSharingApi.DataLayer.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.Review", b =>
+                {
+                    b.HasOne("RecipeSharingApi.DataLayer.Models.Entities.Recipe", "Recipe")
+                        .WithMany("Reviews")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecipeSharingApi.DataLayer.Models.Entities.User", "User")
+                        .WithMany("Reviews")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.ShoppingListItem", b =>
+                {
+                    b.HasOne("RecipeSharingApi.DataLayer.Models.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.User", b =>
                 {
                     b.HasOne("RecipeSharingApi.DataLayer.Models.Entities.Role", "Role")
@@ -515,11 +614,15 @@ namespace RecipeSharingApi.DataLayer.Migrations
                     b.Navigation("Ingredients");
 
                     b.Navigation("Instructions");
+
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("RecipeSharingApi.DataLayer.Models.Entities.User", b =>
                 {
                     b.Navigation("Recipes");
+
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

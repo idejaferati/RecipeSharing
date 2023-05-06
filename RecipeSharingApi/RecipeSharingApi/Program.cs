@@ -80,10 +80,10 @@ builder.Services.AddAuthorization(options =>
         }
 
 
-        options.AddPolicy("onlyadmin", policy =>
-                policy.RequireRole(GetRoles("onlyadmin")));
-        options.AddPolicy("onlyuser", policy =>
-                policy.RequireRole(GetRoles("onlyuser")));
+        //options.AddPolicy("onlyadmin", policy =>
+        //        policy.RequireRole(GetRoles("onlyadmin")));
+        //options.AddPolicy("onlyuser", policy =>
+        //        policy.RequireRole(GetRoles("onlyuser")));
 
     }
 });
