@@ -172,6 +172,7 @@ namespace RecipeSharingApi.Controllers
             var user = await _context.Users
                                        .Where(u => u.Email == email)
                                        .Select(u => new {
+                                           Id = u.Id,
                                            FirstName = u.FirstName,
                                            LastName = u.LastName,
                                            Gender = u.Gender,

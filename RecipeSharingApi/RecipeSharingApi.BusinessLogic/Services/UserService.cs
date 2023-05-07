@@ -13,12 +13,21 @@ namespace RecipeSharingApi.BusinessLogic.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public string GetMyName()
+        //public string GetMyName()
+        //{
+        //    var result = string.Empty;
+        //    if (_httpContextAccessor.HttpContext is not null)
+        //    {
+        //        result = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
+        //    }
+        //    return result;
+        //}
+        public Guid GetMyId()
         {
-            var result = string.Empty;
+            var result = new Guid();
             if (_httpContextAccessor.HttpContext is not null)
             {
-                result = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
+                result = new Guid(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             }
             return result;
         }

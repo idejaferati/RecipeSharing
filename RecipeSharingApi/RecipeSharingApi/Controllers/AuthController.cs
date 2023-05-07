@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using RecipeSharingApi.BusinessLogic.Services;
 using RecipeSharingApi.DataLayer.Data;
 using RecipeSharingApi.DataLayer.Models.DTOs;
 using RecipeSharingApi.DataLayer.Models.Entities;
@@ -13,6 +12,7 @@ using System.Text;
 using RecipeSharingApi.DataLayer.Models.DTOs.User;
 using Microsoft.EntityFrameworkCore;
 using RecipeSharingApi.DataLayer.Models.Entities.Mappings;
+using RecipeSharingApi.BusinessLogic.Services;
 
 namespace RecipeSharingApi.Controllers
 {
@@ -36,7 +36,7 @@ namespace RecipeSharingApi.Controllers
         [HttpGet, Authorize(Policy="onlyadmin")]
         public ActionResult<string> GetMyName()
         {
-            return Ok(_userService.GetMyName());
+            return Ok(_userService.GetMyId());
 
         }
 
@@ -62,7 +62,6 @@ namespace RecipeSharingApi.Controllers
         }
 
         [HttpPost("addrole")]
-        [Authorize(Policy ="onlyadmin")]
         public async Task<ActionResult<Role>> CreateRole(string name)
         {
 
@@ -117,6 +116,7 @@ namespace RecipeSharingApi.Controllers
         private string CreateToken(User user)
         {
             List<Claim> claims = new List<Claim> {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, user.RoleId.ToString())
             };
