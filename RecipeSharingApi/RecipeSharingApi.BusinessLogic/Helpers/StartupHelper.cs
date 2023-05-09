@@ -21,6 +21,7 @@ namespace RecipeSharingApi.BusinessLogic.Helpers {
             services.AddTransient<ICookBookService, CookBookService>();
             services.AddTransient<IReviewService, ReviewService>();
             services.AddTransient<IShoppingListService, ShoppingListService>();
+            services.AddTransient<ICollectionService, CollectionService>();
 
         }
     }

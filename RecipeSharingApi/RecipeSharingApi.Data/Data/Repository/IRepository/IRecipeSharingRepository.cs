@@ -24,6 +24,8 @@ namespace RecipeSharingApi.DataLayer.Data.Repository.IRepository
 
         Tentity Update(Tentity entity);
         void UpdateRange(List<Tentity> entity);
+        Task<Tentity> GetByIdAsync(Guid id);
+
     }
 
 }

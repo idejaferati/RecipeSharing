@@ -98,5 +98,10 @@ namespace RecipeSharingApi.DataLayer.Data.Repository
 
             return query;
         }
+        public async Task<Tentity> GetByIdAsync(Guid id)
+        {
+            return await _dbContext.Set<Tentity>().FindAsync(id);
+        }
+
     }
 }
