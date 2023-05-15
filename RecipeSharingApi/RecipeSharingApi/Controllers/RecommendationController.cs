@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RecipeSharingApi.BusinessLogic.Services;
 using RecipeSharingApi.BusinessLogic.Services.IServices;
 using RecipeSharingApi.DataLayer.Models.Entities;
 using System.Security.Claims;
@@ -11,10 +12,12 @@ public class RecommendationsController : ControllerBase
 
     private readonly IRecommendationService _recommendationService;
     private readonly ILogger<RecommendationsController> _logger;
-    public RecommendationsController(IRecommendationService recommendationsService, ILogger<RecommendationsController> logger)
+    private readonly IUserService _userService;
+    public RecommendationsController(IRecommendationService recommendationsService, ILogger<RecommendationsController> logger, IUserService userService)
     {
         _recommendationService = recommendationsService;
         _logger = logger;
+        _userService = userService;
     }
 
     //TODO: Add authorization for needed endpoints
@@ -25,7 +28,7 @@ public class RecommendationsController : ControllerBase
     {
         try
         {
-            var userId = new Guid(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var userId = _userService.GetMyId();
             var recommendation = await _recommendationService.GetSingleRecommendation(userId);
 
             return Ok(recommendation);
@@ -41,7 +44,7 @@ public class RecommendationsController : ControllerBase
     {
         try
         {
-            var userId = new Guid(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var userId = _userService.GetMyId();
             var recommendationCollection = await _recommendationService.GetCollectionRecommendations(userId, length);
 
             return Ok(recommendationCollection);

@@ -82,7 +82,7 @@ public class CookBookController : ControllerBase
     {
         try
         {
-            var userId = new Guid(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var userId = _userService.GetMyId();
             var cookBook = await _cookBookService.Update(cookBookToUpdate, userId);
             return Ok(cookBook);
         }
@@ -95,7 +95,7 @@ public class CookBookController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult<CookBookDTO>> Delete(Guid id)
     {
-        var userId = new Guid(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+        var userId = _userService.GetMyId();
         CookBookDTO cookBook;
         try
         {
@@ -114,7 +114,7 @@ public class CookBookController : ControllerBase
     {
         try
         {
-            var userId = new Guid(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var userId = _userService.GetMyId();
             var cookBook = await _cookBookService.AddRecipeToCookBook(userId, cookBookId, recipeId);
             return Ok(cookBookId);
         }
@@ -129,7 +129,7 @@ public class CookBookController : ControllerBase
     {
         try
         {
-            var userId = new Guid(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var userId = _userService.GetMyId();
             var cookBook = await _cookBookService.RemoveRecipeFromCookBook(userId, cookBookId, recipeId);
             return Ok(cookBookId);
         }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RecipeSharingApi.BusinessLogic.Services;
 using RecipeSharingApi.BusinessLogic.Services.IServices;
 using RecipeSharingApi.DataLayer.Models.DTOs.Recipe;
 using RecipeSharingApi.DataLayer.Models.Entities;
@@ -14,10 +15,12 @@ public class RecipeController : ControllerBase
 {
     private readonly IRecipeService _recipeService;
     private readonly ILogger<RecipeController> _logger;
-    public RecipeController(IRecipeService recipeService, ILogger<RecipeController> logger)
+    private readonly IUserService _userService;
+    public RecipeController(IRecipeService recipeService, ILogger<RecipeController> logger, IUserService userService)
     {
         _recipeService = recipeService;
         _logger = logger;
+        _userService = userService;
     }
 
     //TODO: Add authorization for needed endpoints
@@ -27,7 +30,7 @@ public class RecipeController : ControllerBase
     {
         try
         {
-            var userId = new Guid(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var userId = _userService.GetMyId();
             var recipe = await _recipeService.Create(userId, recipeToCreate);
 
             return Ok(recipe);
@@ -62,16 +65,16 @@ public class RecipeController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [Authorize(AuthenticationSchemes = "Bearer")]
-    [AllowAnonymous]
+    //[Authorize(AuthenticationSchemes = "Bearer")]
+    //[AllowAnonymous]
     public async Task<ActionResult<RecipeDTO>> Get(Guid id)
     {
         try
         {
-            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var guidId = userId is null ? Guid.Empty : new Guid(userId);
-
-            var recipe = await _recipeService.Get(id, guidId);
+            //var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            //var guidId = userId is null ? Guid.Empty : new Guid(userId);
+            var userId = _userService.GetMyId();
+            var recipe = await _recipeService.Get(id, userId);
 
             return Ok(recipe);
         }
@@ -100,7 +103,7 @@ public class RecipeController : ControllerBase
     {
         try
         {
-            var userId = new Guid(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var userId = _userService.GetMyId();
             var recipe = await _recipeService.Update(recipeToUpdate, userId);
 
             return Ok(recipe);
@@ -116,7 +119,7 @@ public class RecipeController : ControllerBase
     {
         try
         {
-            var userId = new Guid(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var userId = _userService.GetMyId();
             var recipe = await _recipeService.Delete(id, userId);
 
             return Ok(recipe);
