@@ -18,7 +18,7 @@ using Swashbuckle.AspNetCore.Filters;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.EntityFrameworkCore.Metadata;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +58,8 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
     };
 });
 
+
+
 builder.Services.AddAuthorization(options =>
 {
     using (var scope = builder.Services.BuildServiceProvider().CreateScope())
@@ -81,6 +83,10 @@ builder.Services.AddAuthorization(options =>
 
         //options.AddPolicy("onlyadmin", policy =>
         //        policy.RequireRole(GetRoles("onlyadmin")));
+        options.AddPolicy("onlyadmin", policy =>
+                policy.RequireRole(GetRoles("onlyadmin")));
+        options.AddPolicy("getmydata", policy =>
+                policy.RequireRole(GetRoles("getmydata")));
         //options.AddPolicy("onlyuser", policy =>
         //        policy.RequireRole(GetRoles("onlyuser")));
 
@@ -94,11 +100,8 @@ builder.Services.AddSingleton(mapper);
 
 builder.Services.AddServices();
 
-
 var app = builder.Build();
 
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

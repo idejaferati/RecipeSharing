@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RecipeSharingApi.BusinessLogic.Services;
 using RecipeSharingApi.BusinessLogic.Services.IServices;
 using RecipeSharingApi.DataLayer.Models.DTOs.ShoppingList;
 using RecipeSharingApi.DataLayer.Models.Entities;
@@ -11,15 +12,17 @@ namespace RecipeSharingApi.Controllers;
 public class ShoppingListController : ControllerBase
 {
     private readonly IShoppingListService _shoppingListService;
-    public ShoppingListController(IShoppingListService shoppingListService)
+    private readonly IUserService _userService;
+    public ShoppingListController(IShoppingListService shoppingListService, IUserService userService)
     {
         _shoppingListService = shoppingListService;
+        _userService = userService;
     }
 
     [HttpPost]
     public async Task<ActionResult<List<ShoppingListItemCreateDTO>>> AddToShoppingList(List<ShoppingListItemCreateDTO> shoppingListToCreate)
     {
-        var UserId = new Guid(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+        var UserId = _userService.GetMyId();
         try
         {
             var shoppingList = await _shoppingListService.AddToShoppingList(UserId, shoppingListToCreate);
@@ -34,7 +37,7 @@ public class ShoppingListController : ControllerBase
     [Route("{itemId}")]
     public async Task<ActionResult<bool>> DeleteShoppingListItems(Guid itemId)
     {
-        var userId = new Guid(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+        var userId = _userService.GetMyId();
         try
         {
             var deletedItems = await _shoppingListService.DeleteFromShoppingList(userId, itemId);
@@ -50,7 +53,7 @@ public class ShoppingListController : ControllerBase
     [Route("{shoppingListItemId}")]
     public async Task<ActionResult<ShoppingListItem>> GetShoppingListItem(Guid shoppingListItemId)
     {
-        var userId = new Guid(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+        var userId = _userService.GetMyId();
         try
         {
             var shoppingListItem = await _shoppingListService.GetShoppingListItemById(userId, shoppingListItemId);
@@ -66,7 +69,7 @@ public class ShoppingListController : ControllerBase
     [Route("getlink/{shoppingListItemId}")]
     public async Task<IActionResult> GetShoppingListItemLink(Guid shoppingListItemId)
     {
-        var userId = new Guid(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+        var userId = _userService.GetMyId();
         try
         {
             var finalUrl = await _shoppingListService.GetShoppingListItemUrl(userId, shoppingListItemId);
@@ -82,7 +85,7 @@ public class ShoppingListController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<ShoppingListItem>>> GetShoppingList()
     {
-        var userId = new Guid(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+        var userId = _userService.GetMyId();
         try
         {
             var shoppingList = await _shoppingListService.GetShoppingListForUser(userId);

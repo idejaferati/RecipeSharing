@@ -42,7 +42,7 @@ namespace RecipeSharingApi.Controllers
 
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(string email, string roles, string password)
+        public async Task<IActionResult> Login(string email, string password)
         {
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
             if (user == null)
@@ -55,7 +55,7 @@ namespace RecipeSharingApi.Controllers
             {
                 return BadRequest("Invalid password.");
             }
-
+            
             string token = CreateToken(user);
 
             return Ok(token);

@@ -20,9 +20,11 @@ namespace RecipeSharingApi.Controllers
     {
 
         private readonly RecipeSharingDbContext _context;
-        public UsersController(RecipeSharingDbContext context)
+        private readonly IUserService _userService;
+        public UsersController(RecipeSharingDbContext context , IUserService userService)
         {
             _context = context;
+            _userService = userService;
         }
 
 
@@ -116,13 +118,13 @@ namespace RecipeSharingApi.Controllers
                 return BadRequest("Change password data is null.");
             }
 
-            var email = User.FindFirst(ClaimTypes.Email)?.Value;
-            if (email == null)
+            var userID = _userService.GetMyId();
+            if (userID == null)
             {
                 return Unauthorized();
             }
 
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == userID);
             if (user == null)
             {
                 return NotFound();
@@ -141,7 +143,6 @@ namespace RecipeSharingApi.Controllers
             var salt = BCrypt.Net.BCrypt.GenerateSalt();
             var passwordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword, salt);
 
-            //CreatePasswordHash(dto.NewPassword, out byte[] passwordHash, out byte[] passwordSalt);
             user.SaltedHashPassword = passwordHash;
             user.Salt = salt;
 
@@ -151,30 +152,29 @@ namespace RecipeSharingApi.Controllers
         }
 
         [HttpGet("my-data")]
-        [Authorize(Policy = "onlyadmin")]
+        [Authorize(Policy = "getmydata")]
         public async Task<ActionResult<User>> GetUser()
         {
 
-            var email = User.FindFirst(ClaimTypes.Email)?.Value;
-            if (email == null)
+            var userID = _userService.GetMyId();
+            if (userID == null)
             {
                 return Unauthorized("pa autorizun");
             }
-            // Get the current user's ID from the authentication token
 
-            var currentUserEmail = await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
+            var currentUserEmail = await _context.Users.SingleOrDefaultAsync(u => u.Id == userID);
             if (currentUserEmail == null)
             {
                 return NotFound();
             }
 
-            // Retrieve the user from the database
             var user = await _context.Users
-                                       .Where(u => u.Email == email)
+                                       .Where(u => u.Id == userID)
                                        .Select(u => new {
                                            Id = u.Id,
                                            FirstName = u.FirstName,
                                            LastName = u.LastName,
+                                           Email = u.Email,
                                            Gender = u.Gender,
                                            DateOfBirth = u.DateOfBirth,
                                            PhoneNumber = u.PhoneNumber
@@ -182,13 +182,10 @@ namespace RecipeSharingApi.Controllers
                                        .FirstOrDefaultAsync();
 
 
-            // Check if the user exists
             if (user == null)
             {
                 return NotFound();
             }
-
-            // Return the user data
             return Ok(user);
         }
     }

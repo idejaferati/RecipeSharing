@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using RecipeSharingApi.BusinessLogic.Services;
 using RecipeSharingApi.BusinessLogic.Services.IServices;
 using RecipeSharingApi.DataLayer.Models.DTOs.Review;
 using System.Security.Claims;
@@ -11,9 +12,11 @@ namespace RecipeSharingApi.Controllers;
 public class ReviewController : ControllerBase
 {
     public readonly IReviewService _reviewService;
-    public ReviewController(IReviewService reviewService)
+    private readonly IUserService _userService;
+    public ReviewController(IReviewService reviewService, IUserService userService)
     {
         _reviewService = reviewService;
+        _userService = userService;
     }
 
     [HttpPost]
@@ -21,7 +24,7 @@ public class ReviewController : ControllerBase
     {
         try
         {
-            var userId = new Guid(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var userId = _userService.GetMyId();
             var review = await _reviewService.Create(userId, reviewToCreate);
 
             return Ok(review);
@@ -52,7 +55,7 @@ public class ReviewController : ControllerBase
     {
         try
         {
-            var userId = new Guid(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var userId = _userService.GetMyId();
             var updatedReview = await _reviewService.Update(reviewToUpdate, userId);
 
             return Ok(updatedReview);
@@ -68,7 +71,7 @@ public class ReviewController : ControllerBase
     {
         try
         {
-            var userId = new Guid(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var userId = _userService.GetMyId();
             var review = await _reviewService.Delete(id, userId);
 
             return Ok(review);
