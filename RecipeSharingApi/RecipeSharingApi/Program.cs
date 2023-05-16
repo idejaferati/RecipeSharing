@@ -80,15 +80,17 @@ builder.Services.AddAuthorization(options =>
             return roleStrings;
         }
 
+        try
+        {
 
-        //options.AddPolicy("onlyadmin", policy =>
-        //        policy.RequireRole(GetRoles("onlyadmin")));
-        //options.AddPolicy("onlyadmin", policy =>
-        //        policy.RequireRole(GetRoles("onlyadmin")));
-        //options.AddPolicy("getmydata", policy =>
-        //        policy.RequireRole(GetRoles("getmydata")));
-        //options.AddPolicy("onlyuser", policy =>
-        //        policy.RequireRole(GetRoles("onlyuser")));
+            options.AddPolicy("onlyadmin", policy =>
+                    policy.RequireRole(GetRoles("onlyadmin")));
+            options.AddPolicy("getmydata", policy =>
+                    policy.RequireRole(GetRoles("getmydata")));
+            options.AddPolicy("onlyuser", policy =>
+                    policy.RequireRole(GetRoles("onlyuser")));
+        }
+        catch (Exception ex) { }
 
     }
 });

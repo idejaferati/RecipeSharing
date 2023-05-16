@@ -3,7 +3,9 @@ using RecipeSharingApi.BusinessLogic.Services.IServices;
 using RecipeSharingApi.DataLayer.Models.DTOs.Tag;
 
 namespace RecipeSharingApi.Controllers;
-public class TagController : Controller
+[ApiController]
+[Route("api/tag")]
+public class TagController : ControllerBase
 {
     private readonly ITagService _tagService;
 
