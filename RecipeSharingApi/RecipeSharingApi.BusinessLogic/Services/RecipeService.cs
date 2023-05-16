@@ -50,8 +50,6 @@ public class RecipeService : IRecipeService
         recipe.Ingredients.ForEach(x => x.Recipe = null!);
         recipe.Tags.ForEach(x => x.Recipes = null!);
         recipe.Instructions.ForEach(x => x.Recipe = null!);
-        recipe.User.Recipes = null!;
-
 
         var recipeDTO = _mapper.Map<RecipeDTO>(recipe);
 

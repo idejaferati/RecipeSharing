@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RecipeSharingApi.BusinessLogic.Services.IServices;
 using RecipeSharingApi.DataLayer.Models.DTOs.Tag;
+using RecipeSharingApi.DataLayer.Models.Entities;
 
 namespace RecipeSharingApi.Controllers;
 [ApiController]
@@ -45,6 +47,8 @@ public class TagController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Policy = "userPolicy")]
+
     public async Task<ActionResult<TagDTO>> Create(TagCreateDTO tagToCreate)
     {
         try
@@ -60,6 +64,8 @@ public class TagController : ControllerBase
     }
 
     [HttpPut]
+    [Authorize(Policy = "adminPolicy")]
+
     public async Task<ActionResult<TagDTO>> Update(TagDTO tagToUpdate)
     {
         try
@@ -75,6 +81,8 @@ public class TagController : ControllerBase
     }
 
     [HttpDelete]
+    [Authorize(Policy = "adminPolicy")]
+
     public async Task<ActionResult<TagDTO>> Delete(Guid id)
     {
         try

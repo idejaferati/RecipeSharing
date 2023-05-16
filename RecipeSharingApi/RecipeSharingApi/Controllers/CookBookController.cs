@@ -23,7 +23,7 @@ public class CookBookController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Policy= "onlyadmin")]
+    [Authorize(Policy= "adminPolicy")]
     public async Task<ActionResult<CookBookDTO>> Create(CookBookCreateRequestDTO cookBookToCreate)
     {
         try

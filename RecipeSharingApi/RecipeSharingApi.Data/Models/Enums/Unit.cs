@@ -19,5 +19,6 @@ public enum Unit
     Gram,
     Kilogram,
     Mililiter,
-    Liter
+    Liter,
+    pieces
 }

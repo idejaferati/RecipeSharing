@@ -33,7 +33,7 @@ namespace RecipeSharingApi.Controllers
             _context = context;
         }
 
-        [HttpGet, Authorize(Policy="onlyadmin")]
+        [HttpGet, Authorize(Policy="adminPolicy")]
         public ActionResult<string> GetMyName()
         {
             return Ok(_userService.GetMyId());

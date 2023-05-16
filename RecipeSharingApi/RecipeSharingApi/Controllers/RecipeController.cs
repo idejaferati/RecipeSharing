@@ -24,6 +24,8 @@ public class RecipeController : ControllerBase
     //TODO: Add authorization for needed endpoints
 
     [HttpPost]
+    [Authorize(Policy = "userPolicy")]
+
     public async Task<ActionResult<RecipeDTO>> Create(RecipeCreateDTO recipeToCreate)
     {
         try
