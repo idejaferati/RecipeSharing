@@ -14,12 +14,10 @@ namespace RecipeSharingApi.Controllers;
 public class RecipeController : ControllerBase
 {
     private readonly IRecipeService _recipeService;
-    private readonly ILogger<RecipeController> _logger;
     private readonly IUserService _userService;
-    public RecipeController(IRecipeService recipeService, ILogger<RecipeController> logger, IUserService userService)
+    public RecipeController(IRecipeService recipeService, IUserService userService)
     {
         _recipeService = recipeService;
-        _logger = logger;
         _userService = userService;
     }
 

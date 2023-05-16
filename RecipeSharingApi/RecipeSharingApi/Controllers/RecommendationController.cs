@@ -11,12 +11,10 @@ public class RecommendationsController : ControllerBase
 {
 
     private readonly IRecommendationService _recommendationService;
-    private readonly ILogger<RecommendationsController> _logger;
     private readonly IUserService _userService;
-    public RecommendationsController(IRecommendationService recommendationsService, ILogger<RecommendationsController> logger, IUserService userService)
+    public RecommendationsController(IRecommendationService recommendationsService, IUserService userService)
     {
         _recommendationService = recommendationsService;
-        _logger = logger;
         _userService = userService;
     }
 

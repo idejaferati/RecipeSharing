@@ -15,7 +15,7 @@ public class CookBookController : ControllerBase
     private readonly IUserService _userService;
 
 
-    public CookBookController(ICookBookService cookBookService, IUserService userService ,ILogger<RecipeController> logger)
+    public CookBookController(ICookBookService cookBookService, IUserService userService)
     {
         _cookBookService = cookBookService;
         _userService = userService;
