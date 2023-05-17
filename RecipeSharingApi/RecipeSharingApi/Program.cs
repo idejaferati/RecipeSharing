@@ -93,6 +93,9 @@ builder.Services.AddAuthorization(options =>
     }
 });
 
+
+
+
 var mapperConfiguration = new MapperConfiguration(
     mc => mc.AddProfile(new AutoMapperConfigurations()));
 IMapper mapper = mapperConfiguration.CreateMapper();
@@ -108,6 +111,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000"));
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
