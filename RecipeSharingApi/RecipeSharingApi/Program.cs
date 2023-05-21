@@ -21,6 +21,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -69,40 +71,41 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
 
 
 
-builder.Services.AddAuthorization(options =>
-{
-    using (var scope = builder.Services.BuildServiceProvider().CreateScope())
-    {
 
-        List<string> GetRoles(string nameOfPolicy)
-        {
-            var context = scope.ServiceProvider.GetService<RecipeSharingDbContext>();
-            var roleIds = context.PolicyRoles
-                                             .Where(rp => context.Policies
-                                                                    .Where(p => p.Name == nameOfPolicy)
-                                                                    .Select(p => p.Id)
-                                                                    .Contains(rp.PolicyId))
-                                             .Select(rp => rp.RoleId)
-                                             .ToList();
+//builder.Services.AddAuthorization(options =>
+//{
+//    using (var scope = builder.Services.BuildServiceProvider().CreateScope())
+//    {
 
-            List<string> roleStrings = roleIds.ConvertAll(roleId => roleId.ToString());
-            return roleStrings;
-        }
+//        List<string> GetRoles(string nameOfPolicy)
+//        {
+//            var context = scope.ServiceProvider.GetService<RecipeSharingDbContext>();
+//            var roleIds = context.PolicyRoles
+//                                             .Where(rp => context.Policies
+//                                                                    .Where(p => p.Name == nameOfPolicy)
+//                                                                    .Select(p => p.Id)
+//                                                                    .Contains(rp.PolicyId))
+//                                             .Select(rp => rp.RoleId)
+//                                             .ToList();
 
-        try
-        {
+//            List<string> roleStrings = roleIds.ConvertAll(roleId => roleId.ToString());
+//            return roleStrings;
+//        }
 
-            options.AddPolicy("adminPolicy", policy =>
-                    policy.RequireRole(GetRoles("adminPolicy")));
-            options.AddPolicy("userPolicy", policy =>
-                    policy.RequireRole(GetRoles("userPolicy")));
-            options.AddPolicy("editorPolicy", policy =>
-                    policy.RequireRole(GetRoles("editorPolicy")));
-        }
-        catch (Exception ex) { }
+//        try
+//        {
 
-    }
-});
+//            options.AddPolicy("adminPolicy", policy =>
+//                    policy.RequireRole(GetRoles("adminPolicy")));
+//            options.AddPolicy("userPolicy", policy =>
+//                    policy.RequireRole(GetRoles("userPolicy")));
+//            options.AddPolicy("editorPolicy", policy =>
+//                    policy.RequireRole(GetRoles("editorPolicy")));
+//        }
+//        catch (Exception ex) { }
+
+//    }
+//});
 
 
 var mapperConfiguration = new MapperConfiguration(
@@ -114,6 +117,20 @@ builder.Services.AddServices();
 
 var app = builder.Build();
 
+
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000"));
+
+app.Use(async (context, next) =>
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetService<RecipeSharingDbContext>();
+        var authorizationOptions = scope.ServiceProvider.GetRequiredService<IOptions<AuthorizationOptions>>().Value;
+        // Create and configure the DynamicAuthorizationMiddleware instance
+        var dynamicAuthorizationMiddleware = new DynamicAuthorizationMiddleware(next, dbContext, authorizationOptions);
+        await dynamicAuthorizationMiddleware.InvokeAsync(context);
+    }
+});
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
