@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RecipeSharingApi.BusinessLogic.Services;
 using RecipeSharingApi.BusinessLogic.Services.IServices;
 using RecipeSharingApi.DataLayer.Models.DTOs.Collection;

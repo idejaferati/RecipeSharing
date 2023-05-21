@@ -19,12 +19,21 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x =>
+{
+    // serialize enums as strings in api responses
+    x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+
+    // ignore omitted parameters on models to enable optional params
+    x.JsonSerializerOptions.IgnoreNullValues = true;
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
@@ -80,18 +89,21 @@ builder.Services.AddAuthorization(options =>
             return roleStrings;
         }
 
+        try
+        {
 
-        //options.AddPolicy("onlyadmin", policy =>
-        //        policy.RequireRole(GetRoles("onlyadmin")));
-        options.AddPolicy("onlyadmin", policy =>
-                policy.RequireRole(GetRoles("onlyadmin")));
-        options.AddPolicy("getmydata", policy =>
-                policy.RequireRole(GetRoles("getmydata")));
-        //options.AddPolicy("onlyuser", policy =>
-        //        policy.RequireRole(GetRoles("onlyuser")));
+            options.AddPolicy("adminPolicy", policy =>
+                    policy.RequireRole(GetRoles("adminPolicy")));
+            options.AddPolicy("userPolicy", policy =>
+                    policy.RequireRole(GetRoles("userPolicy")));
+            options.AddPolicy("editorPolicy", policy =>
+                    policy.RequireRole(GetRoles("editorPolicy")));
+        }
+        catch (Exception ex) { }
 
     }
 });
+
 
 var mapperConfiguration = new MapperConfiguration(
     mc => mc.AddProfile(new AutoMapperConfigurations()));

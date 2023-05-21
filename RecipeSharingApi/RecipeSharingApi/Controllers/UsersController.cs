@@ -1,16 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using RecipeSharingApi.BusinessLogic.Services;
 using RecipeSharingApi.DataLayer.Data;
 using RecipeSharingApi.DataLayer.Models.DTOs.User;
 using RecipeSharingApi.DataLayer.Models.Entities;
-using System.Security.Claims;
-using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.JsonPatch.Adapters;
-using Newtonsoft.Json.Linq;
 
 namespace RecipeSharingApi.Controllers
 {
@@ -21,7 +15,7 @@ namespace RecipeSharingApi.Controllers
 
         private readonly RecipeSharingDbContext _context;
         private readonly IUserService _userService;
-        public UsersController(RecipeSharingDbContext context , IUserService userService)
+        public UsersController(RecipeSharingDbContext context, IUserService userService)
         {
             _context = context;
             _userService = userService;
@@ -34,7 +28,7 @@ namespace RecipeSharingApi.Controllers
         {
             if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
             {
-                return BadRequest("Username is already taken.");
+                return BadRequest("Email is already taken.");
             }
 
             var salt = BCrypt.Net.BCrypt.GenerateSalt();
@@ -64,7 +58,7 @@ namespace RecipeSharingApi.Controllers
 
 
         [HttpDelete("{email}")]
-        [Authorize(Policy = "onlyadmin")]
+        [Authorize(Policy = "adminPolicy")]
         public async Task<IActionResult> DeleteUser(string email)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
@@ -76,11 +70,11 @@ namespace RecipeSharingApi.Controllers
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
 
-            return Ok("u fshi me sukses");
+            return Ok("User Deleted Successfully");
         }
 
         [HttpGet("findAllusers")]
-        [Authorize(Policy = "onlyadmin")]
+        [Authorize(Policy = "adminPolicy")]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             var users = await _context.Users.ToListAsync();
@@ -94,7 +88,7 @@ namespace RecipeSharingApi.Controllers
         }
 
         [HttpGet("search-by-email/{email}")]
-        [Authorize(Policy = "onlyadmin")]
+        [Authorize(Policy = "adminPolicy")]
         public async Task<ActionResult<IEnumerable<User>>> SearchUsersByUsername(string email)
         {
             var users = await _context.Users.Where(u => u.Email.Contains(email)).ToListAsync();
@@ -109,7 +103,7 @@ namespace RecipeSharingApi.Controllers
 
 
         [HttpPatch("change-password")]
-        [Authorize(Policy = "onlyadmin")]
+        [Authorize(Policy = "userPolicy")]
 
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto dto)
         {
@@ -152,14 +146,14 @@ namespace RecipeSharingApi.Controllers
         }
 
         [HttpGet("my-data")]
-        [Authorize(Policy = "getmydata")]
+        [Authorize(Policy = "userPolicy")]
         public async Task<ActionResult<User>> GetUser()
         {
 
             var userID = _userService.GetMyId();
             if (userID == null)
             {
-                return Unauthorized("pa autorizun");
+                return Unauthorized("Not authorized to get data for user");
             }
 
             var currentUserEmail = await _context.Users.SingleOrDefaultAsync(u => u.Id == userID);
@@ -170,7 +164,8 @@ namespace RecipeSharingApi.Controllers
 
             var user = await _context.Users
                                        .Where(u => u.Id == userID)
-                                       .Select(u => new {
+                                       .Select(u => new
+                                       {
                                            Id = u.Id,
                                            FirstName = u.FirstName,
                                            LastName = u.LastName,

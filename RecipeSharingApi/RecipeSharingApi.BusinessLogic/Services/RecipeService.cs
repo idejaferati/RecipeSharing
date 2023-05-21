@@ -8,6 +8,7 @@ using RecipeSharingApi.DataLayer.Models.DTOs.Nutrients;
 using RecipeSharingApi.DataLayer.Models.DTOs.Recipe;
 using RecipeSharingApi.DataLayer.Models.Entities;
 using RecipeSharingApi.DataLayer.Models.Entities.Mappings;
+using System.Linq;
 
 namespace RecipeSharingApi.BusinessLogic.Services;
 public class RecipeService : IRecipeService
@@ -50,8 +51,6 @@ public class RecipeService : IRecipeService
         recipe.Ingredients.ForEach(x => x.Recipe = null!);
         recipe.Tags.ForEach(x => x.Recipes = null!);
         recipe.Instructions.ForEach(x => x.Recipe = null!);
-        recipe.User.Recipes = null!;
-
 
         var recipeDTO = _mapper.Map<RecipeDTO>(recipe);
 
@@ -67,46 +66,68 @@ public class RecipeService : IRecipeService
         }
     }
 
-    public async Task<RecipeDTO> Get(Guid recipeId, Guid? userId)
+    public async Task<Recipe> Get(Guid recipeId, Guid? userId)
     {
 
-        var recipe = await _unitOfWork.Repository<Recipe>().GetByConditionWithIncludes(recipe => recipe.Id == recipeId, "User, Ingredients, Instructions, Tags, Cuisine").FirstOrDefaultAsync();
+            var recipe = await _unitOfWork.Repository<Recipe>()
+                .GetByConditionWithIncludes(r => r.Id == recipeId, "User,Cuisine,Tags,Ingredients,Instructions")
+                .FirstOrDefaultAsync();
 
-        if (recipe is null) throw new Exception("Recipe not found");
+            if (recipe is null)
+            {
+                throw new Exception("Recipe not found");
+            }
 
-        //create a recommendation score for each tag in recipe
-        if (userId != null && userId != Guid.Empty)
+            if (userId != null && userId != Guid.Empty)
+            {
+                await SetScoreOnTags(recipe.Tags, userId);
+            }
+            recipe.Cuisine.Recipes = null!;
+            recipe.Ingredients.ForEach(x => x.Recipe = null!);
+            recipe.Tags.ForEach(x => x.Recipes = null!);
+            recipe.Instructions.ForEach(x => x.Recipe = null!);
+            recipe.User.Recipes = null!;
+
+
+        return recipe;
+    }
+
+    public async Task<List<Recipe>> GetAll()
+    {
+        var recipes = await _unitOfWork.Repository<Recipe>()
+            .GetAll()
+            .Include(u => u.User)
+            .Include(c => c.Cuisine)
+            .Include(t => t.Tags)
+            .Include(i => i.Ingredients)
+            .Include(i => i.Instructions)
+            .ToListAsync();
+
+        if (recipes == null || recipes.Count == 0)
         {
-            await SetScoreOnTags(recipe.Tags, userId);
+            throw new Exception("Recipes not found");
         }
 
-        var singleRecipe = _mapper.Map<RecipeDTO>(recipe);
+        foreach (var recipe in recipes)
+        {
+            recipe.Cuisine.Recipes = null!;
+            recipe.Ingredients.ForEach(x => x.Recipe = null!);
+            recipe.Tags.ForEach(x => x.Recipes = null!);
+            recipe.Instructions.ForEach(x => x.Recipe = null!);
+            recipe.User.Recipes = null!;
 
-        return singleRecipe;
+        }
+
+        return recipes;
     }
 
-    public async Task<List<RecipeDTO>> GetAll()
-    {
-
-        var recipes = await _unitOfWork.Repository<Recipe>().GetAll()
-           .Include(u => u.User)
-           .Include(c => c.Cuisine)
-           .Include(t => t.Tags)
-           .Include(i => i.Ingredients)
-           .Include(i => i.Instructions).ToListAsync();
-
-        if (recipes is null || recipes.Count == 0) throw new Exception("Recipes not found");
-
-        var recipesToReturn = _mapper.Map<List<RecipeDTO>>(recipes);
-
-        return recipesToReturn;
-    }
-
+    //TODO: Fix the nullable return
     public async Task<RecipeNutrientsDTO> GetRecipeNutrients(Guid recipeId)
     {
 
-        var recipe = await _unitOfWork.Repository<Recipe>().GetByConditionWithIncludes(x => x.Id == recipeId, "User, Ingredients, Instructions, Tags, Cuisine").FirstOrDefaultAsync();
-
+        var recipe = await _unitOfWork.Repository<Recipe>()
+               .GetByConditionWithIncludes(r => r.Id == recipeId, "User,Cuisine,Tags,Ingredients,Instructions")
+               .FirstOrDefaultAsync();
         if (recipe is null) throw new Exception("Recipe not found");
 
         var nutrients = await _nutrientsService.GetNutrients(_mapper.Map<List<RecipeIngredientDTO>>(recipe.Ingredients));
@@ -118,45 +139,82 @@ public class RecipeService : IRecipeService
         return nutrients;
     }
 
-    public async Task<RecipeDTO> Update(RecipeUpdateDTO recipeToUpdate, Guid userId)
+    public async Task<Recipe> Update(RecipeUpdateDTO recipeToUpdate, Guid userId)
     {
-        var recipe = await _unitOfWork.Repository<Recipe>().GetByConditionWithIncludes(x => x.Id == recipeToUpdate.Id && x.UserId == userId, "User, Ingredients, Instructions, Tags, Cuisine").FirstOrDefaultAsync();
+        var recipe = await _unitOfWork.Repository<Recipe>()
+               .GetByConditionWithIncludes(r => r.Id == recipeToUpdate.Id && r.UserId == userId, "User,Cuisine,Tags,Ingredients,Instructions")
+               .FirstOrDefaultAsync();
 
-        if (recipe == null) throw new Exception("Recipe not found");
+        if (recipe == null)
+        {
+            throw new Exception("Recipe not found");
+        }
 
+        // Update the recipe properties with the new values
         recipe.Name = recipeToUpdate.Name;
         recipe.Description = recipeToUpdate.Description;
-
-        recipe.Ingredients = _mapper.Map<List<RecipeIngredient>>(recipeToUpdate.Ingredients);
-        recipe.Ingredients.ForEach(x => { x.RecipeId = recipe.Id; x.Recipe = recipe; });
-
-        recipe.Instructions = _mapper.Map<List<RecipeInstruction>>(recipeToUpdate.Instructions);
-        recipe.Instructions.ForEach(x => { x.RecipeId = recipe.Id; x.Recipe = recipe; });
-
-        //TODO: Update tags
-
-        recipe.VideoInstructions = recipeToUpdate.VideoInstructions;
+        recipe.CuisineId = recipeToUpdate.CuisineId;
+        recipe.PrepTime = recipeToUpdate.PrepTime;
+        recipe.CookTime = recipeToUpdate.CookTime;
+        recipe.Servings = recipeToUpdate.Servings;
+        recipe.Yield = recipeToUpdate.Yield;
+        recipe.Calories = recipeToUpdate.Calories;
         recipe.AudioInstructions = recipeToUpdate.AudioInstructions;
+        recipe.VideoInstructions = recipeToUpdate.VideoInstructions;
 
-        recipe = _unitOfWork.Repository<Recipe>().Update(recipe);
+        // Update the recipe tags
+        var existingTags = await _unitOfWork.Repository<Tag>().GetAll().ToListAsync();
+        var tagsToCheck = new List<Tag>();
+
+        foreach (var tagDTO in recipeToUpdate.Tags)
+        {
+            var existingTag = existingTags.FirstOrDefault(t => t.Name == tagDTO.Name);
+
+            if (existingTag != null)
+            {
+                tagsToCheck.Add(existingTag);
+            }
+            else
+            {
+                var newTag = new Tag { Name = tagDTO.Name };
+                tagsToCheck.Add(newTag);
+                existingTags.Add(newTag);
+            }
+        }
+
+        recipe.Tags = await AddTagsToRecipe(recipe, tagsToCheck);
+
+        // Update the recipe instructions
+        recipe.Instructions.Clear();
+        recipe.Instructions.AddRange(recipeToUpdate.Instructions.Select((instruction, index) => new RecipeInstruction
+        {
+            RecipeId = recipe.Id,
+            StepNumber = index + 1,
+            StepDescription = instruction
+        }));
+
+        // Update the recipe ingredients
+        recipe.Ingredients.Clear();
+        recipe.Ingredients.AddRange(recipeToUpdate.Ingredients.Select(ingredient => new RecipeIngredient
+        {
+            RecipeId = recipe.Id,
+            Name = ingredient
+        }));
+
         _unitOfWork.Complete();
-
-        if (recipe is null) throw new Exception("Recipe could not be updated!");
-
-        // remove self referencing loops that cause big json values
-        recipe.User.Recipes = null!;
-        recipe.Ingredients.ForEach(x => x.Recipe = null!);
-        recipe.Instructions.ForEach(x => x.Recipe = null!);
-        recipe.Tags.ForEach(x => x.Recipes = null!);
         recipe.Cuisine.Recipes = null!;
-
-        var updatedRecipe = _mapper.Map<RecipeDTO>(recipe);
-        return updatedRecipe;
+        recipe.Ingredients.ForEach(x => x.Recipe = null!);
+        recipe.Tags.ForEach(x => x.Recipes = null!);
+        recipe.Instructions.ForEach(x => x.Recipe = null!);
+        recipe.User.Recipes = null!;
+        return recipe;
     }
+
 
     public async Task<RecipeDTO> Delete(Guid recipeId, Guid userId)
     {
-        var recipe = await _unitOfWork.Repository<Recipe>().GetById(r => r.Id == recipeId && r.UserId == userId).FirstOrDefaultAsync();
+
+        var recipe = await _unitOfWork.Repository<Recipe>().GetById(r => r.Id == recipeId).FirstOrDefaultAsync();
 
         if (recipe == null) throw new Exception("Recipe not found");
 
@@ -205,7 +263,7 @@ public class RecipeService : IRecipeService
         return recipe.UserId;
     }
 
-    public async Task<List<RecipeDTO>> GetPaginated(int page, int pageSize)
+    public async Task<List<Recipe>> GetPaginated(int page, int pageSize)
     {
         var recipes = await _unitOfWork.Repository<Recipe>().GetPaginated(page, pageSize)
            .Include(u => u.User)
@@ -213,6 +271,17 @@ public class RecipeService : IRecipeService
            .Include(t => t.Tags)
            .Include(i => i.Ingredients)
            .Include(i => i.Instructions).ToListAsync();
-        return _mapper.Map<List<RecipeDTO>>(recipes);
+        foreach (var recipe in recipes)
+        {
+            recipe.Cuisine.Recipes = null!;
+            recipe.Ingredients.ForEach(x => x.Recipe = null!);
+            recipe.Tags.ForEach(x => x.Recipes = null!);
+            recipe.Instructions.ForEach(x => x.Recipe = null!);
+            recipe.User.Recipes = null!;
+
+        }
+
+        return recipes;
+
     }
 }
