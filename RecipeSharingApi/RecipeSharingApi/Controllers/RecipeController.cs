@@ -42,9 +42,9 @@ public class RecipeController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<RecipeDTO>>> GetPaginated(int page, int pageSize)
+    public async Task<ActionResult<List<Recipe>>> GetPaginated(int page, int pageSize)
     {
-        List<RecipeDTO> recipes = await _recipeService.GetPaginated(page, pageSize);
+        List<Recipe> recipes = await _recipeService.GetPaginated(page, pageSize);
         return recipes;
     }
 
@@ -67,22 +67,29 @@ public class RecipeController : ControllerBase
     [HttpGet("{id}")]
     //[Authorize(AuthenticationSchemes = "Bearer")]
     //[AllowAnonymous]
-    public async Task<ActionResult<RecipeDTO>> Get(Guid id)
+    public async Task<ActionResult<Recipe>> Get(Guid id)
     {
         try
         {
-            //var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            //var guidId = userId is null ? Guid.Empty : new Guid(userId);
             var userId = _userService.GetMyId();
             var recipe = await _recipeService.Get(id, userId);
 
-            return Ok(recipe);
+            if (recipe == null)
+            {
+                return NotFound();
+            }
+
+            // Assuming recipeDTO is the same as the recipe object
+            var recipeDTO = recipe;
+
+            return Ok(recipeDTO);
         }
-        catch (Exception ex) 
+        catch (Exception ex)
         {
-            return NotFound(ex.Message); 
+            return NotFound(ex.Message);
         }
     }
+
 
     [HttpGet("{id}/nutrients")]
     public async Task<IActionResult> GetRecipeNutrients(Guid id)
@@ -99,7 +106,7 @@ public class RecipeController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<ActionResult<RecipeDTO>> Update(RecipeUpdateDTO recipeToUpdate)
+    public async Task<ActionResult<Recipe>> Update(RecipeUpdateDTO recipeToUpdate)
     {
         try
         {

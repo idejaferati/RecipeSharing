@@ -25,9 +25,16 @@ namespace RecipeSharingApi.BusinessLogic.Services
         public Guid GetMyId()
         {
             var result = new Guid();
-            if (_httpContextAccessor.HttpContext is not null)
+            try
             {
-                result = new Guid(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+                if (_httpContextAccessor.HttpContext is not null)
+                {
+                    result = new Guid(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+                }
+            }
+            catch
+            {
+                result = Guid.Empty;
             }
             return result;
         }
