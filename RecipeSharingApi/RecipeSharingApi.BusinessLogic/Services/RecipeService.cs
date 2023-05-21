@@ -83,22 +83,35 @@ public class RecipeService : IRecipeService
         return singleRecipe;
     }
 
-    public async Task<List<RecipeDTO>> GetAll()
+    public async Task<List<Recipe>> GetAll()
     {
+        var recipes = await _unitOfWork.Repository<Recipe>()
+            .GetAll()
+            .Include(u => u.User)
+            .Include(c => c.Cuisine)
+            .Include(t => t.Tags)
+            .Include(i => i.Ingredients)
+            .Include(i => i.Instructions)
+            .ToListAsync();
 
-        var recipes = await _unitOfWork.Repository<Recipe>().GetAll()
-           .Include(u => u.User)
-           .Include(c => c.Cuisine)
-           .Include(t => t.Tags)
-           .Include(i => i.Ingredients)
-           .Include(i => i.Instructions).ToListAsync();
+        if (recipes == null || recipes.Count == 0)
+        {
+            throw new Exception("Recipes not found");
+        }
 
-        if (recipes is null || recipes.Count == 0) throw new Exception("Recipes not found");
+        foreach (var recipe in recipes)
+        {
+            recipe.Cuisine.Recipes = null!;
+            recipe.Ingredients.ForEach(x => x.Recipe = null!);
+            recipe.Tags.ForEach(x => x.Recipes = null!);
+            recipe.Instructions.ForEach(x => x.Recipe = null!);
+            recipe.User.Recipes = null!;
 
-        var recipesToReturn = _mapper.Map<List<RecipeDTO>>(recipes);
+        }
 
-        return recipesToReturn;
+        return recipes;
     }
+
 
     public async Task<RecipeNutrientsDTO> GetRecipeNutrients(Guid recipeId)
     {

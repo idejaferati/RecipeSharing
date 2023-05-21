@@ -50,7 +50,7 @@ public class RecipeController : ControllerBase
 
     [HttpGet]
     [Route("getAll")]
-    public async Task<ActionResult<List<RecipeDTO>>> GetAll()
+    public async Task<ActionResult<List<Recipe>>> GetAll()
     {
         try
         {

@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System.Text.Json.Serialization;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -102,6 +103,7 @@ builder.Services.AddAuthorization(options =>
 
     }
 });
+
 
 var mapperConfiguration = new MapperConfiguration(
     mc => mc.AddProfile(new AutoMapperConfigurations()));
