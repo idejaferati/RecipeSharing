@@ -1,4 +1,5 @@
 ﻿using RecipeSharingApi.DataLayer.Models.DTOs.CookBook;
+using RecipeSharingApi.DataLayer.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

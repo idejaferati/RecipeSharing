@@ -25,7 +25,7 @@ namespace RecipeSharingApi.BusinessLogic.Helpers
         public async Task InvokeAsync(HttpContext context)
         {
             // Get the list of policy names from your database or any other source
-            var policyNames = new List<string> { "onlyadmin", "getmydata" };
+            var policyNames = new List<string> { "adminPolicy", "userPolicy","editorPolicy" };
 
             foreach (var policyName in policyNames)
             {
