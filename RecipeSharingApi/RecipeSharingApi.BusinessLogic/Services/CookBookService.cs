@@ -126,7 +126,6 @@ public class CookBookService : ICookBookService
         _unitOfWork.Complete();
 
         var cookBookDTO = _mapper.Map<CookBookDTO>(cookBook);
-        cookBookDTO.NumberOfRecipes = cookBook.Recipes.Count;
 
         return cookBookDTO;
     }
@@ -135,8 +134,13 @@ public class CookBookService : ICookBookService
     {
         var recipes = await _unitOfWork.Repository<CookBook>().GetPaginated(page, pageSize)
            .Include(u => u.User).Include(r => r.Recipes).ToListAsync();
+        var cookBooksDTO = _mapper.Map<List<CookBookDTO>>(recipes);
+        cookBooksDTO.ForEach(cookBook =>
+        {
+            cookBook.NumberOfRecipes = cookBook.Recipes.Count();
+        });
 
-        return _mapper.Map<List<CookBookDTO>>(recipes);
+        return cookBooksDTO;
     }
 
     public async Task<CookBookDTO> AddRecipeToCookBook(Guid userId, Guid cookBookId, Guid recipeId)

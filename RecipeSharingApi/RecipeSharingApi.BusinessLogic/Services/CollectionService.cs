@@ -83,7 +83,7 @@ namespace RecipeSharingApi.BusinessLogic.Services
         }
 
 
-        public async Task<CollectionDTO> Update(CollectionDTO collectionToUpdate, Guid userId)
+        public async Task<CollectionDTO> Update(CollectionUpdateDTO collectionToUpdate, Guid userId)
         {
             var collection = _unitOfWork.Repository<Collection>().GetByCondition(x => x.Id == collectionToUpdate.Id && x.UserId == userId);
 
@@ -104,19 +104,6 @@ namespace RecipeSharingApi.BusinessLogic.Services
 
             collectionWithIncludes.Name = collectionToUpdate.Name;
             collectionWithIncludes.Description = collectionToUpdate.Description;
-
-            if (collectionToUpdate.Recipes != null)
-            {
-                collectionWithIncludes.Recipes.Clear();
-                foreach (var recipeDto in collectionToUpdate.Recipes)
-                {
-                    var recipe = await _unitOfWork.Repository<Recipe>().GetByIdAsync(recipeDto.Id);
-                    if (recipe != null)
-                    {
-                        collectionWithIncludes.Recipes.Add(recipe);
-                    }
-                }
-            }
 
             _unitOfWork.Repository<Collection>().Update(collectionWithIncludes);
             _unitOfWork.Complete();
@@ -171,26 +158,31 @@ namespace RecipeSharingApi.BusinessLogic.Services
 
         public async Task<CollectionDTO> AddRecipe(Guid collectionId, Guid recipeId, Guid userId)
         {
-            var collection = await _unitOfWork.Repository<Collection>().GetByCondition(x => x.Id == collectionId && x.UserId == userId)
-                .Include(r => r.Recipes).FirstOrDefaultAsync();
-            if (collection is null) throw new Exception("Collection not found");
+            var collection = await _unitOfWork.Repository<Collection>().GetById(x => x.Id == collectionId && x.UserId == userId)
+                .Include(c => c.Recipes)
+                .FirstOrDefaultAsync();
 
-            var recipe = await _unitOfWork.Repository<Recipe>().GetByIdAsync(recipeId);
-            if (recipe is null) throw new Exception("Recipe not found");
+            if (collection == null)
+                throw new Exception("Collection not found");
 
-            if (collection.Recipes.Any(r => r.Id == recipeId)) throw new Exception("Recipe already exists in the collection");
+            var existingRecipe = collection.Recipes.FirstOrDefault(r => r.Id == recipeId);
+            if (existingRecipe != null)
+                throw new Exception("Recipe already exists in the collection");
 
-            if (recipe.CookBook != null) throw new Exception("Recipe is already part of another collection");
+            var recipe = await _unitOfWork.Repository<Recipe>().GetById(r => r.Id == recipeId).FirstOrDefaultAsync();
+            if (recipe == null)
+                throw new Exception("Recipe not found");
 
             collection.Recipes.Add(recipe);
             _unitOfWork.Repository<Collection>().Update(collection);
             _unitOfWork.Complete();
 
             var collectionDTO = _mapper.Map<CollectionDTO>(collection);
-            collectionDTO.NumberOfRecipes = collection.Recipes.Count();
+            collectionDTO.NumberOfRecipes = collection.Recipes.Count;
 
             return collectionDTO;
         }
+
 
         public async Task<CollectionDTO> RemoveRecipe(Guid collectionId, Guid recipeId, Guid userId)
         {

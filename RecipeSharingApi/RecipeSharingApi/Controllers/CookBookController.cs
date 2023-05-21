@@ -23,7 +23,7 @@ public class CookBookController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Policy= "adminPolicy")]
+    [Authorize(Policy= "userPolicy")]
     public async Task<ActionResult<CookBookDTO>> Create(CookBookCreateRequestDTO cookBookToCreate)
     {
         try
@@ -42,6 +42,7 @@ public class CookBookController : ControllerBase
     }
 
     [HttpGet("all")]
+    [Authorize(Policy = "adminPolicy")]
     public async Task<ActionResult<List<CookBookDTO>>> GetAll()
     {
         try
@@ -72,12 +73,20 @@ public class CookBookController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<CookBookDTO>>> GetPaginated(int page, int pageSize)
     {
-        List<CookBookDTO> collections = await _cookBookService.GetPaginated(page, pageSize);
+        try
+        {
+            List<CookBookDTO> collections = await _cookBookService.GetPaginated(page, pageSize);
 
-        return collections;
+            return collections;
+        }
+        catch(Exception ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 
     [HttpPut]
+    [Authorize(Policy = "userPolicy")]
     public async Task<ActionResult<CookBookDTO>> UpdateCookBook(CookBookUpdateDTO cookBookToUpdate)
     {
         try
@@ -93,6 +102,7 @@ public class CookBookController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Policy = "userPolicy")]
     public async Task<ActionResult<CookBookDTO>> Delete(Guid id)
     {
         var userId = _userService.GetMyId();
@@ -110,6 +120,7 @@ public class CookBookController : ControllerBase
     }
 
     [HttpPut("addRecipe")]
+    [Authorize(Policy = "userPolicy")]
     public async Task<IActionResult> AddRecipeToCookBook(Guid cookBookId, Guid recipeId)
     {
         try
@@ -125,6 +136,7 @@ public class CookBookController : ControllerBase
     }
 
     [HttpPut("removeRecipe")]
+    [Authorize(Policy = "userPolicy")]
     public async Task<IActionResult> RemoveRecipeFromCookBook(Guid cookBookId, Guid recipeId)
     {
         try

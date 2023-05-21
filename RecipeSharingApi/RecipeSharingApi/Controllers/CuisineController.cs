@@ -64,9 +64,16 @@ public class CuisineController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<CuisineDTO>>> GetPaginated(int page, int size)
     {
-        var cuisines = await _cuisineService.GetPaginated(page, size);
+        try
+        {
+            var cuisines = await _cuisineService.GetPaginated(page, size);
 
-        return Ok(cuisines);
+            return Ok(cuisines);
+        }
+        catch(Exception ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 
     [HttpPut]
