@@ -19,6 +19,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -60,38 +62,39 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
 
 
 
-builder.Services.AddAuthorization(options =>
-{
-    using (var scope = builder.Services.BuildServiceProvider().CreateScope())
-    {
+//builder.Services.AddAuthorization(options =>
+//{
+//    using (var scope = builder.Services.BuildServiceProvider().CreateScope())
+//    {
 
-        List<string> GetRoles(string nameOfPolicy)
-        {
-            var context = scope.ServiceProvider.GetService<RecipeSharingDbContext>();
-            var roleIds = context.PolicyRoles
-                                             .Where(rp => context.Policies
-                                                                    .Where(p => p.Name == nameOfPolicy)
-                                                                    .Select(p => p.Id)
-                                                                    .Contains(rp.PolicyId))
-                                             .Select(rp => rp.RoleId)
-                                             .ToList();
+//        List<string> GetRoles(string nameOfPolicy)
+//        {
+//            var context = scope.ServiceProvider.GetService<RecipeSharingDbContext>();
+//            var roleIds = context.PolicyRoles
+//                                             .Where(rp => context.Policies
+//                                                                    .Where(p => p.Name == nameOfPolicy)
+//                                                                    .Select(p => p.Id)
+//                                                                    .Contains(rp.PolicyId))
+//                                             .Select(rp => rp.RoleId)
+//                                             .ToList();
 
-            List<string> roleStrings = roleIds.ConvertAll(roleId => roleId.ToString());
-            return roleStrings;
-        }
+//            List<string> roleStrings = roleIds.ConvertAll(roleId => roleId.ToString());
+//            return roleStrings;
+//        }
 
 
-        //options.AddPolicy("onlyadmin", policy =>
-        //        policy.RequireRole(GetRoles("onlyadmin")));
-        options.AddPolicy("onlyadmin", policy =>
-                policy.RequireRole(GetRoles("onlyadmin")));
-        options.AddPolicy("getmydata", policy =>
-                policy.RequireRole(GetRoles("getmydata")));
-        //options.AddPolicy("onlyuser", policy =>
-        //        policy.RequireRole(GetRoles("onlyuser")));
+//        //options.AddPolicy("onlyadmin", policy =>
+//        //        policy.RequireRole(GetRoles("onlyadmin")));
+//        options.AddPolicy("onlyadmin", policy =>
+//                policy.RequireRole(GetRoles("onlyadmin")));
+//        options.AddPolicy("getmydata", policy =>
+//                policy.RequireRole(GetRoles("getmydata")));
+//        options.AddPolicy("adminthenuser", policy =>
+//                policy.RequireRole(GetRoles("adminthenuser")));
 
-    }
-});
+//    }
+//});
+ 
 
 
 
@@ -104,6 +107,21 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddServices();
 
 var app = builder.Build();
+
+//app.UseMiddleware<DynamicAuthorizationMiddleware>();
+app.Use(async (context, next) =>
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetService<RecipeSharingDbContext>();
+        var authorizationOptions = scope.ServiceProvider.GetRequiredService<IOptions<AuthorizationOptions>>().Value;
+
+        // Create and configure the DynamicAuthorizationMiddleware instance
+        var dynamicAuthorizationMiddleware = new DynamicAuthorizationMiddleware(next, dbContext, authorizationOptions);
+
+        await dynamicAuthorizationMiddleware.InvokeAsync(context);
+    }
+});
 
 if (app.Environment.IsDevelopment())
 {
