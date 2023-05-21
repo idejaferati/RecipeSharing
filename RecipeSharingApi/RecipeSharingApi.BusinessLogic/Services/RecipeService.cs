@@ -42,8 +42,18 @@ public class RecipeService : IRecipeService
         if (recipe.Cuisine is null) throw new Exception("Cuisine not found!");
 
         recipe = await _unitOfWork.Repository<Recipe>().Create(recipe);
-        _unitOfWork.Complete();
-
+        try
+        {
+            // Code to create and save the entities
+            _unitOfWork.Complete();
+        }
+        catch (Exception ex)
+        {
+            // Handle the exception
+            var innerException = ex.InnerException;
+            // Log or handle the inner exception accordingly
+            throw;
+        }
         if (recipe is null) throw new Exception("Recipe could not be created!");
 
         // remove self referencing loops that cause big json values
