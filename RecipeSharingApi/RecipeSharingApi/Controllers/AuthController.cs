@@ -42,15 +42,15 @@ namespace RecipeSharingApi.Controllers
 
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(string email, string password)
+        public async Task<IActionResult> Login(UserForLoginDto dto)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == dto.Email);
             if (user == null)
             {
                 return BadRequest("Invalid username.");
             }
 
-            var saltedPasswordHash = BCrypt.Net.BCrypt.HashPassword(password, user.Salt);
+            var saltedPasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password, user.Salt);
             if (saltedPasswordHash != user.SaltedHashPassword)
             {
                 return BadRequest("Invalid password.");
@@ -58,7 +58,7 @@ namespace RecipeSharingApi.Controllers
             
             string token = CreateToken(user);
 
-            return Ok(token);
+            return Ok(new { Token = token });
         }
 
         [HttpPost("addrole")]
@@ -112,6 +112,20 @@ namespace RecipeSharingApi.Controllers
             return Ok("U regjsitrdua me sukses");
         }
 
+        [HttpGet("getRoles")]
+        public async Task<ActionResult<IEnumerable<Role>>> GetRoles()
+        {
+            var roles = await _context.Roles.ToListAsync();
+            return Ok(roles);
+        }
+
+
+        [HttpGet("getPolicies")]
+        public async Task<ActionResult<IEnumerable<Policy>>> GetPolicies()
+        {
+            var policies = await _context.Policies.ToListAsync();
+            return Ok(policies);
+        }
 
         private string CreateToken(User user)
         {
