@@ -20,6 +20,8 @@ public class ReviewController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Policy = "userPolicy")]
+
     public async Task<ActionResult<ReviewDTO>> Create(ReviewCreateDTO reviewToCreate)
     {
         try
@@ -51,7 +53,9 @@ public class ReviewController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<ReviewDTO>> Update(Guid id, ReviewUpdateDTO reviewToUpdate)
+    [Authorize(Policy = "userPolicy")]
+
+    public async Task<ActionResult<ReviewDTO>> Update(ReviewUpdateDTO reviewToUpdate)
     {
         try
         {
@@ -67,6 +71,8 @@ public class ReviewController : ControllerBase
     }
 
     [HttpDelete]
+    [Authorize(Policy = "userPolicy")]
+
     public async Task<ActionResult<ReviewDTO>> Delete(Guid id)
     {
         try

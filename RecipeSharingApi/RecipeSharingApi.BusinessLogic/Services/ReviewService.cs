@@ -49,12 +49,7 @@ public class ReviewService : IReviewService
         {
             await _recommendationsService.SetScore(review.UserId, tag.Id, (int)review.Rating);
         }
-
         _unitOfWork.Complete();
-
-        var recipeCreatorId = await _recipeService.GetRecipeCreatorId(review.RecipeId);
-
-        review.User.Recipes = null;
 
         var reviewDTO = _mapper.Map<ReviewDTO>(review);
 
@@ -63,12 +58,12 @@ public class ReviewService : IReviewService
 
     public async Task<List<ReviewDTO>> GetRecipeReviews(Guid recipeId)
     {
-        var reviews = await _unitOfWork.Repository<Review>().GetByConditionWithIncludes(x => x.RecipeId == recipeId, "User, Recipe").ToListAsync();
-
-        if (reviews is null || reviews.Count == 0) throw new Exception("Recipe reviews not found");
-
-        return _mapper.Map<List<ReviewDTO>>(reviews);
+        var reviews = await _unitOfWork.Repository<Review>().GetByCondition(r => r.RecipeId == recipeId).ToListAsync();
+        var reviewsDTO = _mapper.Map<List<ReviewDTO>>(reviews);
+        return reviewsDTO;
     }
+
+
 
     public async Task<ReviewDTO> Update(ReviewUpdateDTO reviewToUpdate, Guid userId)
     {

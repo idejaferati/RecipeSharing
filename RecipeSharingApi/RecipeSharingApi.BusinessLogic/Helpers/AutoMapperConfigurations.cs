@@ -4,6 +4,7 @@ using RecipeSharingApi.DataLayer.Models.DTOs.Cuisine;
 using RecipeSharingApi.DataLayer.Models.DTOs.Ingredient;
 using RecipeSharingApi.DataLayer.Models.DTOs.Instruction;
 using RecipeSharingApi.DataLayer.Models.DTOs.Recipe;
+using RecipeSharingApi.DataLayer.Models.DTOs.Review;
 using RecipeSharingApi.DataLayer.Models.DTOs.Tag;
 using RecipeSharingApi.DataLayer.Models.DTOs.User;
 using RecipeSharingApi.DataLayer.Models.Entities;
@@ -29,7 +30,9 @@ public class AutoMapperConfigurations : Profile
         CreateMap<RecipeInstruction, RecipeInstructionCreateDTO>().ReverseMap();
         CreateMap<RecipeInstruction, RecipeInstructionDTO>().ReverseMap();
         CreateMap<RecipeInstruction, RecipeInstructionUpdateDTO>().ReverseMap();
-        
+        CreateMap<ReviewCreateDTO, Review>().ReverseMap();
+        CreateMap<Review, ReviewUpdateDTO>().ReverseMap();
+        CreateMap<Review, ReviewDTO>().ReverseMap();
         CreateMap<Cuisine, CuisineCreateDTO>().ReverseMap();
         CreateMap<Cuisine, CuisineDTO>().ReverseMap();
 
