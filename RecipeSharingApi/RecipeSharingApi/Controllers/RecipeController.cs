@@ -23,6 +23,14 @@ public class RecipeController : ControllerBase
 
     //TODO: Add authorization for needed endpoints
 
+    /// <summary>
+    /// Creates a new recipe.
+    /// </summary>
+    /// <param name="recipeToCreate">The recipe data to create.</param>
+    /// <returns>The created recipe.</returns>
+    [Authorize(Policy = "userPolicy")]
+    [ProducesResponseType(typeof(RecipeDTO), 200)]
+    [ProducesResponseType(typeof(string), 400)]
     [HttpPost]
     [Authorize(Policy = "userPolicy")]
 
@@ -41,15 +49,29 @@ public class RecipeController : ControllerBase
         }
     }
 
+
+    /// <summary>
+    /// Retrieves paginated recipes.
+    /// </summary>
+    /// <param name="page">The page number.</param>
+    /// <param name="pageSize">The number of recipes per page.</param>
+    /// <returns>The paginated list of recipes.</returns>
     [HttpGet]
+    [ProducesResponseType(typeof(List<Recipe>), 200)]
     public async Task<ActionResult<List<Recipe>>> GetPaginated(int page, int pageSize)
     {
         List<Recipe> recipes = await _recipeService.GetPaginated(page, pageSize);
         return recipes;
     }
 
+    /// <summary>
+    /// Retrieves all recipes.
+    /// </summary>
+    /// <returns>The list of all recipes.</returns>
     [HttpGet]
     [Route("getAll")]
+    [ProducesResponseType(typeof(List<Recipe>), 200)]
+    [ProducesResponseType(typeof(string), 404)]
     public async Task<ActionResult<List<Recipe>>> GetAll()
     {
         try
@@ -64,9 +86,14 @@ public class RecipeController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Retrieves a specific recipe by its ID.
+    /// </summary>
+    /// <param name="id">The ID of the recipe to retrieve.</param>
+    /// <returns>The recipe with the specified ID.</returns>
     [HttpGet("{id}")]
-    //[Authorize(AuthenticationSchemes = "Bearer")]
-    //[AllowAnonymous]
+    [ProducesResponseType(typeof(Recipe), 200)]
+    [ProducesResponseType(typeof(string), 404)]
     public async Task<ActionResult<Recipe>> Get(Guid id)
     {
         try
@@ -91,7 +118,14 @@ public class RecipeController : ControllerBase
     }
 
 
+    /// <summary>
+    /// Retrieves the nutrients for a specific recipe.
+    /// </summary>
+    /// <param name="id">The ID of the recipe.</param>
+    /// <returns>The nutrients for the specified recipe.</returns>
     [HttpGet("{id}/nutrients")]
+    [ProducesResponseType(typeof(object), 200)]
+    [ProducesResponseType(typeof(string), 404)]
     public async Task<IActionResult> GetRecipeNutrients(Guid id)
     {
         try
@@ -106,7 +140,14 @@ public class RecipeController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Updates an existing recipe.
+    /// </summary>
+    /// <param name="recipeToUpdate">The updated recipe data.</param>
+    /// <returns>The updated recipe.</returns>
     [HttpPut]
+    [ProducesResponseType(typeof(Recipe), 200)]
+    [ProducesResponseType(typeof(string), 404)]
     public async Task<ActionResult<Recipe>> Update(RecipeUpdateDTO recipeToUpdate)
     {
         try
@@ -122,7 +163,14 @@ public class RecipeController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Retrieves recipes by user ID.
+    /// </summary>
+    /// <param name="userId">The ID of the user.</param>
+    /// <returns>The list of recipes created by the specified user.</returns>
     [HttpGet("user/{userId}")]
+    [ProducesResponseType(typeof(List<Recipe>), 200)]
+    [ProducesResponseType(typeof(string), 404)]
     public async Task<ActionResult<List<Recipe>>> GetRecipesByUserId(Guid userId)
     {
         try
@@ -136,8 +184,14 @@ public class RecipeController : ControllerBase
         }
     }
 
+    // <summary>
+    /// Retrieves the recipes created by the authenticated user.
+    /// </summary>
+    /// <returns>The list of recipes created by the authenticated user.</returns>
     [HttpGet("user")]
     [Authorize(Policy = "userPolicy")]
+    [ProducesResponseType(typeof(List<Recipe>), 200)]
+    [ProducesResponseType(typeof(string), 404)]
     public async Task<ActionResult<List<Recipe>>> GetMyRecipes()
     {
         try
@@ -152,7 +206,14 @@ public class RecipeController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Retrieves recipes by cuisine ID.
+    /// </summary>
+    /// <param name="cuisineId">The ID of the cuisine.</param>
+    /// <returns>The list of recipes associated with the specified cuisine.</returns>
     [HttpGet("cuisine/{cuisineId}")]
+    [ProducesResponseType(typeof(List<Recipe>), 200)]
+    [ProducesResponseType(500)]
     public async Task<IActionResult> GetRecipesByCuisineId(Guid cuisineId)
     {
         try
@@ -166,7 +227,14 @@ public class RecipeController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Deletes a recipe by its ID.
+    /// </summary>
+    /// <param name="id">The ID of the recipe to delete.</param>
+    /// <returns>The deleted recipe.</returns>
     [HttpDelete("{id}")]
+    [ProducesResponseType(typeof(RecipeDTO), 200)]
+    [ProducesResponseType(typeof(string), 404)]
     public async Task<ActionResult<RecipeDTO>> Delete(Guid id)
     {
         try
