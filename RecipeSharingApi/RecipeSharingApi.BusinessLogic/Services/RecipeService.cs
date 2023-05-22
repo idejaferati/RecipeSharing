@@ -273,6 +273,30 @@ public class RecipeService : IRecipeService
         return recipe.UserId;
     }
 
+    public async Task<List<Recipe>> GetRecipesByUserId(Guid userId)
+    {
+        var recipes = await _unitOfWork.Repository<Recipe>()
+            .GetByCondition(r => r.UserId == userId)
+            .Include(u => u.User)
+            .Include(c => c.Cuisine)
+            .Include(t => t.Tags)
+            .Include(i => i.Ingredients)
+            .Include(i => i.Instructions)
+            .ToListAsync();
+
+        foreach (var recipe in recipes)
+        {
+            recipe.Cuisine.Recipes = null!;
+            recipe.Ingredients.ForEach(x => x.Recipe = null!);
+            recipe.Tags.ForEach(x => x.Recipes = null!);
+            recipe.Instructions.ForEach(x => x.Recipe = null!);
+            recipe.User.Recipes = null!;
+        }
+
+        return recipes;
+    }
+
+
     public async Task<List<Recipe>> GetPaginated(int page, int pageSize)
     {
         var recipes = await _unitOfWork.Repository<Recipe>().GetPaginated(page, pageSize)
@@ -293,5 +317,28 @@ public class RecipeService : IRecipeService
 
         return recipes;
 
+    }
+
+    public async Task<List<Recipe>> GetRecipesByCuisineId(Guid cuisineId)
+    {
+        var recipes = await _unitOfWork.Repository<Recipe>()
+            .GetByCondition(r => r.CuisineId == cuisineId)
+            .Include(u => u.User)
+            .Include(c => c.Cuisine)
+            .Include(t => t.Tags)
+            .Include(i => i.Ingredients)
+            .Include(i => i.Instructions)
+            .ToListAsync();
+
+        foreach (var recipe in recipes)
+        {
+            recipe.Cuisine.Recipes = null!;
+            recipe.Ingredients.ForEach(x => x.Recipe = null!);
+            recipe.Tags.ForEach(x => x.Recipes = null!);
+            recipe.Instructions.ForEach(x => x.Recipe = null!);
+            recipe.User.Recipes = null!;
+        }
+
+        return recipes;
     }
 }

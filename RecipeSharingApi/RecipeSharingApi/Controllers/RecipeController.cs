@@ -121,6 +121,50 @@ public class RecipeController : ControllerBase
         }
     }
 
+    [HttpGet("user/{userId}")]
+    public async Task<ActionResult<List<Recipe>>> GetRecipesByUserId(Guid userId)
+    {
+        try
+        {
+            var recipes = await _recipeService.GetRecipesByUserId(userId);
+            return Ok(recipes);
+        }
+        catch (Exception ex)
+        {
+            return NotFound(ex.Message);
+        }
+    }
+
+    [HttpGet("user")]
+    [Authorize(Policy = "userPolicy")]
+    public async Task<ActionResult<List<Recipe>>> GetMyRecipes()
+    {
+        try
+        {
+            var userId = _userService.GetMyId();
+            var recipes = await _recipeService.GetRecipesByUserId(userId);
+            return Ok(recipes);
+        }
+        catch (Exception ex)
+        {
+            return NotFound(ex.Message);
+        }
+    }
+
+    [HttpGet("cuisine/{cuisineId}")]
+    public async Task<IActionResult> GetRecipesByCuisineId(Guid cuisineId)
+    {
+        try
+        {
+            var recipes = await _recipeService.GetRecipesByCuisineId(cuisineId);
+            return Ok(recipes);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred while retrieving recipes.");
+        }
+    }
+
     [HttpDelete("{id}")]
     public async Task<ActionResult<RecipeDTO>> Delete(Guid id)
     {
