@@ -16,84 +16,111 @@ public class TagController : ControllerBase
         _tagService = tagService;
     }
 
-    [HttpGet]
-    public async Task<ActionResult<List<TagDTO>>> GetAll()
-    {
-        try
+        /// <summary>
+        /// Retrieves all tags.
+        /// </summary>
+        /// <returns>A list of tags.</returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(List<TagDTO>), 200)]
+        [ProducesResponseType(typeof(string), 404)]
+        public async Task<ActionResult<List<TagDTO>>> GetAll()
         {
-            var tags = await _tagService.GetAll();
-
-            return Ok(tags);
+            try
+            {
+                var tags = await _tagService.GetAll();
+                return Ok(tags);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
-        catch (Exception ex)
+
+        /// <summary>
+        /// Retrieves a specific tag by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the tag.</param>
+        /// <returns>The tag.</returns>
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(TagDTO), 200)]
+        [ProducesResponseType(typeof(string), 404)]
+        public async Task<ActionResult<TagDTO>> Get(Guid id)
         {
-            return NotFound(ex.Message);
+            try
+            {
+                var tag = await _tagService.Get(id);
+                return Ok(tag);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
-    }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<TagDTO>> Get(Guid id)
-    {
-        try
+        /// <summary>
+        /// Creates a new tag.
+        /// </summary>
+        /// <param name="tagToCreate">The tag to create.</param>
+        /// <returns>The created tag.</returns>
+        [HttpPost]
+        [Authorize(Policy = "userPolicy")]
+        [ProducesResponseType(typeof(TagDTO), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        public async Task<ActionResult<TagDTO>> Create(TagCreateDTO tagToCreate)
         {
-            var tag = await _tagService.Get(id);
-
-            return Ok(tag);
+            try
+            {
+                var tag = await _tagService.Create(tagToCreate);
+                return Ok(tag);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-        catch (Exception ex)
+
+        /// <summary>
+        /// Updates an existing tag.
+        /// </summary>
+        /// <param name="tagToUpdate">The tag to update.</param>
+        /// <returns>The updated tag.</returns>
+        [HttpPut]
+        [Authorize(Policy = "adminPolicy")]
+        [ProducesResponseType(typeof(TagDTO), 200)]
+        [ProducesResponseType(typeof(string), 404)]
+        public async Task<ActionResult<TagDTO>> Update(TagDTO tagToUpdate)
         {
-            return NotFound(ex.Message);
+            try
+            {
+                var tag = await _tagService.Update(tagToUpdate);
+                return Ok(tag);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
-    }
 
-    [HttpPost]
-    [Authorize(Policy = "userPolicy")]
-
-    public async Task<ActionResult<TagDTO>> Create(TagCreateDTO tagToCreate)
-    {
-        try
+        /// <summary>
+        /// Deletes a tag.
+        /// </summary>
+        /// <param name="id">The ID of the tag to delete.</param>
+        /// <returns>The deleted tag.</returns>
+        [HttpDelete]
+        [Authorize(Policy = "adminPolicy")]
+        [ProducesResponseType(typeof(TagDTO), 200)]
+        [ProducesResponseType(typeof(string), 404)]
+        public async Task<ActionResult<TagDTO>> Delete(Guid id)
         {
-            var tag = await _tagService.Create(tagToCreate);
-
-            return Ok(tag);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
-
-    [HttpPut]
-    [Authorize(Policy = "adminPolicy")]
-
-    public async Task<ActionResult<TagDTO>> Update(TagDTO tagToUpdate)
-    {
-        try
-        {
-            var tag = await _tagService.Update(tagToUpdate);
-
-            return Ok(tag);
-        }
-        catch (Exception ex)
-        {
-            return NotFound(ex.Message);
-        }
-    }
-
-    [HttpDelete]
-    [Authorize(Policy = "adminPolicy")]
-
-    public async Task<ActionResult<TagDTO>> Delete(Guid id)
-    {
-        try
-        {
-            var tag = await _tagService.Delete(id);
-
-            return Ok(tag);
-        }
-        catch (Exception ex)
-        {
-            return NotFound(ex.Message);
+            try
+            {
+                var tag = await _tagService.Delete(id);
+                return Ok(tag);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }
