@@ -11,4 +11,7 @@ public interface IRecipeService
     Task<RecipeDTO> Delete(Guid recipeId, Guid userId);
     Task<Guid> GetRecipeCreatorId(Guid recipeId);
     Task<List<Recipe>> GetPaginated(int page, int pageSize);
+    Task<List<Recipe>> GetRecipesByUserId(Guid user);
+    Task<List<Recipe>> GetRecipesByCuisineId(Guid cuisineId);
+
 }
