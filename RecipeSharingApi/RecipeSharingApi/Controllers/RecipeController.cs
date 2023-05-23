@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecipeSharingApi.BusinessLogic.Services;
 using RecipeSharingApi.BusinessLogic.Services.IServices;
@@ -117,37 +117,12 @@ public class RecipeController : ControllerBase
         }
     }
 
-
-    /// <summary>
-    /// Retrieves the nutrients for a specific recipe.
-    /// </summary>
-    /// <param name="id">The ID of the recipe.</param>
-    /// <returns>The nutrients for the specified recipe.</returns>
-    [HttpGet("{id}/nutrients")]
-    [ProducesResponseType(typeof(object), 200)]
-    [ProducesResponseType(typeof(string), 404)]
-    public async Task<IActionResult> GetRecipeNutrients(Guid id)
-    {
-        try
-        {
-            var result = await _recipeService.GetRecipeNutrients(id);
-
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            return NotFound(ex.Message);
-        }
-    }
-
     /// <summary>
     /// Updates an existing recipe.
     /// </summary>
     /// <param name="recipeToUpdate">The updated recipe data.</param>
     /// <returns>The updated recipe.</returns>
     [HttpPut]
-    [ProducesResponseType(typeof(Recipe), 200)]
-    [ProducesResponseType(typeof(string), 404)]
     public async Task<ActionResult<Recipe>> Update(RecipeUpdateDTO recipeToUpdate)
     {
         try
@@ -157,9 +132,9 @@ public class RecipeController : ControllerBase
 
             return Ok(recipe);
         }
-        catch (Exception ex)
+        catch (Exception ex) 
         {
-            return NotFound(ex.Message);
+            return NotFound(ex.Message); 
         }
     }
 
@@ -244,9 +219,9 @@ public class RecipeController : ControllerBase
 
             return Ok(recipe);
         }
-        catch (Exception ex)
-        {
-            return NotFound(ex.Message);
+        catch (Exception ex) 
+        { 
+            return NotFound(ex.Message); 
         }
     }
 
