@@ -22,8 +22,14 @@ namespace RecipeSharingApi.Controllers
         }
 
 
+        /// <summary>
+        /// Registers a new user.
+        /// </summary>
+        /// <param name="dto">The user registration data.</param>
+        /// <returns>A message indicating the result of the registration.</returns>
         [HttpPost("register")]
-
+        [ProducesResponseType(typeof(string), 200)]
+        [ProducesResponseType(typeof(string), 400)]
         public async Task<IActionResult> Register(UserRegisterDto dto)
         {
             if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
@@ -57,8 +63,15 @@ namespace RecipeSharingApi.Controllers
 
 
 
+        /// <summary>
+        /// Deletes a user by email.
+        /// </summary>
+        /// <param name="email">The email of the user to delete.</param>
+        /// <returns>A message indicating the result of the deletion.</returns>
         [HttpDelete("{email}")]
         [Authorize(Policy = "adminPolicy")]
+        [ProducesResponseType(typeof(string), 200)]
+        [ProducesResponseType(typeof(string), 404)]
         public async Task<IActionResult> DeleteUser(string email)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
@@ -73,8 +86,14 @@ namespace RecipeSharingApi.Controllers
             return Ok("User Deleted Successfully");
         }
 
+        /// <summary>
+        /// Retrieves all users.
+        /// </summary>
+        /// <returns>A list of users.</returns>
         [HttpGet("findAllusers")]
         [Authorize(Policy = "adminPolicy")]
+        [ProducesResponseType(typeof(List<User>), 200)]
+        [ProducesResponseType(typeof(string), 204)]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             var users = await _context.Users.ToListAsync();
@@ -87,8 +106,15 @@ namespace RecipeSharingApi.Controllers
             return Ok(users);
         }
 
+        /// <summary>
+        /// Searches for users by email.
+        /// </summary>
+        /// <param name="email">The email to search for.</param>
+        /// <returns>A list of matching users.</returns>
         [HttpGet("search-by-email/{email}")]
         [Authorize(Policy = "adminPolicy")]
+        [ProducesResponseType(typeof(List<User>), 200)]
+        [ProducesResponseType(typeof(string), 204)]
         public async Task<ActionResult<IEnumerable<User>>> SearchUsersByUsername(string email)
         {
             var users = await _context.Users.Where(u => u.Email.Contains(email)).ToListAsync();
@@ -102,9 +128,17 @@ namespace RecipeSharingApi.Controllers
         }
 
 
+        /// <summary>
+        /// Changes the password for the currently authenticated user.
+        /// </summary>
+        /// <param name="dto">The change password data.</param>
+        /// <returns>A message indicating the result of the password change.</returns>
         [HttpPatch("change-password")]
         [Authorize(Policy = "userPolicy")]
-
+        [ProducesResponseType(typeof(void), 204)]
+        [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(string), 401)]
+        [ProducesResponseType(typeof(string), 404)]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto dto)
         {
             if (dto == null)
@@ -145,8 +179,15 @@ namespace RecipeSharingApi.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Retrieves the data of the currently authenticated user.
+        /// </summary>
+        /// <returns>The user data.</returns>
         [HttpGet("my-data")]
         [Authorize(Policy = "userPolicy")]
+        [ProducesResponseType(typeof(User), 200)]
+        [ProducesResponseType(typeof(string), 401)]
+        [ProducesResponseType(typeof(string), 404)]
         public async Task<ActionResult<User>> GetUser()
         {
 

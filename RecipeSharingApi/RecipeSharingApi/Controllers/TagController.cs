@@ -1,20 +1,24 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecipeSharingApi.BusinessLogic.Services.IServices;
 using RecipeSharingApi.DataLayer.Models.DTOs.Tag;
 using RecipeSharingApi.DataLayer.Models.Entities;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace RecipeSharingApi.Controllers;
-[ApiController]
-[Route("api/tag")]
-public class TagController : ControllerBase
+namespace RecipeSharingApi.Controllers
 {
-    private readonly ITagService _tagService;
-
-    public TagController(ITagService tagService)
+    [ApiController]
+    [Route("api/tag")]
+    public class TagController : ControllerBase
     {
-        _tagService = tagService;
-    }
+        private readonly ITagService _tagService;
+
+        public TagController(ITagService tagService)
+        {
+            _tagService = tagService;
+        }
 
         /// <summary>
         /// Retrieves all tags.
@@ -123,4 +127,3 @@ public class TagController : ControllerBase
             }
         }
     }
-}

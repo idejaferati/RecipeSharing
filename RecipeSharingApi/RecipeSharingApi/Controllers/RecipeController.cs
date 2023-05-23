@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecipeSharingApi.BusinessLogic.Services;
 using RecipeSharingApi.BusinessLogic.Services.IServices;
@@ -132,9 +132,9 @@ public class RecipeController : ControllerBase
 
             return Ok(recipe);
         }
-        catch (Exception ex)
+        catch (Exception ex) 
         {
-            return NotFound(ex.Message);
+            return NotFound(ex.Message); 
         }
     }
 
@@ -198,50 +198,6 @@ public class RecipeController : ControllerBase
         }
         catch (Exception ex)
         {
-            return NotFound(ex.Message);
-        }
-    }
-
-    [HttpGet("user/{userId}")]
-    public async Task<ActionResult<List<Recipe>>> GetRecipesByUserId(Guid userId)
-    {
-        try
-        {
-            var recipes = await _recipeService.GetRecipesByUserId(userId);
-            return Ok(recipes);
-        }
-        catch (Exception ex)
-        {
-            return NotFound(ex.Message);
-        }
-    }
-
-    [HttpGet("user")]
-    [Authorize(Policy = "userPolicy")]
-    public async Task<ActionResult<List<Recipe>>> GetMyRecipes()
-    {
-        try
-        {
-            var userId = _userService.GetMyId();
-            var recipes = await _recipeService.GetRecipesByUserId(userId);
-            return Ok(recipes);
-        }
-        catch (Exception ex)
-        {
-            return NotFound(ex.Message);
-        }
-    }
-
-    [HttpGet("cuisine/{cuisineId}")]
-    public async Task<IActionResult> GetRecipesByCuisineId(Guid cuisineId)
-    {
-        try
-        {
-            var recipes = await _recipeService.GetRecipesByCuisineId(cuisineId);
-            return Ok(recipes);
-        }
-        catch (Exception ex)
-        {
             return StatusCode(500, "An error occurred while retrieving recipes.");
         }
     }
@@ -263,9 +219,9 @@ public class RecipeController : ControllerBase
 
             return Ok(recipe);
         }
-        catch (Exception ex)
-        {
-            return NotFound(ex.Message);
+        catch (Exception ex) 
+        { 
+            return NotFound(ex.Message); 
         }
     }
 
