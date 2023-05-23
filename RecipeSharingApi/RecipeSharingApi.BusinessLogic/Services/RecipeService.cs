@@ -4,7 +4,6 @@ using RecipeSharingApi.BusinessLogic.Helpers.Extensions;
 using RecipeSharingApi.BusinessLogic.Services.IServices;
 using RecipeSharingApi.DataLayer.Data.UnitOfWork;
 using RecipeSharingApi.DataLayer.Models.DTOs.Ingredient;
-using RecipeSharingApi.DataLayer.Models.DTOs.Nutrients;
 using RecipeSharingApi.DataLayer.Models.DTOs.Recipe;
 using RecipeSharingApi.DataLayer.Models.Entities;
 using RecipeSharingApi.DataLayer.Models.Entities.Mappings;
@@ -15,13 +14,11 @@ public class RecipeService : IRecipeService
 {
     public readonly IUnitOfWork _unitOfWork;
     public readonly IMapper _mapper;
-    public readonly IRecipeNutrientsService _nutrientsService;
     private readonly IRecommendationService _recommendationsService;
-    public RecipeService(IUnitOfWork unitOfWork, IMapper mapper, IRecipeNutrientsService nutrientsService, IRecommendationService recommendationsService)
+    public RecipeService(IUnitOfWork unitOfWork, IMapper mapper, IRecommendationService recommendationsService)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
-        _nutrientsService = nutrientsService;
         _recommendationsService = recommendationsService;
 
     }
@@ -129,24 +126,6 @@ public class RecipeService : IRecipeService
         }
 
         return recipes;
-    }
-
-    //TODO: Fix the nullable return
-    public async Task<RecipeNutrientsDTO> GetRecipeNutrients(Guid recipeId)
-    {
-
-        var recipe = await _unitOfWork.Repository<Recipe>()
-               .GetByConditionWithIncludes(r => r.Id == recipeId, "User,Cuisine,Tags,Ingredients,Instructions")
-               .FirstOrDefaultAsync();
-        if (recipe is null) throw new Exception("Recipe not found");
-
-        var nutrients = await _nutrientsService.GetNutrients(_mapper.Map<List<RecipeIngredientDTO>>(recipe.Ingredients));
-
-        if (nutrients is null) throw new Exception("Recipe nutrients not found");
-
-        nutrients.RecipeId = recipe.Id;
-
-        return nutrients;
     }
 
     public async Task<Recipe> Update(RecipeUpdateDTO recipeToUpdate, Guid userId)
