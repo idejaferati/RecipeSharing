@@ -68,10 +68,13 @@ namespace RecipeSharingApi.Controllers
             {
                 return BadRequest("Invalid password.");
             }
-            
+            var role = await _context.Roles.FindAsync(user.RoleId);
+            if (role == null)
+            {
+            }
             string token = CreateToken(user);
 
-            return Ok(new { Token = token });
+            return Ok(new { Token = token, Role=role.Name });
         }
 
         /// <summary>
@@ -192,5 +195,6 @@ namespace RecipeSharingApi.Controllers
 
             return jwt;
         }
+        
     }
 }
