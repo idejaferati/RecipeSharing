@@ -193,5 +193,39 @@ namespace RecipeSharingApi.Controllers
                 return NotFound(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Remove a recipe from a collection.
+        /// </summary>
+        /// <remarks>
+        /// This endpoint allows authorized users to remove a recipe from a collection.
+        /// </remarks>
+        /// <param name="collectionId">The ID of the collection.</param>
+        /// <param name="recipeId">The ID of the recipe to be removed.</param>
+        /// <returns>The updated collection object.</returns>
+        [HttpPut("{collectionId}/recipes/{recipeId}")]
+        [Authorize(Policy = "userPolicy")]
+        [ProducesResponseType(typeof(CollectionDTO), 200)]
+        [ProducesResponseType(typeof(string), 404)]
+        public async Task<ActionResult<CollectionDTO>> RemoveRecipeFromCollection(Guid collectionId, Guid recipeId)
+        {
+            try
+            {
+                var userId = _userService.GetMyId();
+                var collection = await _collectionService.RemoveRecipe(collectionId, recipeId, userId);
+
+                if (collection == null)
+                {
+                    return NotFound("Collection or recipe not found");
+                }
+
+                return Ok(collection);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }
