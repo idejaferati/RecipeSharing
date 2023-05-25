@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RecipeSharingApi.BusinessLogic\RecipeSharingApi.BusinessLogic.csproj" />
+    <ProjectReference Include="..\RecipeSharingApi\RecipeSharingApi.csproj" />
   </ItemGroup>
 
 </Project>

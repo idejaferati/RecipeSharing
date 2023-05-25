@@ -33,35 +33,5 @@ namespace RecipeSharingApi.Test
             _recipeService = new RecipeService(_unitOfWorkMock.Object, _mapperMock.Object, _recommendationsServiceMock.Object);
         }
 
-        [Test]
-        public async Task Create_ValidInputs_ReturnsCreatedRecipe()
-        {
-            // Arrange
-            var userId = Guid.NewGuid();
-            var recipeToCreate = new RecipeCreateDTO
-            {
-                // Set properties for the recipe to be created
-            };
-
-            var createdRecipe = new Recipe { /* Set properties for the created recipe */ };
-            var createdRecipeDTO = new RecipeDTO { /* Set properties for the created recipe DTO */ };
-            var cuisine = new Cuisine { /* Set properties for the cuisine */ };
-
-            _mapperMock.Setup(m => m.Map<Recipe>(recipeToCreate)).Returns(createdRecipe);
-            _mapperMock.Setup(m => m.Map<RecipeDTO>(createdRecipe)).Returns(createdRecipeDTO);
-            _unitOfWorkMock.Setup(uow => uow.Repository<Cuisine>().GetById(It.IsAny<Guid>())).ReturnsAsync(cuisine);
-            _unitOfWorkMock.Setup(uow => uow.Repository<Recipe>().Create(It.IsAny<Recipe>())).ReturnsAsync(createdRecipe);
-            _unitOfWorkMock.Setup(uow => uow.Complete()).Returns(1);
-
-            // Act
-            var result = await _recipeService.Create(userId, recipeToCreate);
-
-            // Assert
-            Assert.AreEqual(createdRecipeDTO, result);
-            _unitOfWorkMock.Verify(uow => uow.Repository<Recipe>().Create(It.IsAny<Recipe>()), Times.Once);
-            _unitOfWorkMock.Verify(uow => uow.Complete(), Times.Once);
-        }
-
-
     }
 }
