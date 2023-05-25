@@ -61,6 +61,28 @@ public class CookBookService : ICookBookService
 
         return cookBooksDTO;
     }
+    public async Task<List<CookBookDTO>> GetAllForUser(Guid userId)
+    {
+        // TODO: Optimize method
+        var cookBooks = await _unitOfWork.Repository<CookBook>().GetByCondition(x=>x.UserId == userId)
+            .Include(r => r.Recipes)
+            .ThenInclude(r => r.Cuisine)
+            .Include(r => r.Recipes)
+            .ThenInclude(r => r.Tags)
+            .Include(r => r.Recipes)
+            .ThenInclude(r => r.Ingredients)
+            .Include(r => r.Recipes)
+            .ThenInclude(r => r.Instructions).ToListAsync();
+        if (cookBooks is null || cookBooks.Count == 0) throw new Exception("Cookbook not found");
+
+        var cookBooksDTO = _mapper.Map<List<CookBookDTO>>(cookBooks);
+        cookBooksDTO.ForEach(cookBook =>
+        {
+            cookBook.NumberOfRecipes = cookBook.Recipes.Count();
+        });
+
+        return cookBooksDTO;
+    }
 
     public async Task<CookBookDTO> Get(Guid id)
     {

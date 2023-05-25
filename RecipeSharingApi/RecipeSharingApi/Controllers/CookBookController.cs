@@ -70,6 +70,24 @@ namespace RecipeSharingApi.Controllers
             }
         }
 
+        [HttpGet("all/user")]
+        [Authorize(Policy = "adminPolicy")]
+        [ProducesResponseType(typeof(List<CookBookDTO>), 200)]
+        [ProducesResponseType(typeof(string), 404)]
+        public async Task<ActionResult<List<CookBookDTO>>> GetAllForUser()
+        {
+            try
+            {
+                var userId= _userService.GetMyId();
+                var cookBooks = await _cookBookService.GetAllForUser(userId);
+                return Ok(cookBooks);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
         /// <summary>
         /// Retrieves a specific cookbook by its ID.
         /// </summary>

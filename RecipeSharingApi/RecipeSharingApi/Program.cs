@@ -118,7 +118,7 @@ builder.Services.AddServices();
 var app = builder.Build();
 
 
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000"));
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000", "http://192.168.139.1:3000"));
 
 app.Use(async (context, next) =>
 {
