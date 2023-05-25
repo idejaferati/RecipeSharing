@@ -122,6 +122,8 @@ public class RecipeController : ControllerBase
     /// <param name="recipeToUpdate">The updated recipe data.</param>
     /// <returns>The updated recipe.</returns>
     [HttpPut]
+    [Authorize(Policy = "userPolicy")]
+
     public async Task<ActionResult<Recipe>> Update(RecipeUpdateDTO recipeToUpdate)
     {
         try
