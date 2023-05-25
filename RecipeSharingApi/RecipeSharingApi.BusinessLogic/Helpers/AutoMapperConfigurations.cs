@@ -7,6 +7,7 @@ using RecipeSharingApi.DataLayer.Models.DTOs.Ingredient;
 using RecipeSharingApi.DataLayer.Models.DTOs.Instruction;
 using RecipeSharingApi.DataLayer.Models.DTOs.Recipe;
 using RecipeSharingApi.DataLayer.Models.DTOs.Review;
+using RecipeSharingApi.DataLayer.Models.DTOs.ShoppingList;
 using RecipeSharingApi.DataLayer.Models.DTOs.Tag;
 using RecipeSharingApi.DataLayer.Models.DTOs.User;
 using RecipeSharingApi.DataLayer.Models.Entities;
@@ -44,7 +45,7 @@ public class AutoMapperConfigurations : Profile
         CreateMap<CollectionDTO, Collection>().ReverseMap();
 
         CreateMap<User, UserRegisterDto>().ReverseMap();
-
+        CreateMap<ShoppingListItem,ShoppingListItemDTO>().ReverseMap();
         CreateMap<User, UserLoginDTO>().ForMember(dest => dest.Name, opt => opt.MapFrom(src => String.Format("{0} {1}", src.FirstName, src.LastName))).ReverseMap();
 
     }

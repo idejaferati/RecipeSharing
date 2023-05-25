@@ -12,8 +12,8 @@ using RecipeSharingApi.DataLayer.Data;
 namespace RecipeSharingApi.DataLayer.Migrations
 {
     [DbContext(typeof(RecipeSharingDbContext))]
-    [Migration("20230522232343_init")]
-    partial class init
+    [Migration("20230525074152_deletedatetime")]
+    partial class deletedatetime
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -370,9 +370,6 @@ namespace RecipeSharingApi.DataLayer.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()

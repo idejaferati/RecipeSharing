@@ -21,6 +21,10 @@ public class ShoppingListService : IShoppingListService
     {
         var shoppingListItems = shoppingListCreate.Select(item => new ShoppingListItemDTO(userId, item)).ToList();
         var entities = _mapper.Map<List<ShoppingListItem>>(shoppingListItems);
+        foreach(var entity in entities)
+        {
+            entity.UserId=userId;
+        }
 
         try
         {

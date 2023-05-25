@@ -32,6 +32,9 @@ namespace RecipeSharingApi.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(List<ShoppingListItemCreateDTO>), 200)]
         [ProducesResponseType(typeof(string), 404)]
+        [Authorize(Policy = "userPolicy")]
+
+
         public async Task<ActionResult<List<ShoppingListItemCreateDTO>>> AddToShoppingList(List<ShoppingListItemCreateDTO> shoppingListToCreate)
         {
             var userId = _userService.GetMyId();
@@ -55,6 +58,8 @@ namespace RecipeSharingApi.Controllers
         [Route("{itemId}")]
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(typeof(string), 400)]
+        [Authorize(Policy = "userPolicy")]
+
         public async Task<ActionResult<bool>> DeleteShoppingListItems(Guid itemId)
         {
             var userId = _userService.GetMyId();
@@ -78,6 +83,8 @@ namespace RecipeSharingApi.Controllers
         [Route("{shoppingListItemId}")]
         [ProducesResponseType(typeof(ShoppingListItem), 200)]
         [ProducesResponseType(typeof(string), 404)]
+        [Authorize(Policy = "userPolicy")]
+
         public async Task<ActionResult<ShoppingListItem>> GetShoppingListItem(Guid shoppingListItemId)
         {
             var userId = _userService.GetMyId();
@@ -101,6 +108,8 @@ namespace RecipeSharingApi.Controllers
         [Route("getlink/{shoppingListItemId}")]
         [ProducesResponseType(typeof(IActionResult), 302)]
         [ProducesResponseType(typeof(string), 404)]
+        [Authorize(Policy = "userPolicy")]
+
         public async Task<IActionResult> GetShoppingListItemLink(Guid shoppingListItemId)
         {
             var userId = _userService.GetMyId();
@@ -122,6 +131,8 @@ namespace RecipeSharingApi.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(List<ShoppingListItem>), 200)]
         [ProducesResponseType(typeof(string), 404)]
+        [Authorize(Policy = "userPolicy")]
+
         public async Task<ActionResult<List<ShoppingListItem>>> GetShoppingList()
         {
             var userId = _userService.GetMyId();

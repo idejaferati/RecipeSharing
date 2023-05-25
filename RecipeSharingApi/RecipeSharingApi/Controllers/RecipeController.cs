@@ -28,7 +28,6 @@ public class RecipeController : ControllerBase
     /// </summary>
     /// <param name="recipeToCreate">The recipe data to create.</param>
     /// <returns>The created recipe.</returns>
-    [Authorize(Policy = "userPolicy")]
     [ProducesResponseType(typeof(RecipeDTO), 200)]
     [ProducesResponseType(typeof(string), 400)]
     [HttpPost]

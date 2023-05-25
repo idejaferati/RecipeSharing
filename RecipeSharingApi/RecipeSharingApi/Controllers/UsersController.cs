@@ -46,7 +46,6 @@ namespace RecipeSharingApi.Controllers
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 Gender = dto.Gender,
-                DateOfBirth = dto.DateOfBirth,
                 Email = dto.Email,
                 RoleId = dto.RoleId,
                 PhoneNumber = dto.PhoneNumber,
@@ -212,7 +211,6 @@ namespace RecipeSharingApi.Controllers
                                            LastName = u.LastName,
                                            Email = u.Email,
                                            Gender = u.Gender,
-                                           DateOfBirth = u.DateOfBirth,
                                            PhoneNumber = u.PhoneNumber
                                        })
                                        .FirstOrDefaultAsync();
