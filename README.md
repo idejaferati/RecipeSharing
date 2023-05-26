@@ -19,31 +19,32 @@ Follow the steps below to set up and run the application locally using the comma
  
 2.Navigate to the project directory
 
-```shell
-cd your-repo directorium
+   ```shell
+   cd your-repo directorium
 
 
 3. Restore dependencies
 
 Run the following command to restore all the required dependencies for the project:
 
-```shell
-dotnet restore
+    ```shell
+    dotnet restore
 
 
 4. Create the database
 
 Execute the following command to apply migrations and create the database:
 
-
-dotnet ef database update
+    ```shell
+    dotnet ef database update
 
 
 5. Run the application
 
 Start the web API application using the following command:
 
-dotnet run
+    ```shell
+    dotnet run
 
 6. Test the API
 
@@ -62,8 +63,8 @@ Follow the steps below to set up and run the application locally using Visual St
 
 1. Clone the repository
 
-
-git clone https://github.com/idejaferati/RecipeSharing.git
+    ```shell
+    git clone https://github.com/idejaferati/RecipeSharing.git
 
 2. Open the project in Visual Studio
 
@@ -76,13 +77,15 @@ Navigate to the cloned repository folder and select the project solution file (.
 In Visual Studio, go to Tools -> NuGet Package Manager -> Package Manager Console.
 Execute the following command in the Package Manager Console:
 
-dotnet restore
+    ```shell
+    dotnet restore
 
 4.Create the database
 
 From the Package Manager Console, execute the following command to apply migrations and create the database:
 
-Update-Database
+    ```shell
+    Update-Database
 
 5. Run the application
 
