@@ -27,7 +27,7 @@ Follow the steps below to set up and run the application locally using the comma
 
 Run the following command to restore all the required dependencies for the project:
 
-    ```shell
+   
     dotnet restore
 
 
@@ -35,7 +35,7 @@ Run the following command to restore all the required dependencies for the proje
 
 Execute the following command to apply migrations and create the database:
 
-    ```shell
+    
     dotnet ef database update
 
 
@@ -43,15 +43,14 @@ Execute the following command to apply migrations and create the database:
 
 Start the web API application using the following command:
 
-    ```shell
+    
     dotnet run
 
 6. **Test the API**
 
 Use tools like Postman, Advanced REST Client, or any other HTTP client to test the API endpoints exposed by the application.
 
-
-##Getting Started (Visual Studio 2022)
+## Getting Started (Visual Studio 2022)
 
 Follow the steps below to set up and run the application locally using Visual Studio 2022:
 
@@ -71,14 +70,14 @@ Navigate to the cloned repository folder and select the project solution file (.
 In Visual Studio, go to Tools -> NuGet Package Manager -> Package Manager Console.
 Execute the following command in the Package Manager Console:
 
-    ```shell
+    
     dotnet restore
 
 4.**Create the database**
 
 From the Package Manager Console, execute the following command to apply migrations and create the database:
 
-    ```shell
+    
     Update-Database
 
 5. **Run the application**
