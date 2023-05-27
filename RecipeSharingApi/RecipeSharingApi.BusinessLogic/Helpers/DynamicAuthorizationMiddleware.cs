@@ -25,7 +25,15 @@ namespace RecipeSharingApi.BusinessLogic.Helpers
         public async Task InvokeAsync(HttpContext context)
         {
             // Get the list of policy names from your database or any other source
-            var policyNames = new List<string> { "adminPolicy", "userPolicy","editorPolicy" };
+            var policyNames = new List<string> { "GetNameOfUser", "addrole", "addPolicy", "addRolePolicy", "getRoles",
+                "getPolicies", "PostCollections", "getCollections", "getCollectionsById", "putCollections", 
+                "getUserCollections", "deleteCollections", "postRecipeInCollections", "RemoveRecipeCollections", 
+                "PostCookbooks", "AllCookbooks", "AllUserCookbooks", "GetCookbookById", "AllCookbooksByPage", "UpdateCookBook",
+                "DeleteCookbook", "AddRecipeOnCookbook", "DeleteRecipeFromCookbook", "CreateCuisine", "UpdateCuisine", "DeleteCuisine",
+                "CreateRecipe", "UpdateRecipe", "GetRecipeByUserId", "GetAllUserRecipe", "DeleteRecipe", "ReviewRecipe", "UpdateReviews",
+                "DelteRewiews", "CreateShopingList", "DelteItemFromShopingList", "GetItemFromShopingListById", "GetLink", "GetUserShopingList", 
+                "GetAllTags", "GetATagById", "CreateATag", "UpdateTag", "DeleteTag", "DeleteUser", "AllUsers", "searchByEmail", "ChangePassword", 
+                "GetUserById", "UpdateUser", "UpdateUserRole", "MyData" };
 
             foreach (var policyName in policyNames)
             {

@@ -31,7 +31,7 @@ public class RecipeController : ControllerBase
     [ProducesResponseType(typeof(RecipeDTO), 200)]
     [ProducesResponseType(typeof(string), 400)]
     [HttpPost]
-    [Authorize(Policy = "userPolicy")]
+    [Authorize(Policy = "CreateRecipe")]
 
     public async Task<ActionResult<RecipeDTO>> Create(RecipeCreateDTO recipeToCreate)
     {
@@ -122,7 +122,7 @@ public class RecipeController : ControllerBase
     /// <param name="recipeToUpdate">The updated recipe data.</param>
     /// <returns>The updated recipe.</returns>
     [HttpPut]
-    [Authorize(Policy = "userPolicy")]
+    [Authorize(Policy = "UpdateRecipe")]
 
     public async Task<ActionResult<Recipe>> Update(RecipeUpdateDTO recipeToUpdate)
     {
@@ -145,6 +145,7 @@ public class RecipeController : ControllerBase
     /// <param name="userId">The ID of the user.</param>
     /// <returns>The list of recipes created by the specified user.</returns>
     [HttpGet("user/{userId}")]
+    [Authorize(Policy = "GetRecipeByUserId")]
     [ProducesResponseType(typeof(List<Recipe>), 200)]
     [ProducesResponseType(typeof(string), 404)]
     public async Task<ActionResult<List<Recipe>>> GetRecipesByUserId(Guid userId)
@@ -165,7 +166,7 @@ public class RecipeController : ControllerBase
     /// </summary>
     /// <returns>The list of recipes created by the authenticated user.</returns>
     [HttpGet("user")]
-    [Authorize(Policy = "userPolicy")]
+    [Authorize(Policy = "GetAllUserRecipe")]
     [ProducesResponseType(typeof(List<Recipe>), 200)]
     [ProducesResponseType(typeof(string), 404)]
     public async Task<ActionResult<List<Recipe>>> GetMyRecipes()
@@ -209,6 +210,7 @@ public class RecipeController : ControllerBase
     /// <param name="id">The ID of the recipe to delete.</param>
     /// <returns>The deleted recipe.</returns>
     [HttpDelete("{id}")]
+    [Authorize(Policy = "DeleteRecipe")]
     [ProducesResponseType(typeof(RecipeDTO), 200)]
     [ProducesResponseType(typeof(string), 404)]
     public async Task<ActionResult<RecipeDTO>> Delete(Guid id)

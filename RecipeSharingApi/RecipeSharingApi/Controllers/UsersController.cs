@@ -68,7 +68,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="email">The email of the user to delete.</param>
         /// <returns>A message indicating the result of the deletion.</returns>
         [HttpDelete("{email}")]
-        [Authorize(Policy = "adminPolicy")]
+        [Authorize(Policy = "DeleteUser")]
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<IActionResult> DeleteUser(string email)
@@ -90,7 +90,7 @@ namespace RecipeSharingApi.Controllers
         /// </summary>
         /// <returns>A list of users.</returns>
         [HttpGet("findAllusers")]
-        [Authorize(Policy = "adminPolicy")]
+        [Authorize(Policy = "AllUsers")]
         [ProducesResponseType(typeof(List<User>), 200)]
         [ProducesResponseType(typeof(string), 204)]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
@@ -111,7 +111,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="email">The email to search for.</param>
         /// <returns>A list of matching users.</returns>
         [HttpGet("search-by-email/{email}")]
-        [Authorize(Policy = "adminPolicy")]
+        [Authorize(Policy = "searchByEmail")]
         [ProducesResponseType(typeof(List<User>), 200)]
         [ProducesResponseType(typeof(string), 204)]
         public async Task<ActionResult<IEnumerable<User>>> SearchUsersByUsername(string email)
@@ -133,7 +133,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="dto">The change password data.</param>
         /// <returns>A message indicating the result of the password change.</returns>
         [HttpPatch("change-password")]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "ChangePassword")]
         [ProducesResponseType(typeof(void), 204)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(typeof(string), 401)]
@@ -179,7 +179,7 @@ namespace RecipeSharingApi.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Policy = "adminPolicy")]
+        [Authorize(Policy = "GetUserById")]
         public async Task<ActionResult<User>> GetUserById(Guid id)
         {
             var user = await _context.Users.FindAsync(id);
@@ -192,7 +192,7 @@ namespace RecipeSharingApi.Controllers
             return user;
         }
         [HttpPut("update-user")]
-        [Authorize(Policy = "adminPolicy")]
+        [Authorize(Policy = "UpdateUser")]
         public async Task<IActionResult> UpdateUser(UpdateUserDto updatedUser)
         {
 
@@ -216,7 +216,7 @@ namespace RecipeSharingApi.Controllers
         }
 
         [HttpPut("update-user-role")]
-        [Authorize(Policy = "adminPolicy")]
+        [Authorize(Policy = "UpdateUserRole")]
         public async Task<IActionResult> UpdateUser(Guid idofuser, UpdateUserRole updatedUser)
         {
 
@@ -241,7 +241,7 @@ namespace RecipeSharingApi.Controllers
         /// </summary>
         /// <returns>The user data.</returns>
         [HttpGet("my-data")]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "MyData")]
         [ProducesResponseType(typeof(User), 200)]
         [ProducesResponseType(typeof(string), 401)]
         [ProducesResponseType(typeof(string), 404)]
