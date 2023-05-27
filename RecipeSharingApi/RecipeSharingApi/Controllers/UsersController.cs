@@ -178,6 +178,64 @@ namespace RecipeSharingApi.Controllers
             return NoContent();
         }
 
+        [HttpGet("{id}")]
+        [Authorize(Policy = "adminPolicy")]
+        public async Task<ActionResult<User>> GetUserById(Guid id)
+        {
+            var user = await _context.Users.FindAsync(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return user;
+        }
+        [HttpPut("update-user")]
+        [Authorize(Policy = "adminPolicy")]
+        public async Task<IActionResult> UpdateUser(UpdateUserDto updatedUser)
+        {
+
+            var userID = _userService.GetMyId();
+            var user = await _context.Users.FindAsync(userID);
+
+            if (user == null)
+            {
+                return NotFound(); 
+            }
+
+            // Update the user properties
+            user.FirstName = updatedUser.FirstName;
+            user.LastName = updatedUser.LastName;
+            user.Gender = updatedUser.Gender;
+            user.PhoneNumber = updatedUser.PhoneNumber;
+
+            await _context.SaveChangesAsync(); 
+
+            return Ok(); 
+        }
+
+        [HttpPut("update-user-role")]
+        [Authorize(Policy = "adminPolicy")]
+        public async Task<IActionResult> UpdateUser(Guid idofuser, UpdateUserRole updatedUser)
+        {
+
+
+            var user = await _context.Users.FindAsync(idofuser);
+
+            if (user == null)
+            {
+                return NotFound(); // Return 404 if user not found
+            }
+
+            // Update the user properties
+            user.RoleId = updatedUser.RoleId;
+
+            await _context.SaveChangesAsync(); // Save changes to the database
+
+            return Ok(); // Return 200 if successful
+        }
+
         /// <summary>
         /// Retrieves the data of the currently authenticated user.
         /// </summary>
