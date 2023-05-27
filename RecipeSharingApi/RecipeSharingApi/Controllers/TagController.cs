@@ -25,6 +25,7 @@ namespace RecipeSharingApi.Controllers
         /// </summary>
         /// <returns>A list of tags.</returns>
         [HttpGet]
+        [Authorize(Policy = "GetAllTags")]
         [ProducesResponseType(typeof(List<TagDTO>), 200)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<ActionResult<List<TagDTO>>> GetAll()
@@ -46,6 +47,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="id">The ID of the tag.</param>
         /// <returns>The tag.</returns>
         [HttpGet("{id}")]
+        [Authorize(Policy = "GetATagById")]
         [ProducesResponseType(typeof(TagDTO), 200)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<ActionResult<TagDTO>> Get(Guid id)
@@ -67,7 +69,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="tagToCreate">The tag to create.</param>
         /// <returns>The created tag.</returns>
         [HttpPost]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "CreateATag")]
         [ProducesResponseType(typeof(TagDTO), 200)]
         [ProducesResponseType(typeof(string), 400)]
         public async Task<ActionResult<TagDTO>> Create(TagCreateDTO tagToCreate)
@@ -89,7 +91,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="tagToUpdate">The tag to update.</param>
         /// <returns>The updated tag.</returns>
         [HttpPut]
-        [Authorize(Policy = "adminPolicy")]
+        [Authorize(Policy = "UpdateTag")]
         [ProducesResponseType(typeof(TagDTO), 200)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<ActionResult<TagDTO>> Update(TagDTO tagToUpdate)
@@ -111,7 +113,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="id">The ID of the tag to delete.</param>
         /// <returns>The deleted tag.</returns>
         [HttpDelete]
-        [Authorize(Policy = "adminPolicy")]
+        [Authorize(Policy = "DeleteTag")]
         [ProducesResponseType(typeof(TagDTO), 200)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<ActionResult<TagDTO>> Delete(Guid id)

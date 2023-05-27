@@ -29,7 +29,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="cookBookToCreate">The cookbook data to create.</param>
         /// <returns>The created cookbook.</returns>
         [HttpPost]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "PostCookbooks")]
         [ProducesResponseType(typeof(CookBookDTO), 200)]
         [ProducesResponseType(typeof(string), 400)]
         public async Task<ActionResult<CookBookDTO>> Create(CookBookCreateRequestDTO cookBookToCreate)
@@ -54,7 +54,7 @@ namespace RecipeSharingApi.Controllers
         /// </summary>
         /// <returns>The list of all cookbooks.</returns>
         [HttpGet("all")]
-        [Authorize(Policy = "adminPolicy")]
+        [Authorize(Policy = "AllCookbooks")]
         [ProducesResponseType(typeof(List<CookBookDTO>), 200)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<ActionResult<List<CookBookDTO>>> GetAll()
@@ -71,7 +71,7 @@ namespace RecipeSharingApi.Controllers
         }
 
         [HttpGet("all/user")]
-        [Authorize(Policy = "adminPolicy")]
+        [Authorize(Policy = "AllUserCookbooks")]
         [ProducesResponseType(typeof(List<CookBookDTO>), 200)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<ActionResult<List<CookBookDTO>>> GetAllForUser()
@@ -94,6 +94,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="id">The ID of the cookbook to retrieve.</param>
         /// <returns>The cookbook with the specified ID.</returns>
         [HttpGet("{id}")]
+        [Authorize(Policy = "GetCookbookById")]
         [ProducesResponseType(typeof(CookBookDTO), 200)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<ActionResult<CookBookDTO>> Get(Guid id)
@@ -116,6 +117,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="pageSize">The number of cookbooks per page.</param>
         /// <returns>The paginated list of cookbooks.</returns>
         [HttpGet]
+        [Authorize(Policy = "AllCookbooksByPage")]
         [ProducesResponseType(typeof(List<CookBookDTO>), 200)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<ActionResult<List<CookBookDTO>>> GetPaginated(int page, int pageSize)
@@ -138,7 +140,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="cookBookToUpdate">The updated cookbook data.</param>
         /// <returns>The updated cookbook.</returns>
         [HttpPut]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "UpdateCookBook")]
         [ProducesResponseType(typeof(CookBookDTO), 200)]
         [ProducesResponseType(typeof(string), 400)]
         public async Task<ActionResult<CookBookDTO>> UpdateCookBook(CookBookUpdateDTO cookBookToUpdate)
@@ -161,7 +163,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="id">The ID of the cookbook to delete.</param>
         /// <returns>The deleted cookbook.</returns>
         [HttpDelete("{id}")]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "DeleteCookbook")]
         [ProducesResponseType(typeof(CookBookDTO), 200)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<ActionResult<CookBookDTO>> Delete(Guid id)
@@ -187,7 +189,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="recipeId">The ID of the recipe.</param>
         /// <returns>The ID of the updated cookbook.</returns>
         [HttpPut("addRecipe")]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "AddRecipeOnCookbook")]
         [ProducesResponseType(typeof(Guid), 200)]
         [ProducesResponseType(typeof(string), 400)]
         public async Task<IActionResult> AddRecipeToCookBook(Guid cookBookId, Guid recipeId)
@@ -211,7 +213,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="recipeId">The ID of the recipe.</param>
         /// <returns>The ID of the updated cookbook.</returns>
         [HttpPut("removeRecipe")]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "DeleteRecipeFromCookbook")]
         [ProducesResponseType(typeof(Guid), 200)]
         [ProducesResponseType(typeof(string), 400)]
         public async Task<IActionResult> RemoveRecipeFromCookBook(Guid cookBookId, Guid recipeId)

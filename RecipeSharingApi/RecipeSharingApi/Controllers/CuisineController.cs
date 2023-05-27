@@ -25,6 +25,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="cuisineToCreate">The cuisine data to create.</param>
         /// <returns>The created cuisine.</returns>
         [HttpPost]
+        [Authorize(Policy = "CreateCuisine")]
         [ProducesResponseType(typeof(CuisineDTO), 200)]
         [ProducesResponseType(typeof(string), 400)]
         public async Task<ActionResult<CuisineDTO>> Create(CuisineCreateDTO cuisineToCreate)
@@ -109,6 +110,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="cuisineToUpdate">The updated cuisine data.</param>
         /// <returns>The updated cuisine.</returns>
         [HttpPut]
+        [Authorize(Policy = "UpdateCuisine")]
         [ProducesResponseType(typeof(CuisineDTO), 200)]
         [ProducesResponseType(typeof(string), 400)]
         public async Task<ActionResult<CuisineDTO>> Update(CuisineUpdateDTO cuisineToUpdate)
@@ -130,6 +132,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="id">The ID of the cuisine to delete.</param>
         /// <returns>The deleted cuisine.</returns>
         [HttpDelete("{id}")]
+        [Authorize(Policy = "DeleteCuisine")]
         [ProducesResponseType(typeof(CuisineDTO), 200)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<ActionResult<CuisineDTO>> Delete(Guid id)

@@ -30,7 +30,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="reviewToCreate">The review data.</param>
         /// <returns>The created review.</returns>
         [HttpPost]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "ReviewRecipe")]
         [ProducesResponseType(typeof(ReviewDTO), 200)]
         [ProducesResponseType(typeof(string), 400)]
         public async Task<ActionResult<ReviewDTO>> Create(ReviewCreateDTO reviewToCreate)
@@ -77,7 +77,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="reviewToUpdate">The updated review data.</param>
         /// <returns>The updated review.</returns>
         [HttpPut("{id}")]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "UpdateReviews")]
         [ProducesResponseType(typeof(ReviewDTO), 200)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<ActionResult<ReviewDTO>> Update(Guid id, ReviewUpdateDTO reviewToUpdate)
@@ -101,7 +101,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="id">The ID of the review.</param>
         /// <returns>The deleted review.</returns>
         [HttpDelete("{id}")]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "DelteRewiews")]
         [ProducesResponseType(typeof(ReviewDTO), 200)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<ActionResult<ReviewDTO>> Delete(Guid id)

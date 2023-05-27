@@ -38,7 +38,7 @@ namespace RecipeSharingApi.Controllers
         /// </summary>
         /// <returns>The name of the authenticated user.</returns>
         [HttpGet]
-        [Authorize(Policy = "adminPolicy")]
+        [Authorize(Policy = "GetNameOfUser")]
         [ProducesResponseType(typeof(string), 200)]
         public ActionResult<string> GetMyName()
         {
@@ -83,6 +83,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="name">The name of the role.</param>
         /// <returns>A message indicating the result of the creation.</returns>
         [HttpPost("addrole")]
+        [Authorize(Policy = "addrole")]
         [ProducesResponseType(typeof(string), 200)]
         public async Task<ActionResult<Role>> CreateRole(string name)
         {
@@ -105,6 +106,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="name">The name of the policy.</param>
         /// <returns>A message indicating the result of the creation.</returns>
         [HttpPost("addPolicy")]
+        [Authorize(Policy = "addPolicy")]
         [ProducesResponseType(typeof(string), 200)]
         public async Task<ActionResult<Policy>> CreatePolicy(string name)
         {
@@ -129,6 +131,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="roleId">The ID of the role.</param>
         /// <returns>A message indicating the result of the creation.</returns>
         [HttpPost("addRolePolicy")]
+        [Authorize(Policy = "addRolePolicy")]
         [ProducesResponseType(typeof(string), 200)]
         public async Task<ActionResult<PolicyRole>> CreatePolicyRole(Guid policyId ,Guid roleId)
         {
@@ -152,6 +155,7 @@ namespace RecipeSharingApi.Controllers
         /// </summary>
         /// <returns>A list of roles.</returns>
         [HttpGet("getRoles")]
+        [Authorize(Policy = "getRoles")]
         [ProducesResponseType(typeof(List<Role>), 200)]
         public async Task<ActionResult<IEnumerable<Role>>> GetRoles()
         {
@@ -165,6 +169,7 @@ namespace RecipeSharingApi.Controllers
         /// </summary>
         /// <returns>A list of policies.</returns>
         [HttpGet("getPolicies")]
+        [Authorize(Policy = "getPolicies")]
         [ProducesResponseType(typeof(List<Policy>), 200)]
         public async Task<ActionResult<IEnumerable<Policy>>> GetPolicies()
         {

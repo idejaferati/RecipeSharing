@@ -29,7 +29,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="collectionToCreateRequest">The collection data to create.</param>
         /// <returns>The created collection.</returns>
         [HttpPost]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "PostCollections")]
         [ProducesResponseType(typeof(CollectionDTO), 201)]
         [ProducesResponseType(typeof(string), 400)]
         public async Task<ActionResult<CollectionDTO>> Create(CollectionCreateRequestDTO collectionToCreateRequest)
@@ -51,7 +51,7 @@ namespace RecipeSharingApi.Controllers
         /// </summary>
         /// <returns>The list of all collections.</returns>
         [HttpGet]
-        [Authorize(Policy = "adminPolicy")]
+        [Authorize(Policy = "getCollections")]
         [ProducesResponseType(typeof(IEnumerable<CollectionDTO>), 200)]
         [ProducesResponseType(typeof(string), 400)]
         public async Task<ActionResult<IEnumerable<CollectionDTO>>> GetAll()
@@ -73,7 +73,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="id">The ID of the collection to retrieve.</param>
         /// <returns>The collection with the specified ID.</returns>
         [HttpGet("{id}")]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "getCollectionsById")]
         [ProducesResponseType(typeof(CollectionDTO), 200)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<ActionResult<CollectionDTO>> Get(Guid id)
@@ -96,7 +96,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="collectionToUpdate">The updated collection data.</param>
         /// <returns>The updated collection.</returns>
         [HttpPut]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "putCollections")]
         [ProducesResponseType(typeof(CollectionDTO), 200)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<ActionResult<CollectionDTO>> Update(CollectionUpdateDTO collectionToUpdate)
@@ -124,7 +124,7 @@ namespace RecipeSharingApi.Controllers
         /// </summary>
         /// <returns>The list of collections associated with the user.</returns>
         [HttpGet("user")]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "getUserCollections")]
         [ProducesResponseType(typeof(IEnumerable<CollectionDTO>), 200)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<ActionResult<IEnumerable<CollectionDTO>>> GetByUserId()
@@ -147,7 +147,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="id">The ID of the collection to delete.</param>
         /// <returns>No content if the collection was deleted successfully.</returns>
         [HttpDelete("{id}")]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "deleteCollections")]
         [ProducesResponseType(204)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<ActionResult> Delete(Guid id)
@@ -177,7 +177,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="recipeId">The ID of the recipe.</param>
         /// <returns>The updated collection.</returns>
         [HttpPost("{collectionId}/recipes/addrecipe")]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "postRecipeInCollections")]
         [ProducesResponseType(typeof(CollectionDTO), 200)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<ActionResult<CollectionDTO>> AddRecipeToCollection(Guid collectionId, Guid recipeId)
@@ -204,7 +204,7 @@ namespace RecipeSharingApi.Controllers
         /// <param name="recipeId">The ID of the recipe to be removed.</param>
         /// <returns>The updated collection object.</returns>
         [HttpPut("{collectionId}/recipes/{recipeId}")]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "RemoveRecipeCollections")]
         [ProducesResponseType(typeof(CollectionDTO), 200)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<ActionResult<CollectionDTO>> RemoveRecipeFromCollection(Guid collectionId, Guid recipeId)

@@ -32,7 +32,7 @@ namespace RecipeSharingApi.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(List<ShoppingListItemCreateDTO>), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "CreateShopingList")]
 
 
         public async Task<ActionResult<List<ShoppingListItemCreateDTO>>> AddToShoppingList(List<ShoppingListItemCreateDTO> shoppingListToCreate)
@@ -58,7 +58,7 @@ namespace RecipeSharingApi.Controllers
         [Route("{itemId}")]
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(typeof(string), 400)]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "DeleteItemFromShopingList")]
 
         public async Task<ActionResult<bool>> DeleteShoppingListItems(Guid itemId)
         {
@@ -83,7 +83,7 @@ namespace RecipeSharingApi.Controllers
         [Route("{shoppingListItemId}")]
         [ProducesResponseType(typeof(ShoppingListItem), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "GetItemFromShopingListById")]
 
         public async Task<ActionResult<ShoppingListItem>> GetShoppingListItem(Guid shoppingListItemId)
         {
@@ -108,7 +108,7 @@ namespace RecipeSharingApi.Controllers
         [Route("getlink/{shoppingListItemId}")]
         [ProducesResponseType(typeof(IActionResult), 302)]
         [ProducesResponseType(typeof(string), 404)]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "GetLink")]
 
         public async Task<IActionResult> GetShoppingListItemLink(Guid shoppingListItemId)
         {
@@ -131,7 +131,7 @@ namespace RecipeSharingApi.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(List<ShoppingListItem>), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        [Authorize(Policy = "userPolicy")]
+        [Authorize(Policy = "GetUserShopingList")]
 
         public async Task<ActionResult<List<ShoppingListItem>>> GetShoppingList()
         {
