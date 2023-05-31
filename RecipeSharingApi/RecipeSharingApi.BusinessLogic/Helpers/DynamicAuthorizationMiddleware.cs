@@ -31,7 +31,7 @@ namespace RecipeSharingApi.BusinessLogic.Helpers
                 "PostCookbooks", "AllCookbooks", "AllUserCookbooks", "GetCookbookById", "AllCookbooksByPage", "UpdateCookBook",
                 "DeleteCookbook", "AddRecipeOnCookbook", "DeleteRecipeFromCookbook", "CreateCuisine", "UpdateCuisine", "DeleteCuisine",
                 "CreateRecipe", "UpdateRecipe", "GetRecipeByUserId", "GetAllUserRecipe", "DeleteRecipe", "ReviewRecipe", "UpdateReviews",
-                "DelteRewiews", "CreateShopingList", "DelteItemFromShopingList", "GetItemFromShopingListById", "GetLink", "GetUserShopingList", 
+                "DelteRewiews", "CreateShopingList", "DeleteItemFromShopingList", "GetItemFromShopingListById", "GetLink", "GetUserShopingList", 
                 "GetAllTags", "GetATagById", "CreateATag", "UpdateTag", "DeleteTag", "DeleteUser", "AllUsers", "searchByEmail", "ChangePassword", 
                 "GetUserById", "UpdateUser", "UpdateUserRole", "MyData" };
 
