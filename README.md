@@ -7,6 +7,7 @@ Before running this application, ensure that you have the following prerequisite
 
 - [.NET SDK](https://dotnet.microsoft.com/download) (version 7.0 )
 - [Git](https://git-scm.com/downloads)
+- [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
 
 ## Getting Started (CLI)
 
@@ -33,7 +34,7 @@ Run the following command to restore all the required dependencies for the proje
 
 4. **Create the database**
 
-Execute the following command to apply migrations and create the database:
+Change your target project in RecipeSharingApi.DataLayer and execute the following command to apply migrations and create the database :
 
     
     dotnet ef database update
@@ -75,7 +76,7 @@ Execute the following command in the Package Manager Console:
 
 4.**Create the database**
 
-From the Package Manager Console, execute the following command to apply migrations and create the database:
+From the Package Manager Console, change your target project in RecipeSharingApi.DataLayer and execute the following command to apply migrations and create the database:
 
     
     Update-Database
