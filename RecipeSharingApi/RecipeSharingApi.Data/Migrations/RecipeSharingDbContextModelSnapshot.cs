@@ -158,589 +158,589 @@ namespace RecipeSharingApi.DataLayer.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5097d6c4-717a-44ca-9d75-42f19a2e34ac"),
+                            Id = new Guid("ca2ed537-852f-4eec-9c7d-19a1fcbef612"),
                             PolicyId = new Guid("2bc75a12-6655-441c-af9d-32be58a5531e"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("4d392ee7-0c40-4657-9b11-fc7f318e1143"),
+                            Id = new Guid("30978b4f-9e1b-4086-be56-2e49d160613e"),
                             PolicyId = new Guid("6d966a93-0aa1-420b-bf37-d7288e8e638e"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("23507507-2549-4ed8-8d26-ecc07e63e1a9"),
+                            Id = new Guid("d0495e96-d76c-4346-9de0-00db62fd13b9"),
                             PolicyId = new Guid("68d3008d-ede9-4ac8-8eb9-0f8877358476"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("85865b78-e58a-47a4-b9f7-3233067de4c6"),
+                            Id = new Guid("abd44405-fd9b-4d73-b3e7-a46ef8dd1bdd"),
                             PolicyId = new Guid("1381225f-387b-49c9-b57a-6a1a379fdb8a"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("35082bc6-e886-452d-b80d-92c5df6c071f"),
+                            Id = new Guid("4cd44666-c834-461d-99a9-71bf0e45848f"),
                             PolicyId = new Guid("410595d2-43e0-4844-b672-a59a4151d7d5"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("8c62934b-6d0a-47f7-93ce-41e4a5440c0c"),
+                            Id = new Guid("8f37c706-8737-4414-a790-dbc75dde503d"),
                             PolicyId = new Guid("e00b12ee-cde2-44e3-ba10-ef4b45390252"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("4302ac9f-1343-426f-ad4c-ed2bd5cac497"),
+                            Id = new Guid("891abd2f-6193-4850-8c13-408d5c057d29"),
                             PolicyId = new Guid("403015ab-9012-42d8-b13b-65366085303a"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("95327c77-1a98-487c-ab30-28b991f7ac75"),
+                            Id = new Guid("6be14c11-ccb4-49b3-bc74-89516bf26a2d"),
                             PolicyId = new Guid("1d77b3dd-fd7b-4db6-b528-a5c9470378dd"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("52e1909f-8222-4c3d-8531-318c6174a826"),
+                            Id = new Guid("ac885214-f77c-40c0-ad28-50f6b02bb6c8"),
                             PolicyId = new Guid("ec67c7c7-653d-4078-b9ec-82f9d188fd69"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("2def1ae7-d407-4ee7-abde-cc1f6813cea4"),
+                            Id = new Guid("1edf77ae-b2be-4280-bf0f-596ca9204ea7"),
                             PolicyId = new Guid("8884e0bf-6477-4efc-b5e2-a34fe1d1dda5"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("74d19545-3632-4701-99c2-a9f76069a323"),
+                            Id = new Guid("020a3517-9928-4627-aef1-f823a10d6c33"),
                             PolicyId = new Guid("0fce3dfd-befa-47f7-8a66-07964b6d8f4d"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("27111168-47b6-4137-8534-d04dc54c84bc"),
+                            Id = new Guid("060a2208-8be1-4cc4-9df6-2f7f980b125a"),
                             PolicyId = new Guid("d2194a88-8cb5-41c3-b40d-227ea502c1a8"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("41a3178b-86de-4801-ae84-e4760480251b"),
+                            Id = new Guid("ab59faa9-267c-4819-9acf-c6cbc357c3d1"),
                             PolicyId = new Guid("58b74ad0-74c8-4909-b79b-60d31a57e49b"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("8e2aeab3-6ac6-4e90-8a14-b50842fa9022"),
+                            Id = new Guid("516d3cf4-c1d0-40a1-89fd-d80678d06d0d"),
                             PolicyId = new Guid("d0f9bb82-9abe-4841-ab56-dd79cff023d3"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("646d7169-f51a-4dcd-9ebb-3dd06c34b5d5"),
+                            Id = new Guid("1e58469e-93d7-4111-bc4e-383d784f3ab4"),
                             PolicyId = new Guid("cefaeb1f-7ca5-41dd-bd1c-e0b66f5f6051"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("9e6a383c-f87d-482b-a774-82d9159706e9"),
+                            Id = new Guid("ff5e16f6-f867-4010-8926-cf7813f5553d"),
                             PolicyId = new Guid("6929858c-31ad-40b0-b53d-bc0cc30548ab"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("4e97e177-19a3-47b6-a59c-cdbb185c4664"),
+                            Id = new Guid("f5179e07-dc17-422b-867e-1692e4a7d379"),
                             PolicyId = new Guid("6f563976-863c-409d-8237-f08ed043ffcd"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("b64aebcb-26e6-48b5-a29b-f69fbf29e565"),
+                            Id = new Guid("95b3e003-6a4c-442c-aaf4-12655d1ec7d6"),
                             PolicyId = new Guid("257400bf-1dbf-4f30-83d7-d1f482651a8d"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("4c92b5ce-2486-4568-af10-3908e84e58c4"),
+                            Id = new Guid("1eb6ea0a-91c4-4600-880b-d527f9cbfc3b"),
                             PolicyId = new Guid("71c436da-3849-4459-8f26-7b299c74162f"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("7674ca8f-2102-4993-b476-55a02a2d4411"),
+                            Id = new Guid("1c353c3f-f879-4c69-80d8-0a40fb2a19d6"),
                             PolicyId = new Guid("1f1260ac-260e-4bc8-8cb3-a7fa5d8dc366"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("c725735b-4cc7-4aa3-936b-508885a24786"),
+                            Id = new Guid("03eca633-3f2f-472f-9c1a-37544322054c"),
                             PolicyId = new Guid("bf9f8380-023f-4660-9c0f-f8fce5295f48"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("74adb13e-e98d-41df-9a3d-c60518252c4e"),
+                            Id = new Guid("664db5cc-9feb-4d89-beda-1dab6102c70c"),
                             PolicyId = new Guid("8460422a-5e83-4d24-82a2-eeb45b902406"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("fea02337-52ab-4add-ac2b-da346c660da5"),
+                            Id = new Guid("17faa7d2-c6a1-4b38-b57e-5aa849e3c4ca"),
                             PolicyId = new Guid("d787eb55-0b45-45c6-a6fb-0566209831b0"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("a5567d25-3f20-41f6-a379-ca382f5b93c3"),
+                            Id = new Guid("99ae0209-57c1-4459-a46e-c15c07abfffd"),
                             PolicyId = new Guid("ccb9a20c-6dc2-4c37-a792-33790c42e256"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("5f80ce0e-2a06-4091-8da2-2602c1796303"),
+                            Id = new Guid("5c40dc0d-78dc-4065-802d-a2d4f3597768"),
                             PolicyId = new Guid("2844b8fb-a338-4801-b06b-6f80d923d6c2"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("0f0562cf-3d42-4c80-9136-0259fde580d1"),
+                            Id = new Guid("889a5d43-bfd1-4641-95a1-86f4e1c1bf41"),
                             PolicyId = new Guid("d6a80b7d-70f3-4a63-a1a4-7ff70c110a49"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("bfca08b9-45cb-400c-b1c3-277fca70938d"),
+                            Id = new Guid("42a7f7ab-0219-4851-a0dc-0342c2712730"),
                             PolicyId = new Guid("e8fbc57b-4837-4d73-be89-e9f6ce4dc328"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("0d24eeec-dd01-4872-a009-9b9a806ec2f3"),
+                            Id = new Guid("bcd02ca1-b924-4cd0-a367-ed27c54a1e05"),
                             PolicyId = new Guid("d5662e2c-f6db-4601-8911-a3faf99d03d2"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("a508bccb-8876-43dc-a489-70b4f7dc0797"),
+                            Id = new Guid("27970c60-d187-491b-b012-6a541e050b5f"),
                             PolicyId = new Guid("ea13f8d7-a3ed-4464-bfbb-f4af8db2b567"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("8d4e0e49-5011-4068-baab-d4a4df638ec7"),
+                            Id = new Guid("97adb3aa-a062-48f3-8fa8-560626ba7aa8"),
                             PolicyId = new Guid("c3001055-9124-4aea-a1ac-2dccb4257512"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("089a8cbc-c22c-450e-a33b-af3f25f672a7"),
+                            Id = new Guid("142c8868-f8a4-439f-8e0d-bccf7caffc3f"),
                             PolicyId = new Guid("a80c3363-4977-49f5-9327-1c9b76baa3ed"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("40cef3d8-9fb8-4d25-8be7-1629bbd7f022"),
+                            Id = new Guid("fe577b71-3cab-41fe-96ec-6a9b27a22847"),
                             PolicyId = new Guid("0d423b1a-3bc6-48f3-bc9c-c1bb8d5a7071"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("9e1f9a08-5349-4328-a7b9-21bfcb5b6547"),
+                            Id = new Guid("5018860c-5391-4421-9c0d-625a7963589c"),
                             PolicyId = new Guid("3eb0b264-294e-4a1d-a748-5610d2a1f1f1"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("d9a8b57e-9ac7-4d10-ad1d-cd8d4de29d11"),
+                            Id = new Guid("5f137c47-702e-496c-8412-1f8200224f41"),
                             PolicyId = new Guid("5d5a00cb-4c9c-4950-aace-8dd956eaec0c"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("55c9c620-4c9a-4c73-8a59-2b8a70e4d0ee"),
+                            Id = new Guid("94a2efec-c2d6-420b-9294-407857119498"),
                             PolicyId = new Guid("1b68dcb1-d256-4d9e-93f7-51008c268cb9"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("59ccd9ce-a09c-4933-b9f2-cfa3967f9236"),
+                            Id = new Guid("22f93912-b32b-4624-8a54-f9cae6efa4ce"),
                             PolicyId = new Guid("0fce3dfd-befa-47f7-8a66-07964b6d8f4d"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("489629d4-edef-4fc5-a4f6-572000ce3c6a"),
+                            Id = new Guid("bb1f2f25-2e56-44bf-9b82-ab25724661ef"),
                             PolicyId = new Guid("d2194a88-8cb5-41c3-b40d-227ea502c1a8"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("9d9f6b7a-e453-4a14-b2ee-714ed33f4cd6"),
+                            Id = new Guid("9af3adda-cef7-4393-9802-4e25c7721a83"),
                             PolicyId = new Guid("43d2a293-4093-42fd-b80e-c146f5890076"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("6903cbde-71c5-4ebf-94aa-6234d43144ea"),
+                            Id = new Guid("8b4e535a-a443-457d-8156-934e96c3d893"),
                             PolicyId = new Guid("384a15ef-8a8f-4152-8c3c-196749f9ab72"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("70f20b08-8124-4b0b-b98c-fe2cb4e9cea8"),
+                            Id = new Guid("3c07f846-168c-401d-a6cc-4f993279a15c"),
                             PolicyId = new Guid("9b0a1cbc-bb03-48c7-89dd-24b622e6cb84"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("36727459-c965-4d01-8dbe-6264ec5c1a26"),
+                            Id = new Guid("8e56a3fe-dd75-4c46-83dd-52308424f73e"),
                             PolicyId = new Guid("2c497d51-de9d-41a7-b23b-c4f51f6dd9d6"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("7cafd8a7-35a0-47b2-b3db-f7ac64aa381a"),
+                            Id = new Guid("9c76de10-24d9-46b2-86d8-9f291d204d34"),
                             PolicyId = new Guid("3d041ace-b9ef-425f-b520-136e2dc8c5ba"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("25a6dd2e-5e59-47ba-9c4a-4ec169d1d372"),
+                            Id = new Guid("65ec6e27-e8f3-4732-9b11-ceca1a3d3edc"),
                             PolicyId = new Guid("a9401ffb-8d6a-47cd-b9ba-d5d740bb86f8"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("e3c0cf8a-9047-4e8d-9af5-7ffac6a9722a"),
+                            Id = new Guid("a95688f1-4dc1-495f-ae10-37847b4292ca"),
                             PolicyId = new Guid("0c19f0c5-3da9-435f-b784-81482e074738"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("3a52355c-7e48-4d4c-896a-25a8545b49fa"),
+                            Id = new Guid("665fb1e4-2b7a-42c2-b497-9eeb902de2a6"),
                             PolicyId = new Guid("e8fbc57b-4837-4d73-be89-e9f6ce4dc328"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("e3629207-d544-4e78-9789-5412de361523"),
+                            Id = new Guid("a853f390-711d-4f72-afc2-30a24fba4d4d"),
                             PolicyId = new Guid("d5662e2c-f6db-4601-8911-a3faf99d03d2"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("46f9cb53-775a-4183-a4ad-4c0b8131c444"),
+                            Id = new Guid("03906792-f4a8-4ddd-800c-3c94bbd5625d"),
                             PolicyId = new Guid("ea13f8d7-a3ed-4464-bfbb-f4af8db2b567"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("4ae6c65b-3ad4-40d6-81fc-adb738a1ffdb"),
+                            Id = new Guid("6780548a-dd0e-46b7-82e8-f5c52d359d3a"),
                             PolicyId = new Guid("c3001055-9124-4aea-a1ac-2dccb4257512"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("a4dfc0a3-9098-458c-9ae8-479753cdcd39"),
+                            Id = new Guid("e2d8636c-eb4c-4df7-8b0a-a550cb5f89ee"),
                             PolicyId = new Guid("a80c3363-4977-49f5-9327-1c9b76baa3ed"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("5d502594-4865-4235-9d57-3c78f24a2ae4"),
+                            Id = new Guid("b4ae01e2-9f29-4608-a090-bf89a70e2679"),
                             PolicyId = new Guid("0d423b1a-3bc6-48f3-bc9c-c1bb8d5a7071"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("4f397533-ad61-424c-8fa7-732a86a08dbf"),
+                            Id = new Guid("d4b940e8-c633-4e2e-bd7f-19c8121e6414"),
                             PolicyId = new Guid("3eb0b264-294e-4a1d-a748-5610d2a1f1f1"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("bc943ae0-bbe2-406e-a64b-4dcdbde0be97"),
+                            Id = new Guid("39a500a5-5cae-4d42-892d-69dff3a0f88f"),
                             PolicyId = new Guid("5d5a00cb-4c9c-4950-aace-8dd956eaec0c"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("ceee6807-fda3-4696-b11b-3449b3be90ed"),
+                            Id = new Guid("5f1c8168-8fb4-483c-9776-9bb1720db519"),
                             PolicyId = new Guid("1b68dcb1-d256-4d9e-93f7-51008c268cb9"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("7aa9a322-7ff3-43c6-8035-c5b129291ee0"),
+                            Id = new Guid("27c1af06-1a2e-43c5-ae21-83f86ae474bc"),
                             PolicyId = new Guid("0fce3dfd-befa-47f7-8a66-07964b6d8f4d"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("3cded58b-7325-4951-8878-22aa1c5e0859"),
+                            Id = new Guid("2a4bf826-1d56-465e-a13d-084b84721109"),
                             PolicyId = new Guid("d2194a88-8cb5-41c3-b40d-227ea502c1a8"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("b1e9ddae-9ffd-492a-85d0-81cd3f696caf"),
+                            Id = new Guid("a02b9c6e-3ee5-4bc6-90e7-64485160ab66"),
                             PolicyId = new Guid("43d2a293-4093-42fd-b80e-c146f5890076"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("f745fafd-5d53-4eeb-b4cd-9552828627eb"),
+                            Id = new Guid("82464c93-8124-441b-842c-ab616abb7e60"),
                             PolicyId = new Guid("384a15ef-8a8f-4152-8c3c-196749f9ab72"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("4b5f88c6-edac-4d32-a71f-22bfd33c59a9"),
+                            Id = new Guid("42d954fa-db54-48fc-881c-714f3c04f254"),
                             PolicyId = new Guid("9b0a1cbc-bb03-48c7-89dd-24b622e6cb84"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("9dfb3730-6d1c-438f-829f-2c4b68d5b073"),
+                            Id = new Guid("a6a1fa08-79de-490c-b7b7-66f240d75339"),
                             PolicyId = new Guid("2c497d51-de9d-41a7-b23b-c4f51f6dd9d6"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("80dd8f02-e140-41bf-9c52-2fbd56395fc7"),
+                            Id = new Guid("87ad9fc0-8d05-4e28-b2c9-cda373cecaf7"),
                             PolicyId = new Guid("3d041ace-b9ef-425f-b520-136e2dc8c5ba"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("015d1a1d-3f00-4fc5-91cd-60633e8a5177"),
+                            Id = new Guid("a8e24225-a943-4f6d-a674-8d9109d24b6f"),
                             PolicyId = new Guid("e73cf4bb-4a96-49c2-a3ef-428915e2f968"),
                             RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd")
                         },
                         new
                         {
-                            Id = new Guid("a050655c-3e57-4add-a120-f8b39c7af97c"),
+                            Id = new Guid("2d7f3f0b-2d73-4c3d-867d-5379980c3ec6"),
                             PolicyId = new Guid("0e8e465e-8abd-4c2f-a6a3-3796b0d702bc"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("8066f499-5b98-48ff-9f53-5ce93e12748a"),
+                            Id = new Guid("beaede9f-90d7-4ea3-81ff-92c402ee9ff5"),
                             PolicyId = new Guid("d0f9bb82-9abe-4841-ab56-dd79cff023d3"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("46af5f38-32a3-434c-8d61-c094b0905907"),
+                            Id = new Guid("b18eb196-0203-40e5-885e-b9d53e32a77a"),
                             PolicyId = new Guid("ad057d33-b1ab-491f-a143-a7cd45399a7b"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("cfeb249f-ef3a-47bb-a6c0-f2b11d50f7f3"),
+                            Id = new Guid("e2d7bac8-4162-403c-89b5-4f64be90210e"),
                             PolicyId = new Guid("ae6e7487-2375-4e33-911c-74ca4d375f5a"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("df02f766-da61-450e-8d70-c52b03fcc411"),
+                            Id = new Guid("e944165f-2c2b-4ebe-9124-4f2fcd680df8"),
                             PolicyId = new Guid("3b90b27c-5690-4305-a418-3f58efeade35"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("19516f17-954e-4d9e-b08d-03e776895c4d"),
+                            Id = new Guid("d189e31b-6de3-4e48-9e35-675ed2184bfa"),
                             PolicyId = new Guid("f7d9d48f-62c4-44eb-9ac8-1e7ce066c88d"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("a3b65b6c-29e9-4202-b476-0881e7f49c0f"),
+                            Id = new Guid("b1409482-da96-4e2f-82b5-5536a2033be7"),
                             PolicyId = new Guid("97fa4a01-82c8-4ea2-addc-cc5f4037dc1e"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("4d3c89d5-5e1c-4a0d-b056-b15033fa18a3"),
+                            Id = new Guid("3db13a43-9cb6-4afb-9372-2f33e8e91d14"),
                             PolicyId = new Guid("2b0088ca-6ee6-41a7-b931-ee61f786bd55"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("32e82eaa-7c8c-4b61-ac61-85f65e55e9c4"),
+                            Id = new Guid("afaa8029-503f-42e8-9583-cd236c9c90d6"),
                             PolicyId = new Guid("71c436da-3849-4459-8f26-7b299c74162f"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("5adeb5f2-c0bc-451e-b1b0-8889d49b4b3d"),
+                            Id = new Guid("0b4a4cbb-88b4-45ce-a5cb-ad32e6252153"),
                             PolicyId = new Guid("bf9f8380-023f-4660-9c0f-f8fce5295f48"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("1892c4aa-2a26-4a32-a42f-7f717714f671"),
+                            Id = new Guid("888a0289-9cff-4e9b-af8d-7ee6f2279021"),
                             PolicyId = new Guid("cefaeb1f-7ca5-41dd-bd1c-e0b66f5f6051"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("c29f89f2-07a3-4392-96cd-c355770b16c6"),
+                            Id = new Guid("a348e94c-e33b-4baa-9b36-0abdca93cf5f"),
                             PolicyId = new Guid("6929858c-31ad-40b0-b53d-bc0cc30548ab"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("763f6e06-3381-47ac-b00a-6deb5185932d"),
+                            Id = new Guid("e9e83494-b006-4732-ad38-977133b58573"),
                             PolicyId = new Guid("6f563976-863c-409d-8237-f08ed043ffcd"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("20747f7f-fbf2-47c2-9b90-7b4ae39887c0"),
+                            Id = new Guid("e20b9446-1152-4642-a284-54ecae837b68"),
                             PolicyId = new Guid("257400bf-1dbf-4f30-83d7-d1f482651a8d"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("43274c82-fa9a-4499-93b2-9080f4a67d08"),
+                            Id = new Guid("c82ba695-704e-41d9-8c88-dbb93659ff5d"),
                             PolicyId = new Guid("71c436da-3849-4459-8f26-7b299c74162f"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("d23a9194-7ba0-445b-9b89-0f0e85c51a5f"),
+                            Id = new Guid("1424b859-528a-4893-bec3-9b75de82e7b0"),
                             PolicyId = new Guid("1f1260ac-260e-4bc8-8cb3-a7fa5d8dc366"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("d7ceadb0-d827-4346-97c5-b4e4b49d7176"),
+                            Id = new Guid("1952fee0-8cad-476c-bf99-9e4bc8f7255e"),
                             PolicyId = new Guid("8460422a-5e83-4d24-82a2-eeb45b902406"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("a58de499-a5a7-4ea4-a909-4c5bda2553cc"),
+                            Id = new Guid("813572c8-c5a7-4b97-9590-de04c5b27734"),
                             PolicyId = new Guid("d787eb55-0b45-45c6-a6fb-0566209831b0"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("83880aa7-5a4a-434f-b376-549d61941826"),
+                            Id = new Guid("a2b93913-9025-43bb-9cd4-a702ed9813f6"),
                             PolicyId = new Guid("ccb9a20c-6dc2-4c37-a792-33790c42e256"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("396f4c7d-eccd-4e8f-8229-7d0e3725310a"),
+                            Id = new Guid("43c01f2a-0da6-4962-9678-e1ea909b123b"),
                             PolicyId = new Guid("2844b8fb-a338-4801-b06b-6f80d923d6c2"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("1c5d054e-7805-4822-ba66-3e3206c0d26b"),
+                            Id = new Guid("b6468888-df49-49e6-b567-6f290d5e6f46"),
                             PolicyId = new Guid("d6a80b7d-70f3-4a63-a1a4-7ff70c110a49"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("641def55-2609-4f2f-9e19-d0a441668e9a"),
+                            Id = new Guid("8e1292fa-52b4-4ff4-ba56-6c942eac789b"),
                             PolicyId = new Guid("e73cf4bb-4a96-49c2-a3ef-428915e2f968"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("c504d119-37d9-4f36-aaa7-6a4c2e986fa6"),
+                            Id = new Guid("dee5d6d9-83ac-4d59-b1a3-167ad73d7316"),
                             PolicyId = new Guid("a9401ffb-8d6a-47cd-b9ba-d5d740bb86f8"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("94a6b89e-abce-4d78-aa1b-9dd9ad5e8d49"),
+                            Id = new Guid("c2b80fcd-c41b-49ba-967a-129e1824eef7"),
                             PolicyId = new Guid("0c19f0c5-3da9-435f-b784-81482e074738"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("1395cbbd-8eb5-4556-8bd0-8f3540714320"),
+                            Id = new Guid("aa2af1a6-e5a3-4f42-a377-8d8f9cb10385"),
                             PolicyId = new Guid("e8fbc57b-4837-4d73-be89-e9f6ce4dc328"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("9d92dc23-72d2-4ad8-aba9-3b391f2d736d"),
+                            Id = new Guid("d919a66e-b582-44ff-a17f-58f7873ea546"),
                             PolicyId = new Guid("d5662e2c-f6db-4601-8911-a3faf99d03d2"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("fcd17049-e50f-42ca-8f03-69fee39ec046"),
+                            Id = new Guid("9d786bae-4606-471d-905b-83fb81e07209"),
                             PolicyId = new Guid("ea13f8d7-a3ed-4464-bfbb-f4af8db2b567"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("404aa827-60cc-4613-91f7-39e30fd571db"),
+                            Id = new Guid("e0b4125b-7391-4dfb-8992-a0109e603edd"),
                             PolicyId = new Guid("c3001055-9124-4aea-a1ac-2dccb4257512"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("fccb120e-8b69-419e-b8af-73881c35af71"),
+                            Id = new Guid("9d4dc275-0dfd-4880-bdbf-f4bfe13d0c09"),
                             PolicyId = new Guid("8f69170f-064c-40b2-804e-c4b53bb3218d"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("94fae39b-6b33-4483-8861-790fc52cc343"),
+                            Id = new Guid("2ec28125-72c7-4226-a724-6156c0688d6f"),
                             PolicyId = new Guid("65ab361d-916d-43cd-816f-49ed8688bf87"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("f34cd34e-3a75-4670-8d41-45b1b6409d2c"),
+                            Id = new Guid("73d96ff5-8a27-4ad8-b5e6-aab52314eff3"),
                             PolicyId = new Guid("a80c3363-4977-49f5-9327-1c9b76baa3ed"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("f06a0539-8d88-4b75-929f-586d4351239a"),
+                            Id = new Guid("6d25085e-b1aa-46c0-8480-319be399f898"),
                             PolicyId = new Guid("0d423b1a-3bc6-48f3-bc9c-c1bb8d5a7071"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("da136464-942d-40e2-80d9-57d0b4cf6999"),
+                            Id = new Guid("4713c042-7137-4224-8ed1-0e1cfb4e0782"),
                             PolicyId = new Guid("3eb0b264-294e-4a1d-a748-5610d2a1f1f1"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("b688e9a3-ddf4-4c13-91fd-d7ab9614e9c2"),
+                            Id = new Guid("e6c6ef3c-2029-4f3e-bce7-f455c1f021d3"),
                             PolicyId = new Guid("5d5a00cb-4c9c-4950-aace-8dd956eaec0c"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("d479b70b-a078-4369-8050-5c53aaf52436"),
+                            Id = new Guid("ab042645-66cf-4916-ace9-e6f876205593"),
                             PolicyId = new Guid("43d2a293-4093-42fd-b80e-c146f5890076"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("f31893ea-142b-442c-a945-2ecb15d47a8c"),
+                            Id = new Guid("60c2183f-1d48-4d68-9457-c4a50e23d3da"),
                             PolicyId = new Guid("3d041ace-b9ef-425f-b520-136e2dc8c5ba"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         },
                         new
                         {
-                            Id = new Guid("bde1d113-504f-41dc-8809-577d1e5e669d"),
+                            Id = new Guid("f6f620ba-4c95-4da0-bbfa-28bc0d95261f"),
                             PolicyId = new Guid("9b0a1cbc-bb03-48c7-89dd-24b622e6cb84"),
                             RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d")
                         });
@@ -774,7 +774,7 @@ namespace RecipeSharingApi.DataLayer.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("73634604-a7bd-46d3-8740-1712a1f2b674"),
+                            Id = new Guid("95bd4ca3-3aee-4b60-bb78-cd881c05c37f"),
                             Amount = 1.0,
                             Name = "Steak",
                             RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"),
@@ -782,7 +782,7 @@ namespace RecipeSharingApi.DataLayer.Migrations
                         },
                         new
                         {
-                            Id = new Guid("16b42de4-b58f-4746-9321-61f8fe12307e"),
+                            Id = new Guid("7cb7d011-0598-4939-a423-d22f0a5b7744"),
                             Amount = 1.0,
                             Name = "Salt",
                             RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"),
@@ -790,7 +790,7 @@ namespace RecipeSharingApi.DataLayer.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f6e80635-3123-4de7-9165-a9e2a4b4d527"),
+                            Id = new Guid("cae3b4db-2c51-44b5-b9c2-e0555e2a7f58"),
                             Amount = 1.0,
                             Name = "Pepper",
                             RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"),
@@ -798,10 +798,42 @@ namespace RecipeSharingApi.DataLayer.Migrations
                         },
                         new
                         {
-                            Id = new Guid("eb3b84dc-7a3d-40d5-bba6-dedf0b7685c2"),
+                            Id = new Guid("1db5bca7-e46d-4f12-96b4-bf88d9bef96e"),
                             Amount = 2.0,
                             Name = "Garlic",
                             RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"),
+                            Unit = 3
+                        },
+                        new
+                        {
+                            Id = new Guid("c7a3a612-e011-4403-844f-a4878905c5ff"),
+                            Amount = 2.0,
+                            Name = "Milk",
+                            RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"),
+                            Unit = 3
+                        },
+                        new
+                        {
+                            Id = new Guid("25f7cc2b-822e-40e1-93d2-5a769ca76c04"),
+                            Amount = 0.5,
+                            Name = "Sugar",
+                            RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"),
+                            Unit = 3
+                        },
+                        new
+                        {
+                            Id = new Guid("bf433ca9-3ac3-4f42-953e-a6d3d86d5032"),
+                            Amount = 1.0,
+                            Name = "Vanilla extract",
+                            RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"),
+                            Unit = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("16e084ef-8990-4c54-b0ee-fc1a9c3f7b44"),
+                            Amount = 1.0,
+                            Name = "Heavy cream",
+                            RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"),
                             Unit = 3
                         });
                 });
@@ -831,24 +863,73 @@ namespace RecipeSharingApi.DataLayer.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("182dc3e3-6074-4472-a019-ab66255de920"),
+                            Id = new Guid("20b2d8cc-5702-4bdd-8074-330340571e82"),
                             RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"),
                             StepDescription = "Preheat the grill to medium-high heat.",
                             StepNumber = 1
                         },
                         new
                         {
-                            Id = new Guid("d1884375-0cb1-4b3c-a0b8-d382518a6137"),
+                            Id = new Guid("72c18da5-05a1-4bb9-8521-0d245262d257"),
                             RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"),
                             StepDescription = "Season the steak with salt and pepper.",
                             StepNumber = 2
                         },
                         new
                         {
-                            Id = new Guid("7982404a-3fe5-4c18-a49c-939f1858c8f5"),
+                            Id = new Guid("a5a18ba6-7e3d-4467-8244-32031abbbc4f"),
                             RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"),
                             StepDescription = "Grill the steak for 4-5 minutes per side for medium-rare.",
                             StepNumber = 3
+                        },
+                        new
+                        {
+                            Id = new Guid("37598e9b-6fea-469b-acf2-39347b43606a"),
+                            RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"),
+                            StepDescription = "In a medium saucepan, heat the milk and sugar over medium heat until the sugar dissolves.",
+                            StepNumber = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("d4f9b3a3-f29f-498a-ba39-0c85aa8226fb"),
+                            RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"),
+                            StepDescription = "Remove from heat and stir in the vanilla extract.",
+                            StepNumber = 2
+                        },
+                        new
+                        {
+                            Id = new Guid("bce890fa-814b-493d-bc7a-678aef54c3e5"),
+                            RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"),
+                            StepDescription = "Pour the mixture into a bowl and let it cool completely.",
+                            StepNumber = 3
+                        },
+                        new
+                        {
+                            Id = new Guid("7a4f42ac-c8c5-4a20-b7ed-e8974a56930e"),
+                            RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"),
+                            StepDescription = "In a separate bowl, whip the heavy cream until stiff peaks form.",
+                            StepNumber = 4
+                        },
+                        new
+                        {
+                            Id = new Guid("52d8fb9a-5704-4454-811c-51176c7951d3"),
+                            RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"),
+                            StepDescription = "Gently fold the whipped cream into the cooled milk mixture.",
+                            StepNumber = 5
+                        },
+                        new
+                        {
+                            Id = new Guid("06fe49cb-77fd-49ec-abdd-ed92ef74aa32"),
+                            RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"),
+                            StepDescription = "Transfer the mixture to an ice cream maker and churn according to the manufacturer's instructions.",
+                            StepNumber = 6
+                        },
+                        new
+                        {
+                            Id = new Guid("adfc2a6e-4ada-455f-9533-8cc3e692587c"),
+                            RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"),
+                            StepDescription = "Once churned, transfer the ice cream to a lidded container and freeze for at least 4 hours or until firm.",
+                            StepNumber = 7
                         });
                 });
 
@@ -1200,6 +1281,21 @@ namespace RecipeSharingApi.DataLayer.Migrations
                             UserId = new Guid("3e80e914-e301-4cb2-9290-206dcefe364c"),
                             VideoInstructions = "Not available",
                             Yield = 2
+                        },
+                        new
+                        {
+                            Id = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"),
+                            AudioInstructions = "https://www.iheartnaptime.net/wp-content/uploads/2021/05/IHeartNaptime-easy-homemade-ice-cream-8.jpg",
+                            Calories = 250.0,
+                            CookTime = 0,
+                            CuisineId = new Guid("ca79e18d-2f4a-4d3e-8c7d-5b516b9eb516"),
+                            Description = "Homemade ice cream recipe",
+                            Name = "Ice Cream Recipe",
+                            PrepTime = 30,
+                            Servings = 5,
+                            UserId = new Guid("1f19e7bd-c9ff-4fd6-8a1d-5e242c5794c4"),
+                            VideoInstructions = "Not available",
+                            Yield = 5
                         });
                 });
 
@@ -1336,6 +1432,16 @@ namespace RecipeSharingApi.DataLayer.Migrations
                         {
                             Id = new Guid("10386470-5c03-495d-8b43-51437069008e"),
                             Name = "#perfect"
+                        },
+                        new
+                        {
+                            Id = new Guid("48cd8f34-0734-455f-ae21-cb9ac843feef"),
+                            Name = "#summer"
+                        },
+                        new
+                        {
+                            Id = new Guid("923b0cec-77eb-491e-ab6d-64a9ed877e06"),
+                            Name = "#waterProduct"
                         });
                 });
 
@@ -1433,6 +1539,21 @@ namespace RecipeSharingApi.DataLayer.Migrations
                         {
                             TagId = new Guid("10386470-5c03-495d-8b43-51437069008e"),
                             RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e")
+                        },
+                        new
+                        {
+                            TagId = new Guid("923b0cec-77eb-491e-ab6d-64a9ed877e06"),
+                            RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc")
+                        },
+                        new
+                        {
+                            TagId = new Guid("55fdbfbc-2f46-4b10-83b2-0d4dd6aa54c3"),
+                            RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc")
+                        },
+                        new
+                        {
+                            TagId = new Guid("48cd8f34-0734-455f-ae21-cb9ac843feef"),
+                            RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc")
                         });
                 });
 

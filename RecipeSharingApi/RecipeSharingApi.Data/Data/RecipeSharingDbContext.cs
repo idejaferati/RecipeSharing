@@ -273,7 +273,10 @@ namespace RecipeSharingApi.DataLayer.Data
             modelBuilder.Entity<Tag>().HasData(
             new Tag { Id = new Guid("55fdbfbc-2f46-4b10-83b2-0d4dd6aa54c3"), Name = "#IceCream" },
             new Tag { Id = new Guid("d4977b4a-8679-4350-95d4-baf729080eae"), Name = "#delicious" },
-            new Tag { Id = new Guid("10386470-5c03-495d-8b43-51437069008e"), Name = "#perfect" }
+            new Tag { Id = new Guid("10386470-5c03-495d-8b43-51437069008e"), Name = "#perfect" },
+            new Tag { Id = new Guid("48cd8f34-0734-455f-ae21-cb9ac843feef"), Name = "#summer" },
+            new Tag { Id = new Guid("923b0cec-77eb-491e-ab6d-64a9ed877e06"), Name = "#waterProduct" }
+
         );
 
 
@@ -300,6 +303,22 @@ namespace RecipeSharingApi.DataLayer.Data
                 VideoInstructions = "Not available",
                 CookBook = null,
                 Collections = null
+            }, new Recipe
+            {
+                Id = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"),
+                UserId = new Guid("1f19e7bd-c9ff-4fd6-8a1d-5e242c5794c4"),
+                Name = "Ice Cream Recipe",
+                Description = "Homemade ice cream recipe",
+                CuisineId = new Guid("ca79e18d-2f4a-4d3e-8c7d-5b516b9eb516"), // Replace with the actual CuisineId for Ice Cream Cuisine
+                PrepTime = 30,
+                CookTime = 0,
+                Servings = 5,
+                Yield = 5,
+                Calories = 250,
+                AudioInstructions = "https://www.iheartnaptime.net/wp-content/uploads/2021/05/IHeartNaptime-easy-homemade-ice-cream-8.jpg",
+                VideoInstructions = "Not available",
+                CookBook = null,
+                Collections = null
             }
         );
 
@@ -307,15 +326,25 @@ namespace RecipeSharingApi.DataLayer.Data
            new RecipeIngredient { Id = Guid.NewGuid(), RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"), Name = "Steak" , Amount = 1 , Unit = Models.Enums.Unit.Pieces},
            new RecipeIngredient { Id = Guid.NewGuid(), RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"), Name = "Salt"  , Amount = 1 , Unit =  Models.Enums.Unit.Teaspoon},
            new RecipeIngredient { Id = Guid.NewGuid(), RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"), Name = "Pepper" , Amount = 1 ,Unit = Models.Enums.Unit.Teaspoon },
-           new RecipeIngredient { Id = Guid.NewGuid(), RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"), Name = "Garlic" , Amount = 2 , Unit = Models.Enums.Unit.Cup }
+           new RecipeIngredient { Id = Guid.NewGuid(), RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"), Name = "Garlic" , Amount = 2 , Unit = Models.Enums.Unit.Cup },
+           new RecipeIngredient { Id = Guid.NewGuid(), RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"), Name = "Milk", Amount = 2, Unit = Models.Enums.Unit.Cup },
+           new RecipeIngredient { Id = Guid.NewGuid(), RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"), Name = "Sugar", Amount = 0.5, Unit = Models.Enums.Unit.Cup },
+           new RecipeIngredient { Id = Guid.NewGuid(), RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"), Name = "Vanilla extract", Amount = 1, Unit = Models.Enums.Unit.Teaspoon },
+           new RecipeIngredient { Id = Guid.NewGuid(), RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"), Name = "Heavy cream", Amount = 1, Unit = Models.Enums.Unit.Cup }
         );
 
             // Add the recipe instructions
             modelBuilder.Entity<RecipeInstruction>().HasData(
          new RecipeInstruction { Id = Guid.NewGuid(), RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"), StepNumber = 1, StepDescription = "Preheat the grill to medium-high heat." },
          new RecipeInstruction { Id = Guid.NewGuid(), RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"), StepNumber = 2, StepDescription = "Season the steak with salt and pepper." },
-         new RecipeInstruction { Id = Guid.NewGuid(), RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"), StepNumber = 3, StepDescription = "Grill the steak for 4-5 minutes per side for medium-rare." }
- // Add more instructions as needed
+         new RecipeInstruction { Id = Guid.NewGuid(), RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"), StepNumber = 3, StepDescription = "Grill the steak for 4-5 minutes per side for medium-rare." },
+         new RecipeInstruction { Id = Guid.NewGuid(), RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"), StepNumber = 1, StepDescription = "In a medium saucepan, heat the milk and sugar over medium heat until the sugar dissolves." },
+         new RecipeInstruction { Id = Guid.NewGuid(), RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"), StepNumber = 2, StepDescription = "Remove from heat and stir in the vanilla extract." },
+         new RecipeInstruction { Id = Guid.NewGuid(), RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"), StepNumber = 3, StepDescription = "Pour the mixture into a bowl and let it cool completely." },
+         new RecipeInstruction { Id = Guid.NewGuid(), RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"), StepNumber = 4, StepDescription = "In a separate bowl, whip the heavy cream until stiff peaks form." },
+         new RecipeInstruction { Id = Guid.NewGuid(), RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"), StepNumber = 5, StepDescription = "Gently fold the whipped cream into the cooled milk mixture." },
+         new RecipeInstruction { Id = Guid.NewGuid(), RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"), StepNumber = 6, StepDescription = "Transfer the mixture to an ice cream maker and churn according to the manufacturer's instructions." },
+         new RecipeInstruction { Id = Guid.NewGuid(), RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"), StepNumber = 7, StepDescription = "Once churned, transfer the ice cream to a lidded container and freeze for at least 4 hours or until firm." }
  );
 
 
@@ -337,7 +366,10 @@ namespace RecipeSharingApi.DataLayer.Data
                          j.HasKey("TagId", "RecipeId");
                          j.HasData(
                              new { RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"), TagId = new Guid("d4977b4a-8679-4350-95d4-baf729080eae") },
-                             new { RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e") , TagId = new Guid("10386470-5c03-495d-8b43-51437069008e") }
+                             new { RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e") , TagId = new Guid("10386470-5c03-495d-8b43-51437069008e") },
+                             new { RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"), TagId = new Guid("923b0cec-77eb-491e-ab6d-64a9ed877e06") },
+                             new { RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"), TagId = new Guid("55fdbfbc-2f46-4b10-83b2-0d4dd6aa54c3") },
+                             new { RecipeId = new Guid("bc79385d-89b8-4f48-91a3-dfdfa6f28ebc"), TagId = new Guid("48cd8f34-0734-455f-ae21-cb9ac843feef") }
                          );
                      }
                  );
