@@ -238,6 +238,118 @@ namespace RecipeSharingApi.DataLayer.Data
     new PolicyRole { Id = Guid.NewGuid(), PolicyId = new Guid("3d041ace-b9ef-425f-b520-136e2dc8c5ba"), RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d") },
     new PolicyRole { Id = Guid.NewGuid(), PolicyId = new Guid("9b0a1cbc-bb03-48c7-89dd-24b622e6cb84"), RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d") }
 );
+
+
+
+            modelBuilder.Entity<User>().HasData(
+            new User
+            {
+                Id = new Guid("1f19e7bd-c9ff-4fd6-8a1d-5e242c5794c4"), // Assuming you have an Id property in the User class
+                FirstName = "Admin",
+                LastName = "User",
+                Gender = "Male",
+                Email = "admin@gmail.com",
+                RoleId = new Guid("3ad84fe7-65f5-44a5-bf99-7727744dfedd"),
+                PhoneNumber = "123456789",
+                SaltedHashPassword = "$2a$11$dOev5hXKaHxBdLbLrjmgUOX.yeQJdcw2KnBqYjBCIMRaKScfNqvnq",
+                Salt = "$2a$11$dOev5hXKaHxBdLbLrjmgUO"
+                // Set other properties accordingly
+            },
+            new User
+            {
+                Id = new Guid("3e80e914-e301-4cb2-9290-206dcefe364c"), // Assuming you have an Id property in the User class
+                FirstName = "Regular",
+                LastName = "User",
+                Gender = "Female",
+                Email = "user@example.com",
+                RoleId = new Guid("24bade73-46d0-40dd-95e7-42352504fe2d"),
+                PhoneNumber = "987654321",
+                SaltedHashPassword = "$2a$11$mISI/pB5Z0LkjBdG3DbZl.WGOh5B86pbsEW6tWHdS6OKZscYgt8X.",
+                Salt = "$2a$11$mISI/pB5Z0LkjBdG3DbZl."
+            }
+        );
+
+
+            modelBuilder.Entity<Tag>().HasData(
+            new Tag { Id = new Guid("55fdbfbc-2f46-4b10-83b2-0d4dd6aa54c3"), Name = "#IceCream" },
+            new Tag { Id = new Guid("d4977b4a-8679-4350-95d4-baf729080eae"), Name = "#delicious" },
+            new Tag { Id = new Guid("10386470-5c03-495d-8b43-51437069008e"), Name = "#perfect" }
+        );
+
+
+            modelBuilder.Entity<Cuisine>().HasData(
+             new Cuisine { Id = new Guid("ca79e18d-2f4a-4d3e-8c7d-5b516b9eb516"), Name = "Germany" },
+             new Cuisine { Id = new Guid("f3114be0-104b-463e-9f40-66f5450b0eb1"), Name = "United Kingdom" },
+             new Cuisine { Id = new Guid("d89543a3-0a4a-4830-8092-63c77b049a8f"), Name = "USA" }
+        );
+
+            modelBuilder.Entity<Recipe>().HasData(
+            new Recipe
+            {
+                Id = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"), // Assuming you have an Id property in the Recipe class
+                UserId = new Guid("3e80e914-e301-4cb2-9290-206dcefe364c"), // Set the UserId for the recipe
+                Name = "Steak Recipe",
+                Description = "Delicious steak recipe",
+                CuisineId = new Guid("d89543a3-0a4a-4830-8092-63c77b049a8f"), // Assuming you have the CuisineId for Steak Cuisine
+                PrepTime = 15,
+                CookTime = 20,
+                Servings = 2,
+                Yield = 2,
+                Calories = 500,
+                AudioInstructions = "https://iamafoodblog.b-cdn.net/wp-content/uploads/2021/02/how-to-cook-steak-1061w.jpg",
+                VideoInstructions = "Not available",
+                CookBook = null,
+                Collections = null
+            }
+        );
+
+            modelBuilder.Entity<RecipeIngredient>().HasData(
+           new RecipeIngredient { Id = Guid.NewGuid(), RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"), Name = "Steak" , Amount = 1 , Unit = Models.Enums.Unit.Pieces},
+           new RecipeIngredient { Id = Guid.NewGuid(), RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"), Name = "Salt"  , Amount = 1 , Unit =  Models.Enums.Unit.Teaspoon},
+           new RecipeIngredient { Id = Guid.NewGuid(), RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"), Name = "Pepper" , Amount = 1 ,Unit = Models.Enums.Unit.Teaspoon },
+           new RecipeIngredient { Id = Guid.NewGuid(), RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"), Name = "Garlic" , Amount = 2 , Unit = Models.Enums.Unit.Cup }
+        );
+
+            // Add the recipe instructions
+            modelBuilder.Entity<RecipeInstruction>().HasData(
+         new RecipeInstruction { Id = Guid.NewGuid(), RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"), StepNumber = 1, StepDescription = "Preheat the grill to medium-high heat." },
+         new RecipeInstruction { Id = Guid.NewGuid(), RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"), StepNumber = 2, StepDescription = "Season the steak with salt and pepper." },
+         new RecipeInstruction { Id = Guid.NewGuid(), RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"), StepNumber = 3, StepDescription = "Grill the steak for 4-5 minutes per side for medium-rare." }
+ // Add more instructions as needed
+ );
+
+
+            modelBuilder.Entity<Recipe>()
+                 .HasMany(t => t.Tags)
+                 .WithMany(r => r.Recipes)
+                 .UsingEntity<Dictionary<string, object>>(
+                     "RecipeTag",
+                     j => j
+                         .HasOne<Tag>()
+                         .WithMany()
+                         .HasForeignKey("TagId"),
+                     j => j
+                         .HasOne<Recipe>()
+                         .WithMany()
+                         .HasForeignKey("RecipeId"),
+                     j =>
+                     {
+                         j.HasKey("TagId", "RecipeId");
+                         j.HasData(
+                             new { RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e"), TagId = new Guid("d4977b4a-8679-4350-95d4-baf729080eae") },
+                             new { RecipeId = new Guid("0c98d5db-4983-40cd-923a-df9135ed467e") , TagId = new Guid("10386470-5c03-495d-8b43-51437069008e") }
+                         );
+                     }
+                 );
+
+
         }
+
+        
+
+
+
     }
+
+
 }
