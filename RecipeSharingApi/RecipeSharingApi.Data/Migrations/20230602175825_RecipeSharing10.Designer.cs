@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecipeSharingApi.DataLayer.Data;
 
@@ -11,9 +12,11 @@ using RecipeSharingApi.DataLayer.Data;
 namespace RecipeSharingApi.DataLayer.Migrations
 {
     [DbContext(typeof(RecipeSharingDbContext))]
-    partial class RecipeSharingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230602175825_RecipeSharing10")]
+    partial class RecipeSharing10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
